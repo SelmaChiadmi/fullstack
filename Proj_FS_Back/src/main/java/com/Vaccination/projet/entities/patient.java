@@ -1,4 +1,4 @@
-package com.Vaccination.entities;
+package com.Vaccination.projet.entities;
 
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
@@ -8,8 +8,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "t_patients")
@@ -23,16 +27,31 @@ public class patient {
     private int telephone;
     private LocalDate date_naissance;
 
-     @OneToMany(mappedBy = "patient")
-    private Set<reservations> reservations = new HashSet<>();
+    @OneToMany(mappedBy = "patient")
+    @JsonBackReference
+    private List<reservations> reservations;  
 
+    public patient() {
+    }
 
     public patient(String nom, String prenom, String mail, int telephone, LocalDate date_naissance) {
         this.nom = nom;
         this.prenom = prenom;
-        this.mail = mail;
         this.telephone = telephone;
         this.date_naissance = date_naissance;
+        this.mail = mail;
+        this.reservations = new ArrayList<>();
+    }
+
+    public void addReservation(reservations reservation) {
+        reservations.add(reservation);
+        reservation.setPatient(this); 
+    }
+
+
+    public void removeReservation(reservations reservation) {
+        reservations.remove(reservation);
+        reservation.setPatient(null);
     }
 
     public int getId() {
@@ -70,6 +89,14 @@ public class patient {
     }
     public void setDate_naissance(LocalDate date_naissance) {
         this.date_naissance = date_naissance;
+    }
+
+    public List<reservations> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<reservations> reservations) {
+        this.reservations = reservations;
     }
 
     
