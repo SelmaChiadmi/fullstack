@@ -1,0 +1,111 @@
+
+.recherche {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
+
+  }
+
+  .recherche input {
+    padding: 15px;
+    border: 2px solid var(--gray-400);
+    border-radius: 10px;
+    font-size: 16px;
+    width: 50%;
+    box-sizing: border-box;
+  }
+  
+  .recherche input:focus {
+    border-color: var(--electric-violet);
+    outline: none;
+  }
+
+.affichage_centre{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+
+.affichage_centre button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    border: 2px solid var(--electric-violet);
+    border-radius: 10px;
+    padding: 10px 20px;
+    background-color: white;
+    color: var(--electric-violet);
+    transition: transform 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.affichage_centre button:hover {
+    background-color: var(--electric-violet);
+    color: white;
+    transform: scale(1.2);
+}
+
+.affichage_centre button:active {
+    transform: scale(1.1);
+}
+
+.affichage_info_centre{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin: 1rem auto ;
+  border: 3px solid var(--electric-violet);
+  border-radius: 10px;
+  padding: 10px 20px;
+  background-color: var(--electric-violet);
+  color: white;
+  width: 40vw;
+}
+
+#nom_select {
+  font-weight: bold;
+}
+
+
+.searched_centers {
+  list-style-type: none; /* Enlever les points de début de liste */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrer horizontalement */
+  margin: 0 auto; 
+}
+
+.searched_centers li {
+  margin: 5px 0; /* Espacement entre les éléments de la liste */
+}
+
+.searched_centers button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  border: 2px solid var(--electric-violet);
+  border-radius: 10px;
+  padding: 10px 20px;
+  background-color: white;
+  color: var(--electric-violet);
+  transition: transform 0.3s, background-color 0.3s, color 0.3s;
+}
+
+
+.searched_centers button:hover {
+  background-color: var(--electric-violet);
+  color: white;
+  transform: scale(1.2);
+}
+
+.searched_centers button:active {
+  transform: scale(1.1);
+}
+
