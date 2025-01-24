@@ -1,5 +1,5 @@
 
-<div *ngIf="center && !MailisinDatabase" class="affichage_info_centre">
+<div *ngIf="center && !isMailGiven" class="affichage_info_centre">
     <h3>Prendre un rendez-vous</h3>
     
     <!-- Affichage des informations du centre sélectionné -->
@@ -13,13 +13,13 @@
       
         <div class="form_input">
             <label for="mail">E-mail :</label>
-            <input type="mail" id="mail" [(ngModel)]="mail" name="mail" required />
+            <input type="mail" id="mail" [(ngModel)]="mail" name="mail" (keyup.enter)="submitMail()"  required />
         </div>
       </div>
 
 
       <div class="boutons">
-        <button class= "annuler_demande" (click)=cancel() >Annuler</button>
+        <button class= "annuler_demande" type="button"  (click)=cancel() >Annuler</button>
         <button class= "confirm_rdv" type="submit">Confirmer</button>    
      </div>
 
@@ -52,7 +52,7 @@
         </div>
       </div>
       <div class="boutons" *ngIf="MailisinDatabase">
-        <button class= "annuler_demande" type="submit" (click)=cancel() >Annuler</button>
+        <button class= "annuler_demande" type="button" (click)=cancel() >Annuler</button>
         <button class= "confirm_rdv" type="submit">Confirmer</button>    
       </div>
     </form>
@@ -65,16 +65,18 @@
 
 </div>
 
-<div *ngIf="!MailisinDatabase" class="mail_not_in_database">
+<div *ngIf="!MailisinDatabase && isMailGiven" class="mail_not_in_database">
   <p>Le mail n'existe pas dans notre base de donnée</p>
   <p>Veuillez remplir le formulaire suivant :</p>
-
+  <div class="app-prise-rdv">
+    <app-prise-rdv *ngIf="center" [creneaux]="center.creneaux" [center]="center" (onCancel)="cancel()" ></app-prise-rdv>
+  </div>
 </div>
 
 
 <div>
 
-<!--Confirmation-->
+<!--Confirmation Rendez-vous-->
 <div class="container_confirmation">
 <div *ngIf="confirmation" class="confirmation">
     <p>Votre rendez-vous a bien été enregistré !</p>
@@ -82,7 +84,7 @@
     <p><strong>Créneau choisi:</strong> {{ chosenTime }}</p>
 </div>
 <div class="boutons" *ngIf="confirmation">
-    <button class= "confirm_rdv" type="submit" (click)=cancel()>Prendre un autre rendez-vous</button>
+    <button class= "confirm_rdv" (click)=cancel()>Prendre un autre rendez-vous</button>
 </div>
 
 </div>

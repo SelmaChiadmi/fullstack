@@ -3,12 +3,15 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { VaccinationCenter } from '../../core/models/vaccination-centers.model';
 import { VaccinationCenterService } from '../../core/services/vaccination-centers.service';
-import { PriseRdvModule } from '../prise-rdv/prise-rdv.module';
-import { PriseRdvModuleVerifMail } from '../prise-rdv-verif-mail/prise-rdv-verif-mail.module';
+import { PriseRdvComponent } from '../prise-rdv/prise-rdv.component';
+import { PriseRdvVerifMailComponent } from '../prise-rdv-verif-mail/prise-rdv-verif-mail.component';
+
+
 @Component({
   selector: 'app-search-center',
   standalone: true,
-  imports: [FormsModule, CommonModule, PriseRdvModule, PriseRdvModuleVerifMail],
+  providers: [VaccinationCenterService],
+  imports: [FormsModule, CommonModule , PriseRdvComponent,PriseRdvVerifMailComponent], 
   templateUrl: './search-center.component.html',
   styleUrl: './search-center.component.css'
 })
@@ -18,23 +21,28 @@ export class SearchCenterComponent implements OnInit {
   searchText: string = '';  // Texte de recherche
   center?: VaccinationCenter;  // Centre sélectionné
   isCenterSelected: boolean = false;  // Indicateur de sélection
-
+  isSearch: boolean = false;  // Indicateur de recherche
 
 
   constructor(private vaccinationCenterService: VaccinationCenterService) {}
 
   ngOnInit(): void {
     // Récupérer les centres via le service
+    this.vaccinationCenterService.loadCenters();
     this.vaccinationCenterService.centers$.subscribe((centers) => {
       this.centers = centers;
       this.filteredCenters = []; 
     });
+
+    //Debug
+    //console.log('ngOnInit');
+    //console.log(this.centers);
   }
 
   // Fonction de recherche
   onSearchEnter() {
     const searchText = this.searchText.trim().toLowerCase();
-
+    
     if (searchText === '') {
       this.filteredCenters = [];
     } else {
@@ -42,12 +50,22 @@ export class SearchCenterComponent implements OnInit {
         center.ville.toLowerCase().includes(searchText) 
       );
     }
+    this.isSearch = true;
+
+  
+
+    // Debug
+    // console.log('onSearchEnter');
+    // console.log(this.filteredCenters);
+    // console.log(this.centers);
+    // console.log(this.searchText);
+
   }
 
   // Fonction de sélection d'un centre
   selectCenter(center: VaccinationCenter) {
     this.center = center;
-    this.filteredCenters = []; //enlever les centres filtrés pour afficher les détails à lz place
+    this.filteredCenters = []; //enlever les centres filtrés pour afficher les détails à la place
     this.isCenterSelected = true;
     console.log('selectCenter');
   }
@@ -57,6 +75,7 @@ export class SearchCenterComponent implements OnInit {
     this.center = undefined;
     this.isCenterSelected = false;
     console.log('cancelSelection');
+    this.isSearch = false;
 
   }
 

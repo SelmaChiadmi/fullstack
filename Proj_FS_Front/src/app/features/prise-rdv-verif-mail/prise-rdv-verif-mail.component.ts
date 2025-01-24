@@ -1,8 +1,19 @@
 import { Component, Input,Output,EventEmitter } from '@angular/core';
 import { VaccinationCenter } from '../../core/models/vaccination-centers.model';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { PriseRdvComponent } from '../prise-rdv/prise-rdv.component';
+import { VaccinationCenterService } from '../../core/services/vaccination-centers.service';
+import { EmailVerificationService } from '../../core/services/email_verif.service';
 
 @Component({
   selector: 'app-prise-rdv-verif-mail',
+  standalone: true,
+  imports: [FormsModule, CommonModule,PriseRdvComponent],
+  providers: [
+    VaccinationCenterService,
+    EmailVerificationService
+  ],
   templateUrl: './prise-rdv-verif-mail.component.html',
   styleUrl: './prise-rdv-verif-mail.component.css'
 })
@@ -17,6 +28,9 @@ export class PriseRdvVerifMailComponent {
   chosenDate: string = '';
   chosenTime: string = ''; 
   errorMessage: string = '';
+
+// Booléen pour afficher le formulaire d'entrée du mail
+  isMailGiven: boolean = false;
 
 // Booléen pour valider la présence du mail dans la base de données
   MailisinDatabase: boolean = false;
@@ -79,11 +93,17 @@ export class PriseRdvVerifMailComponent {
   submitMail() {
     if (this.validateForm()) {    
       console.log('Mail:', this.mail);
+      // logique d'implementation de vérification de mail
+
       // confirmation 
-      this.MailisinDatabase = true;
+      // remettre à true ici quand la logique de vérification de mail sera implémentée
+      this.MailisinDatabase = false;
       console.log('MailisinDatabase:', this.MailisinDatabase);
+      this.isMailGiven = true;
     } else {
       console.error(this.errorMessage);
+      this.MailisinDatabase = false;
+      this.isMailGiven = false;
       
     }
   }

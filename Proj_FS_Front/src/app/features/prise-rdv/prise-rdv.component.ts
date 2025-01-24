@@ -1,8 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { VaccinationCenter } from '../../core/models/vaccination-centers.model';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-prise-rdv',
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './prise-rdv.component.html',
   styleUrls: ['./prise-rdv.component.css'],
 })

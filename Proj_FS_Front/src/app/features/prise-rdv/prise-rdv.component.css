@@ -201,7 +201,7 @@
 /* choix du créneau */
 #chosenTime{
     padding: 10px 20px;
-    color: var(--electric-violet);
+    color: black;
     font-size: 1rem;
     margin-top: 1rem;
     border-radius: 4rem;

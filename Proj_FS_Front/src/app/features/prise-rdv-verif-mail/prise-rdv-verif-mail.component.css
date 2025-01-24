@@ -12,6 +12,8 @@
     background-color: var(--electric-violet);
     color: white;
     width: 45vw;
+    position: relative;
+    top: 3rem;
   }
   
   #nom_select {
@@ -218,14 +220,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40vw;
+    width: 45vw;
+    padding: 10px 20px;
     margin-top: 2rem;
     border-radius:2rem;
     border: 4px solid var(--electric-violet);
     color: var(--electric-violet);
     background-color: white;
-    list-style-type: none;
+    list-style-type: none; 
     flex-direction: column;
 }
   
- 
+/* composant de prise de rdv */
+.app-prise-rdv{
+    margin-top: 2rem;
+
+}

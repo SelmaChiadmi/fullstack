@@ -9,7 +9,7 @@ import { SearchCenterComponent } from "./features/search-center/search-center.co
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Prenez rendez-vous pour votre vaccination';
+  title = 'Faites vous vacciner !';
   
 
 }
