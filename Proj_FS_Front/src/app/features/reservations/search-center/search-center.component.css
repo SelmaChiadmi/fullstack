@@ -2,11 +2,13 @@
 
 
 .search_container{
+
   position: relative;
-  left: -16.5rem; 
-  top : 6rem;
+  transform: translateX(-16.5rem) translateY(6rem);
+
 }
 .recherche {
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -123,6 +125,19 @@
   font-weight: bold;
 }
 
+.resultats_recherche{
+
+  position: relative;
+  left:28vw;
+  bottom: 1vh;
+  background-color: white;
+  width: 30vw;
+  padding: 1rem;
+  border-top: solid 2px var(--electric-violet);
+  border-bottom: solid 2px var(--electric-violet);
+  border-left: dashed 3px var(--electric-violet);
+  border-right: dashed 3px var(--electric-violet);
+}
 
 .searched_centers {
   list-style-type: none; /* Enlever les points de début de liste */
@@ -130,17 +145,19 @@
   display: flex;
   flex-direction: column;
   align-items: center; /* Centrer horizontalement */
-  margin: 0 auto; 
+  margin: 0; 
 }
 
 .searched_centers li {
-  margin: 5px 0; /* Espacement entre les éléments de la liste */
+  margin: 0 0; /* Espacement entre les éléments de la liste */
+  
 }
 
-.searched_centers button {
+.searched_centers li button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin-top: 1rem;
   border: 2px solid var(--electric-violet);
   border-radius: 10px;
@@ -151,13 +168,38 @@
 }
 
 
-.searched_centers button:hover {
-  background-color: var(--electric-violet);
-  color: white;
-  transform: scale(1.2);
+.searched_centers li button:hover {
+  color: var(--electric-violet);
+  transform: scale(1.15);
 }
 
-.searched_centers button:active {
+.searched_centers li button:active {
   transform: scale(1.1);
 }
 
+
+
+.annuler_recherche {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin-top: 1rem;
+border: 2px solid var(--electric-violet);
+border-radius: 10px;
+padding: 10px 20px;
+background-color: white;
+color: var(--electric-violet);
+transition: transform 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.annuler_recherche:hover {
+background-color: white;
+border-color: red;
+color: red;
+transform: scale(1.2);
+}
+
+.annuler_recherche:active {
+transform: scale(1.1);
+}

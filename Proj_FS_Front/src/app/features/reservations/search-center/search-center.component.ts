@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit,EventEmitter,Output} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { VaccinationCenter } from '../../../core/models/vaccination-centers.model';
@@ -16,6 +16,8 @@ import { PriseRdvVerifMailComponent } from '../prise-rdv-verif-mail/prise-rdv-ve
   styleUrl: './search-center.component.css'
 })
 export class SearchCenterComponent implements OnInit {
+  @Output() centerSelected = new EventEmitter<boolean>(); //emet lorsque un centre est selectionné pour enlever l'affichage des composants genants
+
   centers: VaccinationCenter[] = [];  // Centres de vaccination récupérés
   filteredCenters: VaccinationCenter[] = [];  // Centres filtrés
   searchText: string = '';  // Texte de recherche
@@ -68,14 +70,18 @@ export class SearchCenterComponent implements OnInit {
     this.filteredCenters = []; //enlever les centres filtrés pour afficher les détails à la place
     this.isCenterSelected = true;
     console.log('selectCenter');
+    this.centerSelected.emit(true);
   }
 
   //fonction pour annuler la sélection
   cancelSelection() { 
     this.center = undefined;
+    this.filteredCenters = [];
     this.isCenterSelected = false;
     console.log('cancelSelection');
     this.isSearch = false;
+    this.searchText= '';
+    this.centerSelected.emit(false);
 
   }
 
@@ -84,4 +90,6 @@ export class SearchCenterComponent implements OnInit {
     this.center = undefined;
     this.filteredCenters = this.filteredCenters.filter(c => c.id !== center.id);
   }
+
+
 }
