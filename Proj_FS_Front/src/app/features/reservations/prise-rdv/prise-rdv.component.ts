@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { VaccinationCenter } from '../../core/models/vaccination-centers.model';
+import { VaccinationCenter } from '../../../core/models/vaccination-centers.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 

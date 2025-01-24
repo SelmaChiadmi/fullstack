@@ -14,7 +14,6 @@
   
   <div *ngIf="filteredCenters.length > 0 " class="resultats_recherche">
     <ul class="searched_centers">
-      <p *ngIf="filteredCenters.length >= 1"> Résultats de la recherche : </p>
       <li *ngFor="let center of filteredCenters" >
         <button (click)="selectCenter(center)">
           <p>{{center.nom}} - {{ center.ville }}</p>

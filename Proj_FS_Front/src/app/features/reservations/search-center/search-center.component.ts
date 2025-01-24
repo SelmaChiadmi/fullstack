@@ -1,8 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { VaccinationCenter } from '../../core/models/vaccination-centers.model';
-import { VaccinationCenterService } from '../../core/services/vaccination-centers.service';
+import { VaccinationCenter } from '../../../core/models/vaccination-centers.model';
+import { VaccinationCenterService } from '../../../core/services/vaccination-centers.service';
 import { PriseRdvComponent } from '../prise-rdv/prise-rdv.component';
 import { PriseRdvVerifMailComponent } from '../prise-rdv-verif-mail/prise-rdv-verif-mail.component';
 

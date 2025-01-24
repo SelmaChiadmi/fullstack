@@ -3,11 +3,12 @@
   flex-direction: column;
   width: 100%;
   height: 100vh;
+  overflow-x: hidden;
 }
 
 .background_img {
-  width: 100vw;
-  height: 50vh; /* Hauteur de 40% de la fenêtre */
+  max-width: 100vw;
+  height: 55vh; /* Hauteur de 40% de la fenêtre */
   background-image: url('/fond.png'); 
   background-size: cover; /* L'image couvre tout l'espace */
   background-position: 33vh -12vh; /* L'image est centrée */
@@ -15,7 +16,7 @@
 }
 
  main {
-    width: 100%;
+    width: 100vw;
     min-height: 50%;
     display: flex;  
     justify-content: center;

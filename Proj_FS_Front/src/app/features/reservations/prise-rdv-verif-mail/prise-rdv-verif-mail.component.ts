@@ -1,10 +1,10 @@
 import { Component, Input,Output,EventEmitter } from '@angular/core';
-import { VaccinationCenter } from '../../core/models/vaccination-centers.model';
+import { VaccinationCenter } from '../../../core/models/vaccination-centers.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PriseRdvComponent } from '../prise-rdv/prise-rdv.component';
-import { VaccinationCenterService } from '../../core/services/vaccination-centers.service';
-import { EmailVerificationService } from '../../core/services/email_verif.service';
+import { VaccinationCenterService } from '../../../core/services/vaccination-centers.service';
+import { EmailVerificationService } from '../../../core/services/email_verif.service';
 
 @Component({
   selector: 'app-prise-rdv-verif-mail',

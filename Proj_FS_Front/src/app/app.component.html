@@ -69,13 +69,14 @@
         <p>Projet Full-Stack : NAKIB Wassil et CHIADMI Salma</p>
       </div>
     <div>
+    <app-button-to-login  (onLogin)="toggleSearchCenter($event)"></app-button-to-login>
       
-      <main class="main" >
+      <main class="main" *ngIf="showSearchCenter" >
         <h1>{{ title }} </h1>
       </main>
 
       <!-- recherche d'un centre -->
-      <app-search-center></app-search-center> 
+      <app-search-center *ngIf="showSearchCenter" ></app-search-center> 
   </div>
     </div>
 </div>

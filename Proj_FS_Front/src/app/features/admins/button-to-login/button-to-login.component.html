@@ -1,0 +1,21 @@
+<div class="button_container">
+    <button *ngIf="!login"  (click)="displayLogin(); login_show()"> Vous êtes soignant ? </button>
+</div>
+
+<div class="login_container" *ngIf="login">
+
+    <div class = "login">
+        <h2>Login</h2>
+        <p>Username</p>
+        <input type="text" name="User" placeholder="Username"  >
+    
+        <p>Password</p>
+        <input type="password" name="Password" placeholder="Mot de passe ..." (keyup.enter)="signIn()">
+        <div class="boutons_signin">
+            <button (click)="Cancel()"> Annuler</button>
+            <button (click)="signIn()"> Sign in</button>
+            
+        </div>
+    </div>
+    
+</div>
