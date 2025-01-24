@@ -41,6 +41,21 @@ public class PatientService {
         return patientrepo.findAll();
     }
 
+    public patient getPatientByMail(String email){
+        return patientrepo.findByMail(email);
+    }
+
+    public patient createNewPatient(patientDto patientDto) {
+        patient newPatient = new patient();
+        newPatient.setNom(patientDto.getLastName());
+        newPatient.setPrenom(patientDto.getFirstName());
+        newPatient.setTelephone(patientDto.getTelephone());
+        newPatient.setDate_naissance(patientDto.getBirthDate());
+        newPatient.setMail(patientDto.getEmail());
+    
+        return newPatient;
+    }
+
   
     public patient getOrCreatePatient(patientDto patientDto) {
         // Vérifier si le patient existe déjà

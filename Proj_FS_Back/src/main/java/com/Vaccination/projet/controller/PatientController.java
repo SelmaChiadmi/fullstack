@@ -12,7 +12,9 @@ import com.Vaccination.projet.dto.patientDto;
 import com.Vaccination.projet.entities.patient;
 import com.Vaccination.projet.services.PatientService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -25,15 +27,33 @@ public class PatientController {
         this.patientservice = patientservice;
     }
 
+    @GetMapping("/patients/check-email")
+    public ResponseEntity<Map<String, String>>checkPatientEmail(@RequestParam String email) {
+        patient existingPatient = patientservice.getPatientByMail(email);
+        if (existingPatient == null) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Patient non trouvé dans la base de données. Veuillez remplir le formulaire.");
+            response.put("email", email);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Patient trouvé. Vous pouvez directement choisir un créneau.");
+        return ResponseEntity.ok(response  );
+    }
 
-    // Endpoint pour créer un patient
-    @PostMapping("/create-patient")
-    public ResponseEntity<String> createPatient(@RequestBody patientDto patientDto) {
+    // Endpoint pour rentrer les infos du patient
+    @PostMapping("/public/patients/create-patient")
+    public patient createPatient(@RequestBody patientDto patientDto) {
         // Créer ou récupérer un patient selon son email
-        patient patient = patientservice.getOrCreatePatient(patientDto);
+        patient newPatient = new patient();
+        newPatient.setNom(patientDto.getLastName());
+        newPatient.setPrenom(patientDto.getFirstName());
+        newPatient.setMail(patientDto.getEmail());
+        newPatient.setTelephone(patientDto.getTelephone());
+        newPatient.setDate_naissance(patientDto.getBirthDate());
         
-        // Une fois le patient créé ou existant, répondre avec l'étape suivante (choisir un créneau)
-        return ResponseEntity.status(201).body("Patient created or already exists. Proceed to choose a time slot.");
+        
+        return  newPatient;
     }
 
     @GetMapping("/admin/search-patient")
