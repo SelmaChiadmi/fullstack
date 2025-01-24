@@ -187,11 +187,15 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      width: 100%;
       height: 100%;
+      width:  40vw;
       position: relative;
-      left:15vw;
+      left:45vw;
       bottom:10vh;
+      
+
+
+
   }
   
   .confirmation{
@@ -208,18 +212,21 @@
       flex-direction: column;
   }
 
-.MailisinDatabse {
+.MailisinDatabase {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 40vw;
     margin-top: 2rem;
     border-radius:2rem;
-    border: 4px solid var(--electric-violet);
-    color: var(--electric-violet);
-    background-color: white;
+    border: 4px dashed white;
+    color: white;
+    background-color: var(--electric-violet);
     list-style-type: none;
     flex-direction: column;
+    position: relative;
+    top: 15vh
+    
 }
 
 .mail_not_in_database {
@@ -237,8 +244,18 @@
     flex-direction: column;
 }
   
-/* composant de prise de rdv */
-.app-prise-rdv{
-    margin-top: 2rem;
 
+/* choix du créneau */
+#chosenTime{
+    padding: 10px 20px;
+    color: black;
+    font-size: 1rem;
+    border-radius: 4rem;
+    border: 2px solid var(--electric-violet);
+    background-color: white;
+}
+
+/* input du mail : élargir */
+#mail{
+    width: 25rem;
 }

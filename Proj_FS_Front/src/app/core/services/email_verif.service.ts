@@ -12,7 +12,7 @@ export class EmailVerificationService {
   constructor(private http: HttpClient) { }
 
   // Méthode pour vérifier si l'email existe
-  verifyEmail(email: string): Observable<string> {
-    return this.http.get<string>(`${this.apiUrl}?email=${email}`);
+  verifyEmail(email: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}?email=${email}`);
   }
 }

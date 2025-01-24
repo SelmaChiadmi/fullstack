@@ -13,7 +13,7 @@
       
         <div class="form_input">
             <label for="mail">E-mail :</label>
-            <input type="mail" id="mail" [(ngModel)]="mail" name="mail" (keyup.enter)="submitMail()"  required />
+            <input type="mail" id="mail" [(ngModel)]="mail" name="mail" (keyup.enter)="submitMail()" required />
         </div>
       </div>
 
@@ -31,7 +31,7 @@
   </div>
 
    <!--Confirmation-->
-<div class="container_confirmation" >
+<div  class="container_confirmation" >
 <div *ngIf="MailisinDatabase && !confirmation" class="MailisinDatabase" >
     <p>Votre mail existe déja dans notre base de donnée: </p>    
     <p><strong>Email:</strong> {{ mail }}</p>
@@ -69,7 +69,7 @@
   <p>Le mail n'existe pas dans notre base de donnée</p>
   <p>Veuillez remplir le formulaire suivant :</p>
   <div class="app-prise-rdv">
-    <app-prise-rdv *ngIf="center" [creneaux]="center.creneaux" [center]="center" (onCancel)="cancel()" ></app-prise-rdv>
+    <app-prise-rdv *ngIf="center" [creneaux]="center.creneaux" [center]="center" (onCancel)="cancel()" [mail]="predefinedMail" ></app-prise-rdv>
   </div>
 </div>
 

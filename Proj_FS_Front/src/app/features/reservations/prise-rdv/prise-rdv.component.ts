@@ -14,11 +14,11 @@ export class PriseRdvComponent {
   @Input() center?: VaccinationCenter; // Centre sélectionné
   @Input() creneaux: string[] = []; // Horaires disponibles spécifiques au centre
   @Output() onCancel = new EventEmitter<void>(); // Annulation
+  @Input() mail: string = ''; // Réception de l'email pré-rempli
 
   // Variables pour le formulaire
   name: string = '';
   surname: string = '';
-  mail: string = '';
   birthDate: string = '';
   phone: string = '';
   chosenDate: string = '';
@@ -28,32 +28,41 @@ export class PriseRdvComponent {
   // Booléen pour afficher la confirmation
   confirmation: boolean = false;
 
+
+  // Cela permet de changer la couleur de la bordure dans le cas ou il n'y a pas de validation dans un des formulaire
+  hasRedBorder: boolean = false;  // Variable de contrôle pour savoir si la bordure doit être rouge
+
   cancel() {
     this.onCancel.emit();
   }
 
 
   validateForm(): boolean {
+
     if (!this.name || !this.surname || !this.mail || !this.birthDate || !this.phone || !this.chosenDate || !this.chosenTime) {
       this.errorMessage = 'Des champs sont manquants.';
+      this.hasRedBorder= true;
       return false;
     }
-
+   
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(this.mail)) {
       this.errorMessage = "L'adresse email est invalide.";
+      this.hasRedBorder= true;
       return false;
     }
 
     const phoneRegex = /^[0-9]{10}$/;
     if (!phoneRegex.test(this.phone)) {
       this.errorMessage = 'Le numéro de téléphone est invalide.';
+      this.hasRedBorder= true;
       return false;
     }
 
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     if (!dateRegex.test(this.birthDate)) {
       this.errorMessage = 'La date de naissance est invalide.';
+      this.hasRedBorder= true;
       return false;
     }
 
@@ -66,6 +75,7 @@ export class PriseRdvComponent {
 
     if (age < 18 || (age === 18 && !isBirthdayPassed)) {
       this.errorMessage = 'Vous devez avoir au moins 18 ans pour prendre rendez-vous.';
+      this.hasRedBorder= true;
       return false;
     }
 
@@ -74,6 +84,7 @@ export class PriseRdvComponent {
      
      if (chosenDateObj <= today) {
        this.errorMessage = 'La date choisie doit être dans le futur.';
+       this.hasRedBorder= true;
        return false;
      }
 
@@ -95,10 +106,27 @@ export class PriseRdvComponent {
       this.confirmation = true;
     
     } else {
+      this.hasRedBorder= true;
       console.error(this.errorMessage);
+      this.triggerAnimation();
       
     }
   }
+
+  triggerAnimation() {
+    const formElement = document.querySelector('.affichage_info_centre');  // Sélectionner le formulaire ou un élément spécifique
+    if (formElement) {
+      // Supprimer la classe d'animation
+      formElement.classList.remove('change-border-color');
+      
+      // Forcer un petit délai avant de la réajouter
+      setTimeout(() => {
+        formElement.classList.add('change-border-color');
+      }, 50);  // Petit délai pour réinitialiser l'animation
+    }
+  }
+
+ 
 
    // Réinitialiser le formulaire pour prendre un autre rendez-vous
    resetForm() {
@@ -111,4 +139,7 @@ export class PriseRdvComponent {
     this.chosenTime = '';
     this.confirmation = false; // Cache la confirmation et réinitialise le formulaire
   }
+
+
+  
 }

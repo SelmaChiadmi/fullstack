@@ -19,6 +19,9 @@ import { EmailVerificationService } from '../../../core/services/email_verif.ser
 })
 export class PriseRdvVerifMailComponent {
 
+  constructor(private emailVerificationService: EmailVerificationService) {}
+
+
   @Input() center?: VaccinationCenter; // Centre sélectionné
   @Input() creneaux: string[] = []; // Horaires disponibles spécifiques au centre
   @Output() onCancel = new EventEmitter<void>(); // Annulation
@@ -37,6 +40,9 @@ export class PriseRdvVerifMailComponent {
 
   // Booléen pour afficher la confirmation
   confirmation: boolean = false;
+
+  //mail prédéfini
+  predefinedMail: string = '';
   
 
   cancel() {
@@ -91,22 +97,35 @@ export class PriseRdvVerifMailComponent {
   }
 
   submitMail() {
-    if (this.validateForm()) {    
-      console.log('Mail:', this.mail);
-      // logique d'implementation de vérification de mail
-
-      // confirmation 
-      // remettre à true ici quand la logique de vérification de mail sera implémentée
-      this.MailisinDatabase = false;
-      console.log('MailisinDatabase:', this.MailisinDatabase);
-      this.isMailGiven = true;
+    if (this.validateForm()) {
+      this.emailVerificationService.verifyEmail(this.mail).subscribe({
+        next: (exists: boolean) => {
+          if (exists) {
+            console.log('L\'email existe dans la base de données.');
+            this.MailisinDatabase = true;
+          } else {
+            console.log('L\'email n\'existe pas.');
+            this.MailisinDatabase = false;
+            this.predefinedMail = this.mail;
+          }
+          this.isMailGiven = true; // Pour indiquer que l'utilisateur a bien soumis un email
+        },
+        error: () => {
+          // En cas d'erreur, on suppose que l'email n'existe pas
+          console.error('Erreur lors de la vérification de l\'email. mail inexistant dans la base de données.');
+          this.MailisinDatabase = false; // Considérer comme non trouvé
+          this.isMailGiven = true; // Email a été soumis, même si erreur
+        },
+      });
     } else {
       console.error(this.errorMessage);
       this.MailisinDatabase = false;
       this.isMailGiven = false;
-      
     }
   }
+  
+  
+  
 
  submitAppointment() {
   console.log('submitAppointment');
@@ -119,7 +138,8 @@ export class PriseRdvVerifMailComponent {
 
   } else {
     console.error(this.errorMessage);
-  }}
+  }
+}
 
 
    // Réinitialiser le formulaire pour prendre un autre rendez-vous

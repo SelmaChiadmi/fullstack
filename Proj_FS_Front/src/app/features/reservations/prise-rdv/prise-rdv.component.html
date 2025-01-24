@@ -1,5 +1,5 @@
 
-<div *ngIf="center && !confirmation" class="affichage_info_centre">
+<div *ngIf="center && !confirmation" class="affichage_info_centre"  [class.change-border-color]="hasRedBorder">
     <h3>Prendre un rendez-vous</h3>
     
     <!-- Affichage des informations du centre sélectionné -->
@@ -29,7 +29,7 @@
       
         <div class="form_input">
             <label for="mail">E-mail :</label>
-            <input type="mail" id="mail" [(ngModel)]="mail" name="mail" required />
+            <input type="mail" id="mail" [(ngModel)]="mail" name="mail" required readonly/>
         </div>
       </div>
 
