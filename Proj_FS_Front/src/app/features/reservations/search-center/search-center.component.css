@@ -1,0 +1,205 @@
+
+
+
+.search_container{
+
+  position: relative;
+  transform: translateX(-16.5rem) translateY(6rem);
+
+}
+.recherche {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
+    
+
+  }
+
+  .recherche_et_bouton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    height: 5rem;
+  }
+
+  .no_results {
+
+      margin-top: 1rem;
+      color: var(--electric-violet);
+      font-weight: 700;
+      font-size: 1.3rem;
+
+  }
+
+  .recherche input {
+    padding: 1.1rem 1.1rem;
+    border: 2px solid var(--electric-violet);
+    border-radius: 10px;
+    font-size: 1rem;
+    width: 60%;
+    box-sizing: border-box;
+  }
+  
+  .recherche input:focus {
+    border-color: var(--gray-400);
+    outline: none;
+  }
+
+  .recherche button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.1rem 1.1rem;
+    height: 3.5rem;
+    font-size: 1rem;
+    border: 2px solid var(--electric-violet);
+    border-radius: 10px;
+    background-color: white;
+    color: var(--electric-violet);
+    transition: transform 0.15s, background-color 0.3s, color 0.3s;
+    margin-left: 0.6rem;
+  }
+
+  .recherche button:hover {
+    background-color: var(--electric-violet);
+    color: white;
+    transform: scale(1.1);
+}
+
+.recherche button:active {
+    transform: scale(1.05);
+}
+
+.affichage_centre{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+
+.affichage_centre button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    border: 2px solid var(--electric-violet);
+    border-radius: 10px;
+    padding: 10px 20px;
+    background-color: white;
+    color: var(--electric-violet);
+    transition: transform 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.affichage_centre button:hover {
+    background-color: var(--electric-violet);
+    color: white;
+    transform: scale(1.2);
+}
+
+.affichage_centre button:active {
+    transform: scale(1.1);
+}
+
+.affichage_info_centre{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin: 1rem auto ;
+  border: 3px solid var(--electric-violet);
+  border-radius: 10px;
+  padding: 10px 20px;
+  background-color: var(--electric-violet);
+  color: white;
+  width: 40vw;
+}
+
+#nom_select {
+  font-weight: bold;
+}
+
+.resultats_recherche{
+
+  position: relative;
+  left:28vw;
+  bottom: 1vh;
+  background-color: white;
+  width: 30vw;
+  padding: 1rem;
+  border-top: solid 2px var(--electric-violet);
+  border-bottom: solid 2px var(--electric-violet);
+  border-left: dashed 3px var(--electric-violet);
+  border-right: dashed 3px var(--electric-violet);
+}
+
+.searched_centers {
+  list-style-type: none; /* Enlever les points de début de liste */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrer horizontalement */
+  margin: 0; 
+}
+
+.searched_centers li {
+  margin: 0 0; /* Espacement entre les éléments de la liste */
+  
+}
+
+.searched_centers li button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  border: 2px solid var(--electric-violet);
+  border-radius: 10px;
+  padding: 10px 20px;
+  background-color: white;
+  color: var(--electric-violet);
+  transition: transform 0.3s, background-color 0.3s, color 0.3s;
+}
+
+
+.searched_centers li button:hover {
+  color: var(--electric-violet);
+  transform: scale(1.15);
+}
+
+.searched_centers li button:active {
+  transform: scale(1.1);
+}
+
+
+
+.annuler_recherche {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin-top: 1rem;
+border: 2px solid var(--electric-violet);
+border-radius: 10px;
+padding: 10px 20px;
+background-color: white;
+color: var(--electric-violet);
+transition: transform 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.annuler_recherche:hover {
+background-color: white;
+border-color: red;
+color: red;
+transform: scale(1.2);
+}
+
+.annuler_recherche:active {
+transform: scale(1.1);
+}

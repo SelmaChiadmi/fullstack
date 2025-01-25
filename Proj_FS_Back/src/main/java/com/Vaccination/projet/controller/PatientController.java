@@ -15,6 +15,9 @@ import com.Vaccination.projet.services.PatientService;
 import java.util.List;
 import java.util.Optional;
 
+
+// Contrôleur pour les patients
+
 @RestController
 public class PatientController {
 
@@ -45,6 +48,14 @@ public class PatientController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.ok(patients);
+    }
+
+    // Ajout de Wassil 
+    // Endpoint pour récupérer un patient par son mail
+    @GetMapping("public/verify-email")
+    public ResponseEntity<Boolean> verifyEmail(@RequestParam("email") String email) {
+        Optional<patientDto> patient = patientservice.getPatientByEmail(email);
+        return ResponseEntity.ok(patient.isPresent());
     }
 }
 

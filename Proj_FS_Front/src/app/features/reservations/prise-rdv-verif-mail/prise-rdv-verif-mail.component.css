@@ -1,0 +1,261 @@
+
+/* affichage des informations du centre */
+.affichage_info_centre{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem auto ;
+    border: 5px dashed whitesmoke;
+    border-radius: 10px;
+    padding: 10px 20px;
+    background-color: var(--electric-violet);
+    color: white;
+    width: 45vw;
+    position: relative;
+    top: 0vh;
+    left:15vw;
+  }
+  
+  #nom_select {
+    font-weight: bold;
+  }
+  
+  
+  .searched_centers {
+    list-style-type: none; /* Enlever les points de début de liste */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrer horizontalement */
+    margin: 0 auto; 
+  }
+  
+  .searched_centers li {
+    margin: 5px 0; /* Espacement entre les éléments de la liste */
+  }
+  
+  .searched_centers button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    border: 2px solid var(--electric-violet);
+    border-radius: 10px;
+    padding: 10px 20px;
+    background-color: white;
+    color: var(--electric-violet);
+    transition: transform 0.3s, background-color 0.3s, color 0.3s;
+  }
+  
+  
+  .searched_centers button:hover {
+    background-color: var(--electric-violet);
+    color: white;
+    transform: scale(1.2);
+  }
+  
+  .searched_centers button:active {
+    transform: scale(1.1);
+  }
+  
+  /* Formulaire */
+  .form{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+     
+  }
+  
+  /* ligne de formulaire */
+  .row_input {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 0.5rem;
+      
+  }
+  
+  /* entrées du formulaire */
+  .form_input {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+     
+      
+  }
+  
+  .form_input input {
+      text-align: center;
+      margin-left: 1rem;
+      margin-right: 1rem;
+      padding: 10px;
+      border: 2px solid var(--gray-400);
+      border-radius: 10px;
+      font-size: 1rem;
+      width: 15rem;
+      box-sizing: border-box;
+  }
+  .form_input:focus {
+      border: 2px solid white;
+      border-color: white;
+  }
+  .form_input input[type="date"] {
+      text-align: center;
+  }
+  .form_input::placeholder {
+      color: var(--gray-400);
+  }
+  
+  .form_input label {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+  }
+  
+  /*boutons */
+  .boutons {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 2rem;
+  }
+  
+  /* bouton de confirmation */
+  .confirm_rdv {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 2px solid white;
+      border-radius: 10px;
+      padding: 10px 20px;
+      background-color: var(--electric-violet);
+      color: white;
+      transition: transform 0.3s, background-color 0.3s, color 0.3s;
+      font-size: 1.2rem;
+  }
+  
+  .confirm_rdv:hover {
+      background-color: var(--electric-violet);
+      color: #62ec9d;
+      border-color: #62ec9d;
+      transform: scale(1.2);
+  }
+  
+  .confirm_rdv:active {
+      transform: scale(1.1);
+  }
+  
+  /* bouton d'annulation' */
+  .annuler_demande {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 1rem;
+      border: 2px solid white;
+      border-radius: 10px;
+      padding: 10px 20px;
+      background-color: var(--electric-violet);
+      color: white;
+      transition: transform 0.3s, background-color 0.3s, color 0.3s;
+      font-size: 1.2rem;
+  }
+  
+  .annuler_demande:hover {
+      background-color: var(--electric-violet);
+      color: #fe0b00;
+      border-color: #fe0b00;
+      transform: scale(1.2);
+  }
+  
+  .annuler_demande:active {
+      transform: scale(1.1);
+  }
+  
+  /*Message d'erreur */
+  .error-message{
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+  }
+  
+  /* Bloc de confirmation */
+  
+  .container_confirmation{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width:  40vw;
+      position: relative;
+      left:45vw;
+      bottom:10vh;
+      
+
+
+
+  }
+  
+  .confirmation{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40vw;
+      margin-top: 2rem;
+      border-radius:2rem;
+      border: 4px solid var(--electric-violet);
+      color: var(--electric-violet);
+      background-color: white;
+      list-style-type: none;
+      flex-direction: column;
+  }
+
+.MailisinDatabase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40vw;
+    margin-top: 2rem;
+    border-radius:2rem;
+    border: 4px dashed white;
+    color: white;
+    background-color: var(--electric-violet);
+    list-style-type: none;
+    flex-direction: column;
+    position: relative;
+    top: 15vh
+    
+}
+
+.mail_not_in_database {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45vw;
+    padding: 10px 20px;
+    margin-top: 2rem;
+    border-radius:2rem;
+    border: 4px solid var(--electric-violet);
+    color: var(--electric-violet);
+    background-color: white;
+    list-style-type: none; 
+    flex-direction: column;
+}
+  
+
+/* choix du créneau */
+#chosenTime{
+    padding: 10px 20px;
+    color: black;
+    font-size: 1rem;
+    border-radius: 4rem;
+    border: 2px solid var(--electric-violet);
+    background-color: white;
+}
+
+/* input du mail : élargir */
+#mail{
+    width: 25rem;
+}
