@@ -41,7 +41,7 @@
             <div class="form_input" >
                 <label for="chosendate">Date du rendez-vous :</label>
                 <input type="date" id="date" [(ngModel)]="chosenDate" (change)="onDateChange()"
-                name="date"  name="date" required  />
+                name="date"  name="date" required  [disabled]="!areCreneauxAvailable"/>
             </div>
 
             <div class="form_input">

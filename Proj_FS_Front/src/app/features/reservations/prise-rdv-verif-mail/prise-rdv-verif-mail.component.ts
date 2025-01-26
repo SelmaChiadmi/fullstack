@@ -128,6 +128,8 @@ export class PriseRdvVerifMailComponent {
       this.isMailGiven = false;
     }
   }
+
+  
   onDateChange(): void {
     if (this.chosenDate && this.center) { // Vérifie que la date et le centre sont définis
       this.creneauService.getCreneaux(this.center.id, this.chosenDate).subscribe(
@@ -143,6 +145,7 @@ export class PriseRdvVerifMailComponent {
       console.error('Date ou centre non défini.');
     }
   }
+  availableDates: string[] = []; // Dates disponibles pour le centre sélectionné
   
   
   
