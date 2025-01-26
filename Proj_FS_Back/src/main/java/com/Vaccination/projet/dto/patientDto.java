@@ -1,6 +1,7 @@
 package com.Vaccination.projet.dto;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 public class patientDto {
@@ -10,11 +11,11 @@ public class patientDto {
     private int telephone;
     private LocalDate birthDate;
     private String email;
-    private List<reservationDto> reservations;
+    private List<reservationDto> reservations = Collections.emptyList();
 
     public patientDto() {}
 
-    public patientDto(int id, String nom, String prenom, String mail, int telephone, LocalDate dateNaissance, List<reservationDto> reservations) {
+    public patientDto(String nom, String prenom, String mail, int telephone, LocalDate dateNaissance, List<reservationDto> reservations) {
         this.lastName = nom;
         this.firstName = prenom;
         this.email = mail;
@@ -22,6 +23,9 @@ public class patientDto {
         this.birthDate = dateNaissance;
         this.reservations = reservations;
     }
+
+
+
 
 
     public List<reservationDto> getReservations() {
