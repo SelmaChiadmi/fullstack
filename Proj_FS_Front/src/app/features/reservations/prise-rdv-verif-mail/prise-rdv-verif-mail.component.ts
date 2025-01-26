@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { PriseRdvComponent } from '../prise-rdv/prise-rdv.component';
 import { VaccinationCenterService } from '../../../core/services/vaccination-centers.service';
 import { EmailVerificationService } from '../../../core/services/email_verif.service';
+import { CreneauService } from '../../../core/services/creneau.service';
 
 @Component({
   selector: 'app-prise-rdv-verif-mail',
@@ -12,15 +13,23 @@ import { EmailVerificationService } from '../../../core/services/email_verif.ser
   imports: [FormsModule, CommonModule,PriseRdvComponent],
   providers: [
     VaccinationCenterService,
-    EmailVerificationService
+    EmailVerificationService,
+    CreneauService
   ],
   templateUrl: './prise-rdv-verif-mail.component.html',
   styleUrl: './prise-rdv-verif-mail.component.css'
 })
 export class PriseRdvVerifMailComponent {
 
-  constructor(private emailVerificationService: EmailVerificationService) {}
+  constructor(private emailVerificationService: EmailVerificationService , private creneauService: CreneauService) {}
 
+  ngOnChanges(): void {
+    if (this.center) {
+      console.log('Centre reçu dans le composant enfant :', this.center);
+    } else {
+      console.error('Le composant enfant n\'a pas reçu de centre.');
+    }
+  }
 
   @Input() center?: VaccinationCenter; // Centre sélectionné
   @Input() creneaux: string[] = []; // Horaires disponibles spécifiques au centre
@@ -86,10 +95,6 @@ export class PriseRdvVerifMailComponent {
       return false;
     }
 
-    if (!this.chosenTime) {
-      this.errorMessage = 'Heure manquante';
-      return false;
-    }
 
     this.errorMessage = '';
     console.log('validateAppointment');
@@ -123,6 +128,22 @@ export class PriseRdvVerifMailComponent {
       this.isMailGiven = false;
     }
   }
+  onDateChange(): void {
+    if (this.chosenDate && this.center) { // Vérifie que la date et le centre sont définis
+      this.creneauService.getCreneaux(this.center.id, this.chosenDate).subscribe(
+        (data) => {
+          this.creneaux = data; // Stocke les créneaux récupérés
+          console.log('Créneaux récupérés :', this.creneaux);
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des créneaux', error);
+        }
+      );
+    } else {
+      console.error('Date ou centre non défini.');
+    }
+  }
+  
   
   
   
@@ -149,7 +170,10 @@ export class PriseRdvVerifMailComponent {
     this.chosenTime = '';
     this.MailisinDatabase = false; // Cache la confirmation et réinitialise le formulaire
     this.confirmation = false; // Cache la confirmation et réinitialise le formulaire
-
-    
   }
+
+    // Fonction pour enlever les 3 derniers caractères (les secondes)
+    formatCreneau(creneau: string): string {
+      return creneau.slice(0, -3); // Enlever les 3 derniers caractères
+    }
 }

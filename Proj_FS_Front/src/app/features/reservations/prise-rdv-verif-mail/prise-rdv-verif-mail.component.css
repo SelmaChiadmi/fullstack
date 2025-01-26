@@ -192,10 +192,7 @@
       position: relative;
       left:45vw;
       bottom:10vh;
-      
-
-
-
+    
   }
   
   .confirmation{
@@ -247,15 +244,29 @@
 
 /* choix du créneau */
 #chosenTime{
-    padding: 10px 20px;
+    padding: 10px 0px;
     color: black;
     font-size: 1rem;
     border-radius: 4rem;
     border: 2px solid var(--electric-violet);
     background-color: white;
+    text-align: center;
+    
 }
+
 
 /* input du mail : élargir */
 #mail{
     width: 25rem;
+}
+
+.container_confirmation_rdv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width:  40vw;
+
+  
 }
