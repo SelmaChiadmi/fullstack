@@ -7,10 +7,14 @@
 ## Technologies 
 - Angular 
 - Spring 
+- PostgreSQL
 
 ## Organisation du code 
 - Proj_FS_Back : Back-end de l'application 
 - Proj_FS_Front : Front-end de l'application
+
+## Pour tester :
+- le mail "julien.bernard@example.com" est dans la base de données. Vous pouvez essayer de prendre un rdv le 29/01/2025. 
 
 ![Screenshot](/images_readme/FS.png)
 
