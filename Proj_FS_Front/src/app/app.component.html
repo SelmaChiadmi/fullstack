@@ -88,8 +88,8 @@
     <app-button-to-login *ngIf="isthisComponentVisible" (onLogin)="toggleSearchCenter($event)"></app-button-to-login>
     <app-button-show-list-centers 
       (hideOtherComponents)="onHideSearchCenter()" 
-      *ngIf="showSearchCenterAndListCenterButton && !isListCentersVisible">
-      
+      *ngIf="showSearchCenterAndListCenterButton && isListCentersVisible">
+
     </app-button-show-list-centers>
 
     <!-- Affichage du contenu dynamique -->

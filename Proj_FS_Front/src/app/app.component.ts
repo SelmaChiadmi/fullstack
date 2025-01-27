@@ -7,7 +7,8 @@ import { CommonModule } from '@angular/common';
 import { ButtonShowListCentersComponent } from './features/reservations/button-show-list-centers/button-show-list-centers.component';
 import { ListeCentresComponent } from './features/reservations/liste-centres/liste-centres.component';
 import { EmitterService } from './core/services/emitter.service';
-import { ReceiverService } from './core/services/receiver.service';
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -20,19 +21,22 @@ export class AppComponent implements OnInit {
 
   
 
-  constructor( private emitterService: EmitterService) {}
+  constructor( private emitterService: EmitterService , private location: Location) {}
 
 
   ngOnInit(): void {   
-    this.isListCentersVisible = false;
+    
 
     //pour cacher la liste des centres
     this.emitterService.event$.subscribe(() => {
-      this.isListCentersVisible = false;
+      this.isListCentersVisible = true;
       this.isthisComponentVisible = true
       //console.log('isListCentersVisible:', this.isListCentersVisible);
       
     });
+    this.location.back();
+
+    
 
     
     
@@ -53,12 +57,12 @@ export class AppComponent implements OnInit {
     this.isCenterSelected = isSelected;  // Mettre à jour l'état du centre sélectionné
   }
 
-  isListCentersVisible = false; // Variable pour contrôler l'affichage de la liste des centres
+  isListCentersVisible = true; // Variable pour contrôler l'affichage de la liste des centres
   isthisComponentVisible = true // Variable pour contrôler l'affichage du composant associé
 
 
   onHideSearchCenter(): void {
-    this.isListCentersVisible = false; // Inverse l'état de visibilité de la liste des centres
+    this.isListCentersVisible = true; // Inverse l'état de visibilité de la liste des centres
     this.isthisComponentVisible = false
     console.log('hideSearchCenter called, isListCentersVisible:', this.isListCentersVisible);  // Vérification dans la console
   }
