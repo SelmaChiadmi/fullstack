@@ -35,7 +35,7 @@ export class EmailVerificationService {
   /**
    * URL de l'API pour la vérification des emails.
    */
-  private readonly apiUrl = 'http://localhost:8080/public/verify-email';
+  private readonly apiUrl = 'http://localhost:8080/patients/check-email';
 
   /**
    * Constructeur du service EmailVerificationService.

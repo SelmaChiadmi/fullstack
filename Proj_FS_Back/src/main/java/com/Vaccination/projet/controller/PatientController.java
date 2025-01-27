@@ -30,33 +30,32 @@ public class PatientController {
         this.patientservice = patientservice;
     }
 
+   
+
+
+    // Endpoint pour récupérer un patient par son mail
     @GetMapping("/patients/check-email")
-    public ResponseEntity<Map<String, String>>checkPatientEmail(@RequestParam String email) {
-        patient existingPatient = patientservice.getPatientByMail(email);
-        if (existingPatient == null) {
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Patient non trouvé dans la base de données. Veuillez remplir le formulaire.");
-            response.put("email", email);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-        }
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Patient trouvé. Vous pouvez directement choisir un créneau.");
-        return ResponseEntity.ok(response  );
+    public ResponseEntity<Boolean> verifyEmail(@RequestParam("email") String email) {
+        Optional<patientDto> patient = patientservice.getPatientByEmail(email);
+        return ResponseEntity.ok(patient.isPresent());
     }
 
     // Endpoint pour rentrer les infos du patient
+
+    @Autowired
+    private PatientRepo patientRepo;
+
     @PostMapping("/public/patients/create-patient")
     public patient createPatient(@RequestBody patientDto patientDto) {
-        // Créer ou récupérer un patient selon son email
+        // Créer un patient 
         patient newPatient = new patient();
         newPatient.setNom(patientDto.getLastName());
         newPatient.setPrenom(patientDto.getFirstName());
         newPatient.setMail(patientDto.getEmail());
         newPatient.setTelephone(patientDto.getTelephone());
-        newPatient.setDate_naissance(patientDto.getBirthDate());
-        
-        
-        return  newPatient;
+        newPatient.setDate_naissance(patientDto.getBirthDate());       
+        // Sauvegarder le patient dans la base de données
+        return patientRepo.save(newPatient);
     }
 
     @GetMapping("/admin/search-patient")
@@ -70,13 +69,8 @@ public class PatientController {
         return ResponseEntity.ok(patients);
     }
 
-    // Ajout de Wassil 
-    // Endpoint pour récupérer un patient par son mail
-    @GetMapping("public/verify-email")
-    public ResponseEntity<Boolean> verifyEmail(@RequestParam("email") String email) {
-        Optional<patientDto> patient = patientservice.getPatientByEmail(email);
-        return ResponseEntity.ok(patient.isPresent());
-    }
+    
+    
 }
 
     

@@ -1,9 +1,7 @@
-export interface Patient{
-    id: number;
-    nom : string;
-    prenom : string;
-    mail: string; 
-    teleohone: number;
-    date_naissance: Date;
+export interface Patient {
+    lastName: string;
+    firstName: string;
+    email: string;
+    telephone: number;
+    birthDate: Date;
 }
-

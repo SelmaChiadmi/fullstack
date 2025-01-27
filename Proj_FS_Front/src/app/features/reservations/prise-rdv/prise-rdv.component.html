@@ -23,8 +23,8 @@
 
       <div class="row_input">
         <div class="form_input">
-            <label for="BirthDate">Date de naissance :</label>
-            <input type="date" id="BirthDate" [(ngModel)]="birthDate" name="BirthDate" required />
+            <label for="birthDate">Date de naissance :</label>
+            <input type="date" id="birthDate" [(ngModel)]="birthDate" name="BirthDate" required />
         </div>
       
         <div class="form_input">
@@ -36,12 +36,12 @@
       <div class="row_input">
         <div class="form_input">
             <label for="phone">Numéro de téléphone :</label>
-            <input type="text" id="phone" [(ngModel)]="phone" name="phone" required />
+            <input type="text" id="phone"  [(ngModel)]="phone"    name="phone"  required />
         </div>
 
             <div class="form_input" >
                 <label for="chosendate">Date du rendez-vous :</label>
-                <input type="date" id="date" [(ngModel)]="chosenDate" (change)="onDateChange()" name="date" required  />
+                <input type="date" id="chosendate" [(ngModel)]="chosenDate" (change)="onDateChange()" name="date" required  />
             </div>
             
         </div>    

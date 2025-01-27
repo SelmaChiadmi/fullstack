@@ -3,12 +3,14 @@ import { VaccinationCenter } from '../../../core/models/vaccination-centers.mode
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CreneauService } from '../../../core/services/creneau.service';
+import { PatientService } from '../../../core/services/patients.service';
+import { Patient } from '../../../core/models/patients.model';
 
 @Component({
   selector: 'app-prise-rdv',
   standalone: true,
   imports: [FormsModule, CommonModule],
-  providers: [CreneauService],
+  providers: [CreneauService, PatientService],
   templateUrl: './prise-rdv.component.html',
   styleUrls: ['./prise-rdv.component.css'],
 })
@@ -18,8 +20,7 @@ export class PriseRdvComponent {
   @Output() onCancel = new EventEmitter<void>(); // Annulation
   @Input() mail: string = ''; // Réception de l'email pré-rempli
 
-  constructor(private creneauService: CreneauService) {}
-  
+  constructor(private creneauService: CreneauService, private patientService: PatientService) {}
 
   // Variables pour le formulaire
   name: string = '';
@@ -99,6 +100,27 @@ export class PriseRdvComponent {
 
   submitAppointment() {
     if (this.validateForm()) {
+
+    const birthDate = new Date(this.birthDate);
+    const patientData: Patient = {
+      lastName: this.name,
+      firstName: this.surname,
+      email: this.mail,
+      telephone: Number(this.phone),
+      birthDate: birthDate,
+    };
+
+   
+    
+    console.log('Patient data before sending:', patientData); // Fonctionne jusqu'ici : le patient data dispose de tout
+    this.patientService.createPatient(patientData).subscribe(
+      (response) => {
+        console.log('Patient créé avec succès :', response);
+      },
+      (error) => {
+        console.error('Erreur lors de la création du patient :', error);
+      }
+    );
       console.log('Nom:', this.name);
       console.log('Prénom:', this.surname);
       console.log('Centre:', this.center);
@@ -117,6 +139,11 @@ export class PriseRdvComponent {
       
     }
   }
+
+  
+
+
+
 
   //Permet une animation de la bordure du formulaire en cas d'erreur sur le remplissage des champs
   triggerAnimation() {
