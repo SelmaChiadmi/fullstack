@@ -1,0 +1,12 @@
+<div  class="liste_centres" *ngIf="isListCentersVisible">
+    <ul class="centers">
+      <li *ngFor="let center of centers">
+        <button (click)="selectCenter(center)">
+          <p>{{center.nom}} - {{ center.ville }}</p>
+        </button>
+        
+      </li>
+      <button class="annuler_recherche" (click)="cancelDisplay()"> Revenir en arrière </button>
+      
+    </ul>
+  </div>
