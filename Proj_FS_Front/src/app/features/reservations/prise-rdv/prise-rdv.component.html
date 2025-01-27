@@ -41,18 +41,26 @@
 
             <div class="form_input" >
                 <label for="chosendate">Date du rendez-vous :</label>
-                <input type="date" id="date" [(ngModel)]="chosenDate"   name="date" required  />
+                <input type="date" id="date" [(ngModel)]="chosenDate" (change)="onDateChange()" name="date" required  />
             </div>
             
         </div>    
 
         <div class="form_input">
             <label for="chosenTime">Créneau souhaité :</label>
-            <select id="chosenTime" [(ngModel)]="chosenTime" name="chosenCreneau">
-                <option value="" disabled selected>Choisir un créneau</option>
-                <option *ngFor="let creneau of creneaux" [value]="creneau">{{ creneau }}</option>
+            <select
+              id="chosenTime"
+              [(ngModel)]="chosenTime"
+              name="chosenCreneau"
+              required
+            >
+              <option value="" disabled selected>Choisir un créneau</option>
+              <option *ngFor="let creneau of creneaux" [value]="creneau">
+                {{ formatCreneau(creneau) }}
+              </option>
             </select>
-        </div>
+          </div>
+          
       <div class="boutons">
 
         <button class= "annuler_demande" type="button" (click)=cancel() >Annuler</button>

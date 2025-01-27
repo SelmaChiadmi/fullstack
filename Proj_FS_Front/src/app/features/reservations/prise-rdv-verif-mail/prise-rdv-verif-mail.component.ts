@@ -23,13 +23,7 @@ export class PriseRdvVerifMailComponent {
 
   constructor(private emailVerificationService: EmailVerificationService , private creneauService: CreneauService) {}
 
-  ngOnChanges(): void {
-    if (this.center) {
-      console.log('Centre reçu dans le composant enfant :', this.center);
-    } else {
-      console.error('Le composant enfant n\'a pas reçu de centre.');
-    }
-  }
+
 
   @Input() center?: VaccinationCenter; // Centre sélectionné
   @Input() creneaux: string[] = []; // Horaires disponibles spécifiques au centre
@@ -50,17 +44,17 @@ export class PriseRdvVerifMailComponent {
   // Booléen pour afficher la confirmation
   confirmation: boolean = false;
 
-  //mail prédéfini
+  //mail prédéfini pour le formulaire de mail inconnu : pré-remplissage du mail et ne pas donner la possibilité de le modifier
   predefinedMail: string = '';
   
-
+  // annuler la prise de rendez-vous
   cancel() {
     this.onCancel.emit();
     this.resetForm();
   }
 
-
-  validateForm(): boolean {
+  // Fonction pour valider le formulaire 
+  validateForm(): boolean { 
     if (!this.mail) {
       this.errorMessage = 'Mail manquant';
       return false;
@@ -81,6 +75,7 @@ export class PriseRdvVerifMailComponent {
     return true;
   }
 
+  // Fonction pour valider le rendez-vous
   validateAppointment(): boolean {
     const today = new Date();
     const chosenDateObj = new Date(this.chosenDate);
@@ -101,6 +96,7 @@ export class PriseRdvVerifMailComponent {
     return true
   }
 
+  // Fonction pour soumettre l'email
   submitMail() {
     if (this.validateForm()) {
       this.emailVerificationService.verifyEmail(this.mail).subscribe({
@@ -129,7 +125,7 @@ export class PriseRdvVerifMailComponent {
     }
   }
 
-  
+  // Fonction pour récupérer les créneaux disponibles
   onDateChange(): void {
     if (this.chosenDate && this.center) { // Vérifie que la date et le centre sont définis
       this.creneauService.getCreneaux(this.center.id, this.chosenDate).subscribe(
@@ -147,10 +143,14 @@ export class PriseRdvVerifMailComponent {
   }
   availableDates: string[] = []; // Dates disponibles pour le centre sélectionné
   
-  
-  
-  
 
+   // Fonction pour enlever les 3 derniers caractères (les secondes) aux créneaux
+   formatCreneau(creneau: string): string {
+    return creneau.slice(0, -3); // Enlever les 3 derniers caractères
+  }
+  
+  
+ // Fonction pour soumettre le rendez-vous (pas encore lié à un service)
  submitAppointment() {
   console.log('submitAppointment');
   if (this.validateAppointment()) {    
@@ -175,8 +175,5 @@ export class PriseRdvVerifMailComponent {
     this.confirmation = false; // Cache la confirmation et réinitialise le formulaire
   }
 
-    // Fonction pour enlever les 3 derniers caractères (les secondes)
-    formatCreneau(creneau: string): string {
-      return creneau.slice(0, -3); // Enlever les 3 derniers caractères
-    }
+   
 }

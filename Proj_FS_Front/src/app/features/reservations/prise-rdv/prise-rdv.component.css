@@ -207,13 +207,14 @@
 
 /* choix du créneau */
 #chosenTime{
-    padding: 10px 20px;
+    padding: 10px 0px;
     color: black;
     font-size: 1rem;
     margin-top: 1rem;
     border-radius: 4rem;
     border: 2px solid var(--electric-violet);
     background-color: white;
+    text-align: center;
 }
 
 /* Effet CSS : changement de bordure */

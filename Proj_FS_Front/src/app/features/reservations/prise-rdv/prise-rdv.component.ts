@@ -2,11 +2,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { VaccinationCenter } from '../../../core/models/vaccination-centers.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { CreneauService } from '../../../core/services/creneau.service';
 
 @Component({
   selector: 'app-prise-rdv',
   standalone: true,
   imports: [FormsModule, CommonModule],
+  providers: [CreneauService],
   templateUrl: './prise-rdv.component.html',
   styleUrls: ['./prise-rdv.component.css'],
 })
@@ -15,6 +17,9 @@ export class PriseRdvComponent {
   @Input() creneaux: string[] = []; // Horaires disponibles spécifiques au centre
   @Output() onCancel = new EventEmitter<void>(); // Annulation
   @Input() mail: string = ''; // Réception de l'email pré-rempli
+
+  constructor(private creneauService: CreneauService) {}
+  
 
   // Variables pour le formulaire
   name: string = '';
@@ -113,6 +118,7 @@ export class PriseRdvComponent {
     }
   }
 
+  //Permet une animation de la bordure du formulaire en cas d'erreur sur le remplissage des champs
   triggerAnimation() {
     const formElement = document.querySelector('.affichage_info_centre');  // Sélectionner le formulaire ou un élément spécifique
     if (formElement) {
@@ -126,6 +132,28 @@ export class PriseRdvComponent {
     }
   }
 
+  onDateChange(): void {
+    if (this.chosenDate && this.center) { // Vérifie que la date et le centre sont définis
+      this.creneauService.getCreneaux(this.center.id, this.chosenDate).subscribe(
+        (data) => {
+          this.creneaux = data; // Stocke les créneaux récupérés
+          console.log('Créneaux récupérés :', this.creneaux);
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des créneaux', error);
+        }
+      );
+    } else {
+      console.error('Date ou centre non défini.');
+    }
+  }
+  availableDates: string[] = []; // Dates disponibles pour le centre sélectionné
+  
+  
+   // Fonction pour enlever les 3 derniers caractères (les secondes) au créneau
+   formatCreneau(creneau: string): string {
+    return creneau.slice(0, -3); // Enlever les 3 derniers caractères
+  }
  
 
    // Réinitialiser le formulaire pour prendre un autre rendez-vous
