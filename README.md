@@ -14,7 +14,7 @@
 - Proj_FS_Front : Front-end de l'application
 
 ## Pour tester :
-- le mail "julien.bernard@example.com" est dans la base de données. Vous pouvez essayer de prendre un rdv le 29/01/2025. 
+- le mail "julien.bernard@example.com" est dans la base de données. Vous pouvez essayer de prendre un rdv le 29/01/2025 dans le centre de Lyon. 
 
 ![Screenshot](/images_readme/FS.png)
 
