@@ -16,7 +16,7 @@
     -> /src/app/features : contient les composants angulare front-end : reservation (ce qui est nécéssaire à la reservation) et admin (ce qui est nécessaires aux admins)
 
 ## Pour tester :
-- le mail "julien.bernard@example.com" est dans la base de données. Vous pouvez essayer de prendre un rdv le 29/01/2025 dans le centre de Lyon. (avec ou sans le mail fourni)
+- le mail "julien.bernard@example.com" est dans la base de données. Vous pouvez tester en prenant un rdv le 29/01/2025 dans le centre de Lyon. (avec ou sans le mail fourni)
 
 ![Screenshot](/images_readme/FS.png)
 
