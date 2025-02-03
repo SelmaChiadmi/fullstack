@@ -21,6 +21,12 @@ public interface EmployesRepo extends JpaRepository<employes, Integer> {
 
     Optional<employes> findByMail(String mail);
 
+    @Query("SELECT e FROM employes e WHERE e.centre.id = :centreId AND LOWER(e.nom) LIKE LOWER(CONCAT('%', :nom, '%')) AND e.is_med = true")
+    List<employes> chercherMedecins(@Param("centreId") int centreId, @Param("nom") String nom);
+
+    boolean existsByMail(String mail);
+
+
 
 
     

@@ -18,20 +18,18 @@ public class customUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Utiliser la méthode getRole() pour obtenir le rôle sous forme de String
         String role = employe.getRole();
-        // Ajouter le rôle en ajoutant le préfixe ROLE_ (requis par Spring Security)
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase().replace(" ", "_")));
     }
 
     @Override
     public String getPassword() {
-        return employe.getmdp();
+        return employe.getmdp();  // Mot de passe en clair
     }
 
     @Override
     public String getUsername() {
-        return employe.getMail();
+        return employe.getMail();  // Utilisation de l'email comme username
     }
 
     @Override
@@ -53,4 +51,6 @@ public class customUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }*/
+
