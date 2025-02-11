@@ -46,6 +46,7 @@ export class VaccinationCenterService {
 
   get centers$(): Observable<VaccinationCenter[]> {
     return this.centers.asObservable();
+
   }
 
   /**
@@ -73,5 +74,10 @@ export class VaccinationCenterService {
 
   updateCenters(centers: VaccinationCenter[]): void {
     this.centers.next(centers);
+  }
+
+  // vaccination-centers.service.ts
+  getCenterById(id: string): Observable<VaccinationCenter> {
+    return this.http.get<VaccinationCenter>(`public/centres/${id}`);
   }
 }

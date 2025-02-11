@@ -27,7 +27,10 @@ export class PriseRdvVerifMailComponent {
 
   @Input() center?: VaccinationCenter; // Centre sélectionné
   @Input() creneaux: string[] = []; // Horaires disponibles spécifiques au centre
+  @Input() receivedCenterId?: number; // ID du centre sélectionné 
   @Output() onCancel = new EventEmitter<void>(); // Annulation
+  @Output() centerIdEmitter = new EventEmitter<number>(); // Émet l'ID du centre sélectionné
+
 
   // Variables pour le formulaire de mail connu
   mail: string = '';
@@ -46,6 +49,12 @@ export class PriseRdvVerifMailComponent {
 
   //mail prédéfini pour le formulaire de mail inconnu : pré-remplissage du mail et ne pas donner la possibilité de le modifier
   predefinedMail: string = '';
+
+  // Méthode qui pourrait être appelée lorsqu'on veut transmettre l'ID
+  sendCenterId() {
+    this.centerIdEmitter.emit(this.receivedCenterId);
+  }
+
   
   // annuler la prise de rendez-vous
   cancel() {
@@ -87,6 +96,11 @@ export class PriseRdvVerifMailComponent {
     
     if (chosenDateObj <= today) {
       this.errorMessage = 'La date de rendez-vous doit être ultérieure à aujourd\'hui.';
+      return false;
+    }
+     // Vérifier si le créneau a été choisi
+    if (!this.chosenTime) {
+      this.errorMessage = 'Le créneau horaire est manquant.';
       return false;
     }
 
@@ -152,6 +166,7 @@ export class PriseRdvVerifMailComponent {
   
  // Fonction pour soumettre le rendez-vous (pas encore lié à un service)
  submitAppointment() {
+  
   console.log('submitAppointment');
   if (this.validateAppointment()) {    
     console.log('Mail:', this.mail);

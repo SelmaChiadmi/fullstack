@@ -52,9 +52,7 @@ public class ReservationService {
         this.patientRepository = patientrepo;
         this.creneauRepository = creneauRepo;
         this.employeRepository = employesRepo;
-      
-
-    }
+        }
 
 
      public reservations bookAppointment(int centreId, LocalDate date, LocalTime heure, patientDto patientDto) {
@@ -70,8 +68,7 @@ public class ReservationService {
             throw new IllegalStateException("Ce créneau n'est plus disponible.");
         }
 
-        
-       
+            
         if (doctors.isEmpty()) {
             throw new IllegalStateException("Aucun médecin disponible dans ce centre");
         }

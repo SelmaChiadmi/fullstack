@@ -1,46 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SearchCenterComponent } from "./features/reservations/search-center/search-center.component";
 import { ButtonToLoginComponent } from "./features/admins/button-to-login/button-to-login.component";
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ButtonShowListCentersComponent } from './features/reservations/button-show-list-centers/button-show-list-centers.component';
-import { ListeCentresComponent } from './features/reservations/liste-centres/liste-centres.component';
-import { EmitterService } from './core/services/emitter.service';
-import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SearchCenterComponent, ButtonToLoginComponent,FormsModule,CommonModule,ButtonShowListCentersComponent,ListeCentresComponent],
-  providers: [EmitterService],
+  imports: [RouterOutlet, SearchCenterComponent, ButtonToLoginComponent,FormsModule,CommonModule],
+  providers: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
-
-  
-
-  constructor( private emitterService: EmitterService , private location: Location) {}
-
-
-  ngOnInit(): void {   
-    
-
-    //pour cacher la liste des centres
-    this.emitterService.event$.subscribe(() => {
-      this.isListCentersVisible = true;
-      this.isthisComponentVisible = true
-      //console.log('isListCentersVisible:', this.isListCentersVisible);
-      
-    });
-    this.location.back();
-
-    
-
-    
-    
-  }
+export class AppComponent{
 
   title = 'Faites vous vacciner !';
   showSearchCenterAndListCenterButton: boolean = true; // Contrôle l'affichage de <app-search-center> : composant de recherche d'un centre 

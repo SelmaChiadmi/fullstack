@@ -17,6 +17,7 @@ import { PriseRdvVerifMailComponent } from '../prise-rdv-verif-mail/prise-rdv-ve
 })
 export class SearchCenterComponent implements OnInit {
   @Output() centerSelected = new EventEmitter<boolean>(); //emet lorsque un centre est selectionné pour enlever l'affichage des composants genants
+  @Output() centerIdEmitter = new EventEmitter<number>(); // Émet l'ID du centre sélectionné
 
   centers: VaccinationCenter[] = [];  // Centres de vaccination récupérés
   filteredCenters: VaccinationCenter[] = [];  // Centres filtrés
@@ -27,7 +28,7 @@ export class SearchCenterComponent implements OnInit {
 
 
   constructor(private vaccinationCenterService: VaccinationCenterService) {}
-
+  
   ngOnInit(): void {
     // Récupérer les centres via le service
     this.vaccinationCenterService.loadCenters();
@@ -63,10 +64,13 @@ export class SearchCenterComponent implements OnInit {
     // console.log(this.searchText);
 
   }
-
+  
   // Fonction de sélection d'un centre
   selectCenter(center: VaccinationCenter) {
     this.center = center;
+    this.center.id = center.id;
+    console.log('id du centre selectionné:' + this.center.id);
+    this.centerIdEmitter.emit(center.id); // Émet l'ID du centre sélectionné
     this.filteredCenters = []; //enlever les centres filtrés pour afficher les détails à la place
     this.isCenterSelected = true;
     console.log('selectCenter');

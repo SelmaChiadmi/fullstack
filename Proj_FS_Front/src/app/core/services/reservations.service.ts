@@ -8,6 +8,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
+import { Patient } from '../models/patients.model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,12 +19,14 @@ export class ReservationService {
 
   constructor(private http: HttpClient) {}
 
-  // Fonction pour valider une réservation
-  validateReservation(reservationId: number, isValidated: boolean): Observable<any> {
-    const url = `${this.baseUrl}/admin/update-validation/${reservationId}`;
-    return this.http.patch(url, null, {
-      params: { isValidated: isValidated.toString() },
-    });
+  // Fonction pour booker une reservation
+  bookAppointment(centreId: number, date: string, heure: string, patient: Patient): Observable<any> {
+    const url = `${this.baseUrl}/${centreId}/bookings`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    const payload = { date, heure, ...patient };
+
+    return this.http.post(url, payload, { headers });
   }
 
   // Fonction pour annuler une réservation

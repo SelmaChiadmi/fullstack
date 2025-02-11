@@ -32,7 +32,7 @@ public class ReservationController {
     public ResponseEntity<Object> bookAppointment(@PathVariable int centreId,
                                                  @RequestParam("date") LocalDate date,
                                                  @RequestParam("heure") LocalTime heure,
-                                                  @RequestBody patientDto patientDto) {
+                                                 @RequestBody patientDto patientDto) {
 
         System.out.println("Centre ID: " + centreId);
         System.out.println("Date: " + date);

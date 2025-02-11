@@ -5,22 +5,24 @@ import { CommonModule } from '@angular/common';
 import { CreneauService } from '../../../core/services/creneau.service';
 import { PatientService } from '../../../core/services/patients.service';
 import { Patient } from '../../../core/models/patients.model';
+import { ReservationService } from '../../../core/services/reservations.service';
 
 @Component({
   selector: 'app-prise-rdv',
   standalone: true,
   imports: [FormsModule, CommonModule],
-  providers: [CreneauService, PatientService],
+  providers: [CreneauService, PatientService, ReservationService],
   templateUrl: './prise-rdv.component.html',
   styleUrls: ['./prise-rdv.component.css'],
 })
 export class PriseRdvComponent {
   @Input() center?: VaccinationCenter; // Centre sélectionné
+  @Input() receivedCenterId!: number; // ID du centre sélectionné 
   @Input() creneaux: string[] = []; // Horaires disponibles spécifiques au centre
   @Output() onCancel = new EventEmitter<void>(); // Annulation
   @Input() mail: string = ''; // Réception de l'email pré-rempli
 
-  constructor(private creneauService: CreneauService, private patientService: PatientService) {}
+  constructor(private creneauService: CreneauService, private patientService: PatientService, private reservationService : ReservationService) {}
 
   // Variables pour le formulaire
   name: string = '';
@@ -30,6 +32,7 @@ export class PriseRdvComponent {
   chosenDate: string = '';
   chosenTime: string = ''; 
   errorMessage: string = '';
+  
 
   // Booléen pour afficher la confirmation
   confirmation: boolean = false;
@@ -38,11 +41,23 @@ export class PriseRdvComponent {
   // Cela permet de changer la couleur de la bordure dans le cas ou il n'y a pas de validation dans un des formulaire
   hasRedBorder: boolean = false;  // Variable de contrôle pour savoir si la bordure doit être rouge
 
+  //lorsqu'on reçoit un ID de centre, on l'affiche dans la console
+  ngOnChanges() {
+    if (this.receivedCenterId !== undefined) {
+      console.log('ID reçu dans PriseRdvComponent :', this.receivedCenterId);
+    } else {
+      console.log('Aucun ID de centre reçu.');
+    }
+  }
+   
+  //annuler la prise de rendez-vous
   cancel() {
     this.onCancel.emit();
   }
 
 
+
+  //Vérification du formulaire
   validateForm(): boolean {
 
     if (!this.name || !this.surname || !this.mail || !this.birthDate || !this.phone || !this.chosenDate || !this.chosenTime) {
@@ -116,6 +131,9 @@ export class PriseRdvComponent {
     this.patientService.createPatient(patientData).subscribe(
       (response) => {
         console.log('Patient créé avec succès :', response);
+        // Après avoir créé le patient, procéder à la réservation
+        this.makeReservation(response);  // Appeler la fonction pour réserver le créneau
+        console.log('Reservation effectuée');
       },
       (error) => {
         console.error('Erreur lors de la création du patient :', error);
@@ -141,7 +159,33 @@ export class PriseRdvComponent {
   }
 
   
-
+  // Fonction pour effectuer la réservation
+  makeReservation(patient: Patient) {
+    const birthDate = new Date(this.birthDate);
+    const appointmentData = {
+      date: this.chosenDate,
+      heure: this.chosenTime,
+      patientDto: {
+        lastName: patient.lastName,
+        firstName: patient.firstName,
+        email: patient.email,
+        telephone: patient.telephone,
+        birthDate: patient.birthDate 
+      }
+    };
+  
+    // Appel à ReservationService pour réserver
+    this.reservationService.bookAppointment(this.receivedCenterId, this.chosenDate, this.chosenTime, appointmentData.patientDto).subscribe(
+      (response) => {
+        console.log('Réservation effectuée avec succès:', response);
+        this.confirmation = true; // Afficher la confirmation de la réservation
+      },
+      (error) => {
+        console.error('Erreur lors de la réservation:', error);
+        alert('Une erreur est survenue lors de la réservation.');
+      }
+    );
+  }
 
 
 
@@ -182,6 +226,8 @@ export class PriseRdvComponent {
     return creneau.slice(0, -3); // Enlever les 3 derniers caractères
   }
  
+
+
 
    // Réinitialiser le formulaire pour prendre un autre rendez-vous
    resetForm() {

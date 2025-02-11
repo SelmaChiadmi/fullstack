@@ -20,7 +20,7 @@
 
       <div class="boutons">
         <button class= "annuler_demande" type="button"  (click)=cancel() >Annuler</button>
-        <button class= "confirm_rdv" type="submit">Confirmer</button>    
+        <button class= "confirm_rdv" (click)="sendCenterId()" type="submit">Confirmer</button>    
      </div>
 
      <!-- Erreurs -->
@@ -77,7 +77,7 @@
   <p>Le mail n'existe pas dans notre base de donnée</p>
   <p>Veuillez remplir le formulaire suivant :</p>
   <div class="app-prise-rdv">
-    <app-prise-rdv *ngIf="center" [creneaux]="center.creneaux" [center]="center" (onCancel)="cancel()" [mail]="predefinedMail" ></app-prise-rdv>
+    <app-prise-rdv *ngIf="center"  [center]="center" (onCancel)="cancel()" [mail]="predefinedMail" ></app-prise-rdv>
   </div>
 </div>
 
