@@ -43,8 +43,10 @@ export class SearchCenterComponent implements OnInit {
   }
 
 
+
   // Fonction de recherche
-  onSearchEnter() {
+
+  onSearch(){
     const searchText = this.searchText.trim().toLowerCase();
     
     if (searchText === '') {
@@ -54,17 +56,10 @@ export class SearchCenterComponent implements OnInit {
         center.ville.toLowerCase().includes(searchText) 
       );
     }
-    this.isSearch = true;
+  }
+
 
   
-
-    // Debug
-    // console.log('onSearchEnter');
-    // console.log(this.filteredCenters);
-    // console.log(this.centers);
-    // console.log(this.searchText);
-
-  }
   
 
   // Fonction de sélection d'un centre
@@ -90,6 +85,8 @@ export class SearchCenterComponent implements OnInit {
     this.centerSelected.emit(false);
 
   }
+
+
 
   // Fonction de suppression d'un centre
   delete(center: VaccinationCenter) {
