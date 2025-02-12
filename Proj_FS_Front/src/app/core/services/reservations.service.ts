@@ -21,17 +21,15 @@ export class ReservationService {
 
   // Fonction pour booker une reservation
   bookAppointment(centreId: number, date: string, heure: string, patient: Patient): Observable<any> {
-    const url = `${this.baseUrl}/${centreId}/bookings`;
+    const url = `${this.baseUrl}/${centreId}/bookings?date=${date}&heure=${heure}`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    const payload = { date, heure, ...patient };
-
-    return this.http.post(url, payload, { headers });
+  
+    return this.http.post(url, patient, { headers });
   }
 
   // Fonction pour annuler une réservation
   cancelReservation(bookingId: number): Observable<any> {
     const url = `${this.baseUrl}/booking/${bookingId}`;
     return this.http.delete(url);
-  }
+  } 
 }

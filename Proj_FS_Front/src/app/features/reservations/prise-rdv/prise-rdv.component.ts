@@ -133,20 +133,20 @@ export class PriseRdvComponent {
         console.log('Patient créé avec succès :', response);
         // Après avoir créé le patient, procéder à la réservation
         this.makeReservation(response);  // Appeler la fonction pour réserver le créneau
-        console.log('Reservation effectuée');
+  
       },
       (error) => {
         console.error('Erreur lors de la création du patient :', error);
       }
     );
-      console.log('Nom:', this.name);
-      console.log('Prénom:', this.surname);
-      console.log('Centre:', this.center);
-      console.log('Mail:', this.mail);
-      console.log('Téléphone:', this.phone);
-      console.log('Date de naissance:', this.birthDate);
-      console.log('Date choisie:', this.chosenDate);
-      console.log('Heure choisie:', this.chosenTime);
+      //console.log('Nom:', this.name);
+      //console.log('Prénom:', this.surname);
+      //console.log('Centre:', this.center);
+      //console.log('Mail:', this.mail);
+      //console.log('Téléphone:', this.phone);
+      //console.log('Date de naissance:', this.birthDate);
+      //console.log('Date choisie:', this.chosenDate);
+      //console.log('Heure choisie:', this.chosenTime);
       // confirmation 
       this.confirmation = true;
     

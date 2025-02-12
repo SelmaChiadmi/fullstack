@@ -42,6 +42,7 @@ export class SearchCenterComponent implements OnInit {
     //console.log(this.centers);
   }
 
+
   // Fonction de recherche
   onSearchEnter() {
     const searchText = this.searchText.trim().toLowerCase();
@@ -65,6 +66,7 @@ export class SearchCenterComponent implements OnInit {
 
   }
   
+
   // Fonction de sélection d'un centre
   selectCenter(center: VaccinationCenter) {
     this.center = center;

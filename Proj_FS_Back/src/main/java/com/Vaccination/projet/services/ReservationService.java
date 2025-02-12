@@ -59,15 +59,14 @@ public class ReservationService {
         // Étape 1 : Récupérer les médecins disponibles pour le centre
         List<employes> doctors = employeRepository.findDoctorsByCentreId(centreId);
 
-            // Étape 2 : Rechercher le créneau correspondant
-            creneaux creneau = creneauRepository.findByJourAndHeureAndCentreId(date, heure, centreId)
-            .orElseThrow(() -> new IllegalStateException("Le créneau demandé n'existe pas ou n'est pas disponible."));
+        // Étape 2 : Rechercher le créneau correspondant
+        creneaux creneau = creneauRepository.findByJourAndHeureAndCentreId(date, heure, centreId)
+        .orElseThrow(() -> new IllegalStateException("Le créneau demandé n'existe pas ou n'est pas disponible."));
 
         // Étape 3 : Vérifier la disponibilité du créneau
         if (!creneau.isDisponible()) {
             throw new IllegalStateException("Ce créneau n'est plus disponible.");
         }
-
             
         if (doctors.isEmpty()) {
             throw new IllegalStateException("Aucun médecin disponible dans ce centre");

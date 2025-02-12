@@ -40,7 +40,7 @@ public class ReservationController {
         System.out.println("Patient DTO: " + patientDto);
         try {
             // Appel au service pour créer une réservation
-            reservations reservation = reservationService.bookAppointment(centreId,date,heure, patientDto);
+            reservationService.bookAppointment(centreId,date,heure, patientDto);
 
             // Retourne la réservation avec un statut 201 Created
             return ResponseEntity.status(HttpStatus.CREATED).body("resa prise en compte");

@@ -6,6 +6,9 @@ import { PriseRdvComponent } from '../prise-rdv/prise-rdv.component';
 import { VaccinationCenterService } from '../../../core/services/vaccination-centers.service';
 import { EmailVerificationService } from '../../../core/services/email_verif.service';
 import { CreneauService } from '../../../core/services/creneau.service';
+import { Patient } from '../../../core/models/patients.model';
+import { ReservationService } from '../../../core/services/reservations.service';
+
 
 @Component({
   selector: 'app-prise-rdv-verif-mail',
@@ -21,11 +24,11 @@ import { CreneauService } from '../../../core/services/creneau.service';
 })
 export class PriseRdvVerifMailComponent {
 
-  constructor(private emailVerificationService: EmailVerificationService , private creneauService: CreneauService) {}
+  constructor(private emailVerificationService: EmailVerificationService , private creneauService: CreneauService,private reservationService : ReservationService) {}
 
 
 
-  @Input() center?: VaccinationCenter; // Centre sélectionné
+  @Input() center!: VaccinationCenter; // Centre sélectionné
   @Input() creneaux: string[] = []; // Horaires disponibles spécifiques au centre
   @Input() receivedCenterId?: number; // ID du centre sélectionné 
   @Output() onCancel = new EventEmitter<void>(); // Annulation
@@ -173,12 +176,41 @@ export class PriseRdvVerifMailComponent {
     console.log('Date choisie:', this.chosenDate);
     console.log('Heure choisie:', this.chosenTime);
     this.confirmation = true;
-
-
+    //this.makeReservation(); //-->il faut récupérer les données du patient pour les envoyer à la méthode makeReservation
   } else {
     console.error(this.errorMessage);
   }
 }
+
+
+    // Fonction pour effectuer la réservation
+    makeReservation(patient: Patient) {
+      const birthDate = new Date(patient.birthDate);
+      const appointmentData = {
+        date: this.chosenDate,
+        heure: this.chosenTime,
+        patientDto: {
+          lastName: patient.lastName,
+          firstName: patient.firstName,
+          email: patient.email,
+          telephone: patient.telephone,
+          birthDate: patient.birthDate 
+        }
+      };
+
+      // Appel à ReservationService pour réserver
+      this.reservationService.bookAppointment(this.center.id, this.chosenDate, this.chosenTime, appointmentData.patientDto).subscribe(
+        (response) => {
+          console.log('Réservation effectuée avec succès:', response);
+          this.confirmation = true; // Afficher la confirmation de la réservation
+        },
+        (error) => {
+          console.error('Erreur lors de la réservation:', error);
+          alert('Une erreur est survenue lors de la réservation.');
+        }
+      );
+    }
+
 
 
    // Réinitialiser le formulaire pour prendre un autre rendez-vous
