@@ -5,7 +5,7 @@ import java.util.Random;
 
 import org.hibernate.internal.util.securitymanager.SystemSecurityManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.Vaccination.projet.Repositories.CentreRepository;
@@ -22,20 +22,20 @@ public class EmployesService {
     @Autowired
     private CentreRepository centreRepository;
 
-    private final PasswordEncoder passwordEncoder;
+    //private final PasswordEncoder passwordEncoder;
 
 
     // @Autowired
     //private PasswordEncoder passwordEncoder;
 
 
-    public EmployesService(EmployesRepo employesRepo, PasswordEncoder passwordEncoder) {
+    public EmployesService(EmployesRepo employesRepo) {
         this.employesRepo = employesRepo;
-        this.passwordEncoder = passwordEncoder;
+       // this.passwordEncoder = passwordEncoder;
         
     }
 
-    public employes createEmploye(String nom, String prenom, String mail, boolean isMed, boolean isAdmin, boolean isSuperAdmin, int telephone, int centreId) {
+    /*public employes createEmploye(String nom, String prenom, String mail, boolean isMed, boolean isAdmin, boolean isSuperAdmin, int telephone, int centreId) {
         centres centre = centreRepository.findById(centreId)
                                          .orElseThrow(() -> new RuntimeException("Centre introuvable"));
     
@@ -43,15 +43,15 @@ public class EmployesService {
         String defaultPassword = "defaultPassword123"; // À changer après la première connexion
     
         // Hachage du mot de passe par défaut
-        String hashedPassword = passwordEncoder.encode(defaultPassword);
+        //String hashedPassword = passwordEncoder.encode(defaultPassword);
     
         // Créer l'employé
-        employes employe = new employes(nom, prenom, mail, hashedPassword, isMed, isAdmin, isSuperAdmin, telephone);
+        employes employe = new employes(nom, prenom, mail, isMed, isAdmin, isSuperAdmin, telephone);
         employe.setCentre(centre);
     
         // Sauvegarder l'employé
         return employesRepo.save(employe);
-    }
+    }*/
     
 
     public List<employes> getAllEmployesByCityId(int id_centre){

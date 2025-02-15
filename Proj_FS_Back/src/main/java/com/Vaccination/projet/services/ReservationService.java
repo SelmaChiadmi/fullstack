@@ -60,39 +60,53 @@ public class ReservationService {
      public reservations bookAppointment(int centreId, LocalDate date, LocalTime heure, patientDto patientDto) {
         // Étape 1 : Récupérer les médecins disponibles pour le centre
         List<employes> doctors = employeRepository.findDoctorsByCentreId(centreId);
+    
 
             // Étape 2 : Rechercher le créneau correspondant
-            creneaux creneau = creneauRepository.findByJourAndHeureAndCentreId(date, heure, centreId)
+            creneaux creneau = creneauRepository.findByCentreIdAndJourAndHeure(centreId,date, heure)
+            
             .orElseThrow(() -> new IllegalStateException("Le créneau demandé n'existe pas ou n'est pas disponible."));
+        
+       
 
         // Étape 3 : Vérifier la disponibilité du créneau
         if (!creneau.isDisponible()) {
             throw new IllegalStateException("Ce créneau n'est plus disponible.");
         }
+        
 
         
        
         if (doctors.isEmpty()) {
             throw new IllegalStateException("Aucun médecin disponible dans ce centre");
         }
+      
 
         patient patient = patientService.getOrCreatePatient(patientDto);
+        
 
         // Étape 2 : Sélectionner un médecin aléatoire
         Random random = new Random();
         employes selectedDoctor = doctors.get(random.nextInt(doctors.size()));
-    
-
+       
         
         // Étape 4 : Créer une nouvelle réservation
         reservations reservation = new reservations(patient, selectedDoctor, false, creneau);
+        
+        System.out.println(creneau);
         creneau.setDisponible(false);
+       
+        creneauRepository.save(creneau);
+       
+        //associer le patient a la resa
+        reservation.setPatient(patient);
+        
+        reservationrepo.save(reservation);
+        
 
-        //ajouter la resa dans la liste des resa du patient
-        patient.addReservation(reservation);
-        patientRepository.save(patient);
         // Étape 5 : Sauvegarder la réservation
-        return reservationrepo.save(reservation);
+        return reservation;
+        
     }
 
     @Transactional

@@ -1,4 +1,5 @@
 package com.Vaccination.projet.security;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,20 +11,19 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable())  // Désactiver CSRF pour permettre les requêtes POST
+            .authorizeHttpRequests(authz -> authz
+                .requestMatchers("/public/**").permitAll()  // Corrigé avec "/"
+                .requestMatchers("/admin/**").authenticated()
+                .anyRequest().permitAll()  // Sécuriser le reste
+            )
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http)
-            throws Exception {
-
-        http.authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/public/**").permitAll()
-                        .requestMatchers("/admin/**").authenticated()
-                )
-                .httpBasic(); 
-
-                return http.build(); 
-            }
-                
+        return http.build();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

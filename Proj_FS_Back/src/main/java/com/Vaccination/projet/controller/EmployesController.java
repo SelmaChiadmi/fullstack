@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Vaccination.projet.entities.employes;
 import com.Vaccination.projet.services.EmployesService;
-import com.Vaccination.projet.dto.CreateEmployeDto;
+//import com.Vaccination.projet.dto.CreateEmployeDto;
 
 @RestController
 public class EmployesController {
@@ -28,7 +28,7 @@ public class EmployesController {
         this.employesService = employesService;
     }
 
-    @PostMapping("public/create/centre/{id}")
+    /*@PostMapping("public/create/centre/{id}")
     public ResponseEntity<String> createEmploye(@RequestBody CreateEmployeDto createEmployeDto, @PathVariable("id") int centreId) {
         try {
             // Vérification de l'existence de l'email avant de créer l'employé
@@ -52,7 +52,7 @@ public class EmployesController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la création de l'employé: " + e.getMessage());
         }
-    }
+    }*/
 
     
 

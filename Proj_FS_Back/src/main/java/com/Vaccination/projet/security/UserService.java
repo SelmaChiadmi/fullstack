@@ -1,4 +1,4 @@
-package com.Vaccination.projet.security;
+/*package com.Vaccination.projet.security;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,4 +13,4 @@ public class UserService {
     public String encodePassword(String rawPassword) {
         return passwordEncoder.encode(rawPassword);
     }
-}
+}*/
