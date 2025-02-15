@@ -1,4 +1,4 @@
-/*package com.Vaccination.projet.utils;
+package com.Vaccination.projet.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -58,5 +58,5 @@ public class JwtTokenProvider {
                 .signWith(key, SignatureAlgorithm.HS256)  // Utilisation de la clé au lieu de la chaîne de caractères
                 .compact();
     }
-}*/
+}
 

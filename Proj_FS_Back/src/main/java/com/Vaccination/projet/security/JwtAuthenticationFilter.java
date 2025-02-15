@@ -1,4 +1,4 @@
-/*package com.Vaccination.projet.security;
+package com.Vaccination.projet.security;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -63,5 +63,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
-}*/
+}
 

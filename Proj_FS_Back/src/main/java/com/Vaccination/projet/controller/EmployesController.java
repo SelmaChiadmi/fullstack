@@ -62,7 +62,7 @@ public class EmployesController {
          System.out.println("L'employé a été supprimé");
     }
 
-    @GetMapping("public/centre/{id}/medecin")
+    @GetMapping("admin/centre/{id}/medecin")
     public ResponseEntity<List<employes>> rechercherMedecins(
             @PathVariable("id") int centreId,
             @RequestParam  String nom ) {

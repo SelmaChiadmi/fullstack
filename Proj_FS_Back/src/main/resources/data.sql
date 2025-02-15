@@ -13,10 +13,10 @@ INSERT INTO t_centres (id, ville, nom) VALUES
 
 -- Insérer des données dans t_employes
 INSERT INTO t_employes (id, nom, prenom, mail, mdp, id_centre, is_med, is_admin, is_super_admin, telephone) VALUES
-(1, 'Dupont', 'Jean','jean.dupont@gmail.com','abcd', 1, TRUE, FALSE, FALSE, 0612345678), -- Médecin à Paris
-(2, 'Martin', 'Alice','Alice.Martin@gmail.com', 'alicemartin', 1, FALSE, TRUE, FALSE, 0623456789), -- Administrateur à Paris
-(3, 'Durand', 'Paul','durand.paul@gmail.com', '1234', 2, TRUE, FALSE, FALSE, 0634567890), -- Médecin à Lyon
-(4, 'Morel', 'Sophie','sophie.morel@gmail.com', 'motdepasse', 3, FALSE, FALSE, TRUE, 0645678901); -- Super administratrice à Marseille*/
+
+(1, 'Martin', 'Alice','Alice.Martin@gmail.com', '$2y$10$YrWNHZA/BnArgaVyju.Vk.7BKDuWjcVTuKAbPNc8RyyOwPZxbBiIe', 1, FALSE, TRUE, FALSE, 0623456789), -- Administrateur à Paris
+(2, 'Durand', 'Paul','durand.paul@gmail.com', '$2y$10$1bWeql/sFeDHMFw.0GF.0u6ADIYED5GQrtc4MmaMBNsTFrPGDV.o.', 2, TRUE, FALSE, FALSE, 0634567890); -- Médecin à Lyon
+
 
 /*-- Insérer des données dans t_patients
 INSERT INTO t_patients (id, nom, prenom, mail, telephone, date_naissance) VALUES
