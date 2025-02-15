@@ -32,7 +32,7 @@ public class ReservationController {
     public ResponseEntity<Object> bookAppointment(@PathVariable int centreId,
                                                  @RequestParam("date") LocalDate date,
                                                  @RequestParam("heure") LocalTime heure,
-                                                  @RequestBody patientDto patientDto) {
+                                                 @RequestBody patientDto patientDto) {
 
         System.out.println("Centre ID: " + centreId);
         System.out.println("Date: " + date);
@@ -40,7 +40,7 @@ public class ReservationController {
         System.out.println("Patient DTO: " + patientDto);
         try {
             // Appel au service pour créer une réservation
-            reservations reservation = reservationService.bookAppointment(centreId,date,heure, patientDto);
+            reservationService.bookAppointment(centreId,date,heure, patientDto);
 
             // Retourne la réservation avec un statut 201 Created
             return ResponseEntity.status(HttpStatus.CREATED).body("resa prise en compte");

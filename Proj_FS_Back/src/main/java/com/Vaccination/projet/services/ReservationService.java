@@ -52,15 +52,14 @@ public class ReservationService {
         this.patientRepository = patientrepo;
         this.creneauRepository = creneauRepo;
         this.employeRepository = employesRepo;
-      
-
-    }
+        }
 
 
      public reservations bookAppointment(int centreId, LocalDate date, LocalTime heure, patientDto patientDto) {
         // Étape 1 : Récupérer les médecins disponibles pour le centre
         List<employes> doctors = employeRepository.findDoctorsByCentreId(centreId);
     
+
 
             // Étape 2 : Rechercher le créneau correspondant
             creneaux creneau = creneauRepository.findByCentreIdAndJourAndHeure(centreId,date, heure)
@@ -69,14 +68,17 @@ public class ReservationService {
         
        
 
+
         // Étape 3 : Vérifier la disponibilité du créneau
         if (!creneau.isDisponible()) {
             throw new IllegalStateException("Ce créneau n'est plus disponible.");
         }
+
         
 
         
        
+
         if (doctors.isEmpty()) {
             throw new IllegalStateException("Aucun médecin disponible dans ce centre");
         }
