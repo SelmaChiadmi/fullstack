@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EventEmitter, Output } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { AdminMenuComponent } from "../admin-menu/admin-menu.component";
 
 @Component({
   selector: 'app-button-to-login',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AdminMenuComponent],
   templateUrl: './button-to-login.component.html',
   styleUrls: ['./button-to-login.component.css']
 })
@@ -14,11 +15,13 @@ import { OnInit } from '@angular/core';
 export class ButtonToLoginComponent implements OnInit {
   ngOnInit(): void {}
 
-  @Output() onLogin = new EventEmitter<boolean>();
+  @Output() showLogin = new EventEmitter<boolean>();
+  @Output() onSignout = new EventEmitter<boolean>();
+
 
   login_show() {
     // Simule un changement d'état,
-    this.onLogin.emit(false); // Informe le parent de cacher <app-search-center>
+    this.showLogin.emit(false); // Informe le parent de cacher <app-search-center>
   }
 
   // Booléen pour afficher le formulaire de connexion
@@ -33,12 +36,16 @@ export class ButtonToLoginComponent implements OnInit {
 
   // Méthode pour se connecter ( à implémenter avec le service d'authentification )
   signIn() {
-      console.log(`you signed in ! :)`);
+    this.isLoggedIn = true;
+    this.login = false;
+    console.log(`you signed in ! :)`);
   }
 
+
   Cancel() {
-    console.log('cancel');
     this.login = false;
-    this.onLogin.emit(true);
+    this.isLoggedIn = false;
+    this.onSignout.emit(true);
+    console.log('cancel');
   }
 }

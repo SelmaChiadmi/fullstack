@@ -20,7 +20,7 @@
 
       <div class="boutons">
         <button class= "annuler_demande" type="button"  (click)=cancel() >Annuler</button>
-        <button class= "confirm_rdv" type="submit">Confirmer</button>    
+        <button class= "confirm_rdv" (click)="sendCenterId()" type="submit">Confirmer</button>    
      </div>
 
      <!-- Erreurs -->
@@ -40,20 +40,28 @@
     <div class="row_input">
             <div class="form_input" >
                 <label for="chosendate">Date du rendez-vous :</label>
-                <input type="date" id="date" [(ngModel)]="chosenDate"   name="date" required  />
+                <input type="date" id="date" [(ngModel)]="chosenDate" (change)="onDateChange()"
+                 name="date" required  />
             </div>
 
-        <div class="form_input">
-            <label for="chosenTime">Créneau souhaité :</label>
-            <select id="chosenTime" [(ngModel)]="chosenTime" name="chosenCreneau">
+            <div class="form_input">
+              <label for="chosenTime">Créneau souhaité :</label>
+              <select
+                id="chosenTime"
+                [(ngModel)]="chosenTime"
+                name="chosenCreneau"
+                required
+              >
                 <option value="" disabled selected>Choisir un créneau</option>
-                <option *ngFor="let creneau of creneaux" [value]="creneau">{{ creneau }}</option>
-            </select>
-        </div>
+                <option *ngFor="let creneau of creneaux" [value]="creneau">
+                  {{ formatCreneau(creneau) }}
+                </option>
+              </select>
+            </div>
       </div>
       <div class="boutons" *ngIf="MailisinDatabase">
         <button class= "annuler_demande" type="button" (click)=cancel() >Annuler</button>
-        <button class= "confirm_rdv" type="submit">Confirmer</button>    
+        <button class= "confirm_rdv" type="submit"  >Confirmer</button>    
       </div>
     </form>
    
@@ -69,7 +77,7 @@
   <p>Le mail n'existe pas dans notre base de donnée</p>
   <p>Veuillez remplir le formulaire suivant :</p>
   <div class="app-prise-rdv">
-    <app-prise-rdv *ngIf="center" [creneaux]="center.creneaux" [center]="center" (onCancel)="cancel()" [mail]="predefinedMail" ></app-prise-rdv>
+    <app-prise-rdv *ngIf="center"  [center]="center" [receivedCenterId]="center.id" (onCancel)="cancel()" [mail]="predefinedMail" ></app-prise-rdv>
   </div>
 </div>
 
@@ -77,11 +85,11 @@
 <div>
 
 <!--Confirmation Rendez-vous-->
-<div class="container_confirmation">
+<div class="container_confirmation_rdv">
 <div *ngIf="confirmation" class="confirmation">
     <p>Votre rendez-vous a bien été enregistré !</p>
     <p><strong>Date du rendez-vous:</strong> {{ chosenDate| date:'dd/MM/yyyy' }}</p>
-    <p><strong>Créneau choisi:</strong> {{ chosenTime }}</p>
+    <p><strong>Créneau choisi:</strong> {{ formatCreneau(chosenTime) }}</p>
 </div>
 <div class="boutons" *ngIf="confirmation">
     <button class= "confirm_rdv" (click)=cancel()>Prendre un autre rendez-vous</button>

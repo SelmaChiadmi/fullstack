@@ -41,6 +41,38 @@ public class PatientService {
         return patientrepo.findAll();
     }
 
+        
+    // Récupérer un patient par son email
+
+    public Optional<patientDto> getPatientByEmail(String email) {
+        patient patient = patientrepo.findByMail(email);
+        if (patient == null) {
+            return Optional.empty();
+        }
+
+        // Convertir le patient en patientDto
+        patientDto dto = new patientDto();
+        dto.setFirstName(patient.getPrenom());
+        dto.setLastName(patient.getNom());
+        dto.setEmail(patient.getMail());
+        dto.setTelephone(patient.getTelephone());
+        dto.setBirthDate(patient.getDate_naissance());
+
+        return Optional.of(dto);
+    }
+
+
+    public patient createNewPatient(patientDto patientDto) {
+        patient newPatient = new patient();
+        newPatient.setNom(patientDto.getLastName());
+        newPatient.setPrenom(patientDto.getFirstName());
+        newPatient.setTelephone(patientDto.getTelephone());
+        newPatient.setDate_naissance(patientDto.getBirthDate());
+        newPatient.setMail(patientDto.getEmail());
+    
+        return newPatient;
+    }
+
   
     public patient getOrCreatePatient(patientDto patientDto) {
         // Vérifier si le patient existe déjà
@@ -90,36 +122,6 @@ public class PatientService {
 }
 
 
-    //Ajout de Wassil
-    // Récupérer un patient par son email
-
-    public Optional<patientDto> getPatientByEmail(String email) {
-        patient patient = patientrepo.findByMail(email);
-        if (patient == null) {
-            return Optional.empty();
-        }
-
-        // Convertir le patient en patientDto
-        patientDto dto = new patientDto();
-        dto.setFirstName(patient.getPrenom());
-        dto.setLastName(patient.getNom());
-        dto.setEmail(patient.getMail());
-        dto.setTelephone(patient.getTelephone());
-        dto.setBirthDate(patient.getDate_naissance());
-
-        // Convertir les réservations en reservationDto
-        List<reservationDto> reservationsDto = patient.getReservations().stream().map(reservation -> {
-            return new reservationDto(
-                reservation.getCreneau().getCentre().getNom(),    // Nom du centre
-                reservation.getCreneau().getDate(),              // Date de la réservation
-                reservation.getCreneau().getHeure(),             // Heure de la réservation
-                reservation.getemploye().getNom()              // Nom du médecin
-            );
-        }).collect(Collectors.toList());
-
-        dto.setReservations(reservationsDto);
-        return Optional.of(dto);
-    }
 
 
 

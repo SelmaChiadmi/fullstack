@@ -2,12 +2,9 @@
 <div class="search_container">
 <div class="recherche" *ngIf="!isCenterSelected">
   <div class="recherche_et_bouton">
-    <input type="text" placeholder="Rechercher une ville..." [(ngModel)]="searchText" (keyup.enter)="onSearchEnter()" maxlength="15"/>
-    <button (click)="onSearchEnter()">
-      <p> Rechercher </p>
-    </button>
+    <input type="text" placeholder="Rechercher une ville..." [(ngModel)]="searchText" (input)="onSearch()"  maxlength="15"/>
+    
   </div>
-    <p class ="no_results" *ngIf="filteredCenters.length === 0 && isSearch"> Aucun Résultats </p>
   </div>
  
 
@@ -28,5 +25,5 @@
   
   <!--<app-prise-rdv *ngIf="center" [creneaux]="center.creneaux" [center]="center" (onCancel)="cancelSelection()" ></app-prise-rdv>-->
   
-  <app-prise-rdv-verif-mail *ngIf="center" [creneaux]="center.creneaux" [center]="center" (onCancel)="cancelSelection()" ></app-prise-rdv-verif-mail> 
+  <app-prise-rdv-verif-mail *ngIf="center"  [center]="center"   (onCancel)="cancelSelection()" ></app-prise-rdv-verif-mail> 
 </div>

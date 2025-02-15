@@ -23,8 +23,8 @@
 
       <div class="row_input">
         <div class="form_input">
-            <label for="BirthDate">Date de naissance :</label>
-            <input type="date" id="BirthDate" [(ngModel)]="birthDate" name="BirthDate" required />
+            <label for="birthDate">Date de naissance :</label>
+            <input type="date" id="birthDate" [(ngModel)]="birthDate" name="BirthDate" required />
         </div>
       
         <div class="form_input">
@@ -36,23 +36,31 @@
       <div class="row_input">
         <div class="form_input">
             <label for="phone">Numéro de téléphone :</label>
-            <input type="text" id="phone" [(ngModel)]="phone" name="phone" required />
+            <input type="text" id="phone"  [(ngModel)]="phone"    name="phone"  required />
         </div>
 
             <div class="form_input" >
                 <label for="chosendate">Date du rendez-vous :</label>
-                <input type="date" id="date" [(ngModel)]="chosenDate"   name="date" required  />
+                <input type="date" id="chosendate" [(ngModel)]="chosenDate" (change)="onDateChange()" name="date" required  />
             </div>
             
         </div>    
 
         <div class="form_input">
             <label for="chosenTime">Créneau souhaité :</label>
-            <select id="chosenTime" [(ngModel)]="chosenTime" name="chosenCreneau">
-                <option value="" disabled selected>Choisir un créneau</option>
-                <option *ngFor="let creneau of creneaux" [value]="creneau">{{ creneau }}</option>
+            <select
+              id="chosenTime"
+              [(ngModel)]="chosenTime"
+              name="chosenCreneau"
+              required
+            >
+              <option value="" disabled selected>Choisir un créneau</option>
+              <option *ngFor="let creneau of creneaux" [value]="creneau">
+                {{ formatCreneau(creneau) }}
+              </option>
             </select>
-        </div>
+          </div>
+          
       <div class="boutons">
 
         <button class= "annuler_demande" type="button" (click)=cancel() >Annuler</button>
