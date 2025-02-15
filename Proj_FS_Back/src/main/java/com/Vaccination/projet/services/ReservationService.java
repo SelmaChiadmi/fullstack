@@ -52,34 +52,35 @@ public class ReservationService {
         this.patientRepository = patientrepo;
         this.creneauRepository = creneauRepo;
         this.employeRepository = employesRepo;
-      
+        }
 
-    }
 
-  
-
-     public reservations bookAppointment(int centreId, int creneauId, patientDto patientDto) {
+     public reservations bookAppointment(int centreId, LocalDate date, LocalTime heure, patientDto patientDto) {
         // Étape 1 : Récupérer les médecins disponibles pour le centre
         List<employes> doctors = employeRepository.findDoctorsByCentreId(centreId);
-        patient patient = patientService.getOrCreatePatient(patientDto);
 
+        // Étape 2 : Rechercher le créneau correspondant
+        creneaux creneau = creneauRepository.findByJourAndHeureAndCentreId(date, heure, centreId)
+        .orElseThrow(() -> new IllegalStateException("Le créneau demandé n'existe pas ou n'est pas disponible."));
+
+        // Étape 3 : Vérifier la disponibilité du créneau
+        if (!creneau.isDisponible()) {
+            throw new IllegalStateException("Ce créneau n'est plus disponible.");
+        }
+            
         if (doctors.isEmpty()) {
             throw new IllegalStateException("Aucun médecin disponible dans ce centre");
         }
+
+        patient patient = patientService.getOrCreatePatient(patientDto);
 
         // Étape 2 : Sélectionner un médecin aléatoire
         Random random = new Random();
         employes selectedDoctor = doctors.get(random.nextInt(doctors.size()));
     
 
-        // Étape 3 : Vérifier si le créneau est disponible
-        Optional<creneaux> creneauOpt = creneauRepository.findById(creneauId);
-        if (!creneauOpt.isPresent() || !creneauOpt.get().isDisponible()) {
-            throw new IllegalStateException("Ce créneau n'est pas disponible.");
-        }
         
         // Étape 4 : Créer une nouvelle réservation
-        creneaux creneau = creneauOpt.get();
         reservations reservation = new reservations(patient, selectedDoctor, false, creneau);
         creneau.setDisponible(false);
 

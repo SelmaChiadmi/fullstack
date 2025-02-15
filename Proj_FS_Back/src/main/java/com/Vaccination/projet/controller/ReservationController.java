@@ -13,7 +13,8 @@ import com.Vaccination.projet.dto.reservationDto;
 import com.Vaccination.projet.services.ReservationService;
 import com.Vaccination.projet.entities.reservations;
 
-
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
@@ -27,13 +28,19 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @PostMapping("public/centre/{centreId}/timeslots/{creneauId}/bookings")
+    @PostMapping("public/centre/{centreId}/bookings")
     public ResponseEntity<Object> bookAppointment(@PathVariable int centreId,
-                                                  @PathVariable int creneauId,
-                                                  @RequestBody patientDto patientDto) {
+                                                 @RequestParam("date") LocalDate date,
+                                                 @RequestParam("heure") LocalTime heure,
+                                                 @RequestBody patientDto patientDto) {
+
+        System.out.println("Centre ID: " + centreId);
+        System.out.println("Date: " + date);
+        System.out.println("Heure: " + heure);
+        System.out.println("Patient DTO: " + patientDto);
         try {
             // Appel au service pour créer une réservation
-            reservations reservation = reservationService.bookAppointment(centreId, creneauId, patientDto);
+            reservationService.bookAppointment(centreId,date,heure, patientDto);
 
             // Retourne la réservation avec un statut 201 Created
             return ResponseEntity.status(HttpStatus.CREATED).body("resa prise en compte");
