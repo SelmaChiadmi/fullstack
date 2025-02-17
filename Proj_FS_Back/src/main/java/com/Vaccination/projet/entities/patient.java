@@ -44,7 +44,10 @@ public class patient {
     }
 
     public void addReservation(reservations reservation) {
+        System.out.println("addResa : je suis a la ligne 47");
         reservations.add(reservation);
+        System.out.println("addResa : je suis a la ligne 49");
+
         reservation.setPatient(this); 
     }
 
