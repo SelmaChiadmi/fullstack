@@ -2,6 +2,7 @@ package com.Vaccination.projet.controller;
 import org.springframework.web.bind.annotation.*;
 import com.Vaccination.projet.entities.centres;
 import com.Vaccination.projet.services.CentreService;
+import com.Vaccination.projet.services.EmployesService;
 
 
 import java.util.List;
@@ -10,13 +11,16 @@ import java.util.List;
 public class CentreController {
 
     private final CentreService centreService;
+    private final EmployesService employesService;
 
     
 
     // Injection par constructeur
-    public CentreController(CentreService centreService) {
+    public CentreController(CentreService centreService, EmployesService employesService) {
         this.centreService = centreService;
+        this.employesService = employesService;
     }
+
 
     @GetMapping("public/centres")
     public List<centres> getCentres() {

@@ -41,26 +41,9 @@ public class PatientService {
         return patientrepo.findAll();
     }
 
-        
-    // Récupérer un patient par son email
-
-    public Optional<patientDto> getPatientByEmail(String email) {
-        patient patient = patientrepo.findByMail(email);
-        if (patient == null) {
-            return Optional.empty();
-        }
-
-        // Convertir le patient en patientDto
-        patientDto dto = new patientDto();
-        dto.setFirstName(patient.getPrenom());
-        dto.setLastName(patient.getNom());
-        dto.setEmail(patient.getMail());
-        dto.setTelephone(patient.getTelephone());
-        dto.setBirthDate(patient.getDate_naissance());
-
-        return Optional.of(dto);
+    public patient getPatientByMail(String email){
+        return patientrepo.findByMail(email);
     }
-
 
     public patient createNewPatient(patientDto patientDto) {
         patient newPatient = new patient();
@@ -91,8 +74,10 @@ public class PatientService {
         newPatient.setDate_naissance(patientDto.getBirthDate());
         newPatient.setMail(patientDto.getEmail());
         
+        
         // Sauvegarder le patient et le retourner
-        return patientrepo.save(newPatient);
+        patientrepo.save(newPatient);
+         return newPatient;
     }
 
     public List<patientDto> searchPatientsByNameAndSurname(String nom, String prenom) {
@@ -120,9 +105,6 @@ public class PatientService {
         return dto;
     }).collect(Collectors.toList());
 }
-
-
-
 
 
    
