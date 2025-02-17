@@ -34,6 +34,8 @@ public class employes {
     private int telephone;
 
     private String mail;
+
+    @JsonIgnore
     private String mdp;
 
     @ManyToOne
@@ -50,7 +52,7 @@ public class employes {
 
     }
 
-    public employes(String nom, String prenom,String mail, String mdp, Boolean is_med, Boolean is_admin, Boolean is_super_admin, int telephone, centres centre) {
+    public employes(String nom, String prenom,String mail, String mdp, Boolean is_med, Boolean is_admin, Boolean is_super_admin, int telephone) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
@@ -59,7 +61,7 @@ public class employes {
         this.is_med = is_med;
         this.is_super_admin = is_super_admin;
         this.telephone = telephone;
-        this.centre = centre;
+
     }
 
     public int getId(){

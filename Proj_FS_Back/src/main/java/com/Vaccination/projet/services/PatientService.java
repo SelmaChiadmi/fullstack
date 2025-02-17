@@ -91,8 +91,10 @@ public class PatientService {
         newPatient.setDate_naissance(patientDto.getBirthDate());
         newPatient.setMail(patientDto.getEmail());
         
+        
         // Sauvegarder le patient et le retourner
-        return patientrepo.save(newPatient);
+        patientrepo.save(newPatient);
+         return newPatient;
     }
 
     public List<patientDto> searchPatientsByNameAndSurname(String nom, String prenom) {
