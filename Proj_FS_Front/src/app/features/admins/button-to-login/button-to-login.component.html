@@ -1,6 +1,3 @@
-<div class="button1_container">
-    <button *ngIf="!login && isLoggedIn"  (click)="Cancel(); "> Sign Out </button>
-</div>
 
 <div class="button_container">
     <button *ngIf="!login && !isLoggedIn"  (click)="displayLogin(); login_show()"> Vous êtes soignant ? </button>
@@ -25,4 +22,3 @@
     
 </div>
 
-<app-admin-menu *ngIf="isLoggedIn" ></app-admin-menu>

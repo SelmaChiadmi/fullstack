@@ -23,7 +23,5 @@
   </div>
   
   
-  <!--<app-prise-rdv *ngIf="center" [creneaux]="center.creneaux" [center]="center" (onCancel)="cancelSelection()" ></app-prise-rdv>-->
-  
-  <app-prise-rdv-verif-mail *ngIf="center"  [center]="center"   (onCancel)="cancelSelection()" ></app-prise-rdv-verif-mail> 
+  <app-confirm-rdv *ngIf="center"  [center]="center"   (onCancel)="cancelSelection()" ></app-confirm-rdv> 
 </div>

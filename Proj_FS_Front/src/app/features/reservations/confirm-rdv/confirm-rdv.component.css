@@ -1,0 +1,89 @@
+
+
+  
+  #nom_select {
+    font-weight: bold;
+  }
+  
+  
+*
+  
+  /* Bloc de confirmation */
+  
+  .container_confirmation{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width:  40vw;
+      position: relative;
+      left:45vw;
+      bottom:10vh;
+    
+  }
+  
+  .confirmation{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40vw;
+      margin-top: 2rem;
+      border-radius:2rem;
+      border: 4px solid var(--electric-violet);
+      color: var(--electric-violet);
+      background-color: white;
+      list-style-type: none;
+      flex-direction: column;
+  }
+
+.formulaire {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70vw;
+    max-width: 90vw;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px 20px;
+    margin-top: 2rem;
+    border-radius:2rem;
+    border: 4px solid var(--electric-violet);
+    color: var(--electric-violet);
+    background-color: white;
+    list-style-type: none; 
+    flex-direction: column;
+    position : relative;
+    left: 28%;
+    bottom: 13rem;
+}
+  
+
+/* choix du créneau */
+#chosenTime{
+    padding: 10px 0px;
+    color: black;
+    font-size: 1rem;
+    border-radius: 4rem;
+    border: 2px solid var(--electric-violet);
+    background-color: white;
+    text-align: center;
+    
+}
+
+
+/* input du mail : élargir */
+#mail{
+    width: 25rem;
+}
+
+.container_confirmation_rdv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width:  40vw;
+    position: relative;
+    top: 20vh;
+}

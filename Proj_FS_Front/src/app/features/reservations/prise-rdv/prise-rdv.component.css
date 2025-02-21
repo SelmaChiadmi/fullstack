@@ -10,7 +10,8 @@
   padding: 10px 20px;
   background-color: var(--electric-violet);
   color: white;
-  width: 45vw;
+  width: 55vw;
+  border-radius: 1rem;
 }
 
 #nom_select {

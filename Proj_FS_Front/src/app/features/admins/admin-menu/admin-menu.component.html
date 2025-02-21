@@ -1,19 +1,25 @@
 
+
 <div class="admin-container">
+  
     <div class="header">
     <h1>DASHBOARD</h1>
   
     <nav class="menu">
       <ul>
-        <li><a (click)="navigateTo('centers')">Centres</a></li>
-        <li><a (click)="navigateTo('super-admins')">Super Admins</a></li>
+        <li><a (click)="navigateTo('centres')">Centres</a></li>
+        <li><a (click)="navigateTo('superadmins')">Super Admins</a></li>
         <li><a (click)="navigateTo('planning')">Planning</a></li>
-        <li><a (click)="navigateTo('my-center')">Mon Centre</a></li>
+        <li><a (click)="navigateTo('mycenter')">Mon Centre</a></li>
         <li><a (click)="navigateTo('reservations')">Espace réservation</a></li>
       </ul>
     </nav>
   </div>
-    <router-outlet></router-outlet>
+  <div class="button1_container">
+    <button   (click)="Cancel(); "> Sign Out </button>
   </div>
+  </div>
+  <router-outlet></router-outlet>
+
   
   

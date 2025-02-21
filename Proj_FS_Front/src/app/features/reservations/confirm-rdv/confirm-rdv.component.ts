@@ -11,7 +11,7 @@ import { ReservationService } from '../../../core/services/reservations.service'
 
 
 @Component({
-  selector: 'app-prise-rdv-verif-mail',
+  selector: 'app-confirm-rdv',
   standalone: true,
   imports: [FormsModule, CommonModule,PriseRdvComponent],
   providers: [
@@ -19,10 +19,10 @@ import { ReservationService } from '../../../core/services/reservations.service'
     EmailVerificationService,
     CreneauService
   ],
-  templateUrl: './prise-rdv-verif-mail.component.html',
-  styleUrl: './prise-rdv-verif-mail.component.css'
+  templateUrl: './confirm-rdv.component.html',
+  styleUrl: './confirm-rdv.component.css'
 })
-export class PriseRdvVerifMailComponent {
+export class ConfirmRdvComponent {
 
   constructor(private emailVerificationService: EmailVerificationService , private creneauService: CreneauService,private reservationService : ReservationService) {}
 
@@ -33,7 +33,6 @@ export class PriseRdvVerifMailComponent {
   @Input() receivedCenterId?: number; // ID du centre sélectionné 
   @Output() onCancel = new EventEmitter<void>(); // Annulation
   @Output() centerIdEmitter = new EventEmitter<number>(); // Émet l'ID du centre sélectionné
-
 
   // Variables pour le formulaire de mail connu
   mail: string = '';
@@ -49,9 +48,7 @@ export class PriseRdvVerifMailComponent {
 
   // Booléen pour afficher la confirmation
   confirmation: boolean = false;
-
-  //mail prédéfini pour le formulaire de mail inconnu : pré-remplissage du mail et ne pas donner la possibilité de le modifier
-  predefinedMail: string = '';
+ 
 
   // Méthode qui pourrait être appelée lorsqu'on veut transmettre l'ID
   sendCenterId() {
@@ -124,7 +121,7 @@ export class PriseRdvVerifMailComponent {
           } else {
             console.log('L\'email n\'existe pas.');
             this.MailisinDatabase = false;
-            this.predefinedMail = this.mail;
+            
           }
           this.isMailGiven = true; // Pour indiquer que l'utilisateur a bien soumis un email
         },
