@@ -118,7 +118,13 @@ export class PriseRdvComponent {
       },
       (error: HttpErrorResponse) => {
         console.error('Erreur lors de la réservation:', error);
-        alert(error.error?.message || 'Une erreur est survenue lors de la réservation.');
+        // le status 201 correspond à une réservation effectuée avec succès et non une erreur
+        if (error.status === 201) { 
+          console.log('Réservation effectuée avec succès:', error);
+          this.confirmation = true;
+        } else {
+          alert(error.error?.message || 'Une erreur est survenue lors de la réservation.');
+        }
       }
     );
   }

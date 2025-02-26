@@ -53,6 +53,13 @@ export class ButtonToLoginComponent implements OnInit {
     this.login = false;
     console.log(`you signed in ! :)`);
     this.router.navigate(['/admin/menu']);
+
+    // envoyer le username, password au backend pour vérification (post)
+    // le backend appelle authentification (appel au service) 
+    // le backend retourne le token jwt au frontend
+    // le frontend stocke le token jwt dans le local storage pour l'utiliser dans les requêtes suivantes
+    // rediriger vers le menu admin 
+    
   }
 
 

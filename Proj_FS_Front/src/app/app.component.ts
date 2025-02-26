@@ -74,7 +74,6 @@ export class AppComponent implements OnInit {
   }
 
   
-
   /**
    *  Méthode pour masquer le composant actuel
    */
