@@ -54,6 +54,7 @@ export class VaccinationCenterService {
    * @description Fonction pour charger les centres de vaccination depuis l'API.
    * @returns {void}
    */
+  
   loadCenters(): void {
     this.http.get<VaccinationCenter[]>(this.apiUrl).subscribe(
       (data) => {

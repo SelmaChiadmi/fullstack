@@ -47,7 +47,6 @@ export class SearchCenterComponent implements OnInit {
 
 
   // Fonction de recherche
-
   onSearch(){
     const searchText = this.searchText.trim().toLowerCase();
     
@@ -60,9 +59,6 @@ export class SearchCenterComponent implements OnInit {
     }
   }
 
-
-  
-  
 
   // Fonction de sélection d'un centre
   selectCenter(center: VaccinationCenter) {
@@ -89,11 +85,7 @@ export class SearchCenterComponent implements OnInit {
     
   }
 
-    @Output() notifyAppComponent = new EventEmitter<boolean>();
-    onShowOtherElementsEvent(show: boolean) {
-      this.notifyAppComponent.emit(show);  // Passer l'information à app.component
-    }
-
+ 
   // Fonction de suppression d'un centre
   delete(center: VaccinationCenter) {
     this.center = undefined;

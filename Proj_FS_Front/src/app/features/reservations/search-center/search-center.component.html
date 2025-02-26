@@ -1,4 +1,5 @@
 
+<!-- barre de recherche -->
 <div class="search_container">
 <div class="recherche" *ngIf="!isCenterSelected">
   <div class="recherche_et_bouton">
@@ -8,7 +9,7 @@
   </div>
  
 
-  
+  <!-- Résultats de recherche  -->
   <div *ngIf="filteredCenters.length > 0 " class="resultats_recherche">
     <ul class="searched_centers">
       <li *ngFor="let center of filteredCenters" >

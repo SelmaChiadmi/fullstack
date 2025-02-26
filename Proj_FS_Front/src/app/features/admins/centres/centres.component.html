@@ -1,3 +1,21 @@
 <div class="container">
-    <p>Centres</p>
+    <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Ville</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let center of centers">
+            <td>{{ center.nom }}</td>
+            <td>{{ center.ville }}</td>
+            <td>
+              <button (click)="editCenter(center.id)">Modifier</button>
+              <button (click)="deleteCenter(center.id)">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>  
 </div>

@@ -27,14 +27,13 @@ export class ConfirmRdvComponent {
   constructor(private emailVerificationService: EmailVerificationService , private creneauService: CreneauService,private reservationService : ReservationService) {}
 
 
-
   @Input() center!: VaccinationCenter; // Centre sélectionné
   @Input() creneaux: string[] = []; // Horaires disponibles spécifiques au centre
   @Input() receivedCenterId?: number; // ID du centre sélectionné 
   @Output() onCancel = new EventEmitter<void>(); // Annulation
   @Output() centerIdEmitter = new EventEmitter<number>(); // Émet l'ID du centre sélectionné
 
-  // Variables pour le formulaire de mail connu
+  // Variables pour le formulaire de rendez-vous
   mail: string = '';
   chosenDate: string = '';
   chosenTime: string = ''; 
@@ -43,26 +42,21 @@ export class ConfirmRdvComponent {
 // Booléen pour afficher le formulaire d'entrée du mail
   isMailGiven: boolean = false;
 
-// Booléen pour valider la présence du mail dans la base de données
-  MailisinDatabase: boolean = false;
-
   // Booléen pour afficher la confirmation
   confirmation: boolean = false;
  
-
-  // Méthode qui pourrait être appelée lorsqu'on veut transmettre l'ID
+  // Méthode qui pourrait être appelée lorsqu'on veut transmettre l'ID du centre sélectionné
   sendCenterId() {
     this.centerIdEmitter.emit(this.receivedCenterId);
   }
 
-  
   // annuler la prise de rendez-vous
   cancel() {
     this.onCancel.emit();
     this.resetForm();
   }
 
-  // Fonction pour valider le formulaire 
+  // Fonction pour valider le formulaire et vérifier les elements
   validateForm(): boolean { 
     if (!this.mail) {
       this.errorMessage = 'Mail manquant';
@@ -78,11 +72,10 @@ export class ConfirmRdvComponent {
     const today = new Date();
     const chosenDateObj = new Date(this.chosenDate);
 
- 
-
     this.errorMessage = '';
     return true;
   }
+
 
   // Fonction pour valider le rendez-vous
   validateAppointment(): boolean {
@@ -110,34 +103,6 @@ export class ConfirmRdvComponent {
     return true
   }
 
-  // Fonction pour soumettre l'email
-  submitMail() {
-    if (this.validateForm()) {
-      this.emailVerificationService.verifyEmail(this.mail).subscribe({
-        next: (exists: boolean) => {
-          if (exists) {
-            console.log('L\'email existe dans la base de données.');
-            this.MailisinDatabase = true;
-          } else {
-            console.log('L\'email n\'existe pas.');
-            this.MailisinDatabase = false;
-            
-          }
-          this.isMailGiven = true; // Pour indiquer que l'utilisateur a bien soumis un email
-        },
-        error: () => {
-          // En cas d'erreur, on suppose que l'email n'existe pas
-          console.error('Erreur lors de la vérification de l\'email. mail inexistant dans la base de données.');
-          this.MailisinDatabase = false; // Considérer comme non trouvé
-          this.isMailGiven = true; // Email a été soumis, même si erreur
-        },
-      });
-    } else {
-      console.error(this.errorMessage);
-      this.MailisinDatabase = false;
-      this.isMailGiven = false;
-    }
-  }
 
   // Fonction pour récupérer les créneaux disponibles
   onDateChange(): void {
@@ -179,7 +144,6 @@ export class ConfirmRdvComponent {
   }
 }
 
-
     // Fonction pour effectuer la réservation
     makeReservation(patient: Patient) {
       const birthDate = new Date(patient.birthDate);
@@ -215,7 +179,6 @@ export class ConfirmRdvComponent {
     this.mail = '';
     this.chosenDate = '';
     this.chosenTime = '';
-    this.MailisinDatabase = false; // Cache la confirmation et réinitialise le formulaire
     this.confirmation = false; // Cache la confirmation et réinitialise le formulaire
   }
 

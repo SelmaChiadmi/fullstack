@@ -39,7 +39,6 @@ export class ButtonToLoginComponent implements OnInit {
   }
 
   
-
   // Booléen pour définir si l'utilisateur est connecté
   isLoggedIn: boolean = false;
 
