@@ -29,7 +29,7 @@ public class ReservationController {
     }
 
     @PostMapping("public/centre/{centreId}/bookings")
-    public ResponseEntity<Object> bookAppointment(@PathVariable int centreId,
+    public ResponseEntity<Object> bookAppointment(@PathVariable("centreId") int centreId,
                                                  @RequestParam("date") LocalDate date,
                                                  @RequestParam("heure") LocalTime heure,
                                                   @RequestBody patientDto patientDto) {
