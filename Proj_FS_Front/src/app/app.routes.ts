@@ -6,7 +6,6 @@ import { SearchCenterComponent } from './features/reservations/search-center/sea
 import { SuperAdminsComponent } from './features/admins/super-admins/super-admins.component';
 import { PlanningComponent } from './features/admins/planning/planning.component';
 import { MycenterComponent } from './features/admins/mycenter/mycenter.component';
-import { ReservationsComponent } from './features/admins/reservations/reservations.component';
 import { ConfirmRdvComponent } from './features/reservations/confirm-rdv/confirm-rdv.component';
 import { Component } from '@angular/core';
 
@@ -24,7 +23,6 @@ export const routes: Routes = [
         { path: 'superadmins', component : SuperAdminsComponent},
         { path: 'planning', component : PlanningComponent},
         { path: 'mycenter', component : MycenterComponent},
-        { path: 'reservations', component :ReservationsComponent},
           ]
     },
       

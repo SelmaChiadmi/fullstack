@@ -43,7 +43,7 @@ table {
     cursor: pointer;
   }
   
-  button:first-child {
+  table button:first-child {
     background-color: #28a745;
     color: white;
   }
@@ -57,3 +57,16 @@ table {
     opacity: 0.8;
   }
   
+  .add-button{
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+  }
+  
+  .add-button:hover {
+    background-color: #0056b3;
+  }

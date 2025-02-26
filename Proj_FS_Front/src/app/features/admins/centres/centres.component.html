@@ -1,4 +1,6 @@
 <div class="container">
+    <button class="add-button" (click)="openNewCenterForm()">+ Nouveau</button>
+    
     <table>
         <thead>
           <tr>
@@ -13,7 +15,6 @@
             <td>{{ center.ville }}</td>
             <td>
               <button (click)="editCenter(center.id)">Modifier</button>
-              <button (click)="deleteCenter(center.id)">Supprimer</button>
             </td>
           </tr>
         </tbody>
