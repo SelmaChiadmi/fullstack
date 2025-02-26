@@ -61,6 +61,7 @@
     }
   }
 </style>
+
 <div class="more_infos" *ngIf="!isCenterSelected && isthisComponentVisible">
   <div class="when_to_vaccinate" *ngIf="isHomePage">
       <p>Vaccination, Dépistage ...</p>
@@ -90,16 +91,12 @@
 
     <!-- Affichage principal -->
     <main class="main" *ngIf="isHomePage && !isCenterSelected && isthisComponentVisible ">
-      <h1>{{ title }}</h1>
+      <h1>Faites vous vacciner !</h1>
     </main>
 
     <!-- Affichage de app-search-center -->
     <router-outlet></router-outlet>
 
-
-
-    <!-- Recherche d'un centre -->
-    <!-- Recherche d'un centre (visible uniquement sur la page d'accueil) -->
   
 
   </div>

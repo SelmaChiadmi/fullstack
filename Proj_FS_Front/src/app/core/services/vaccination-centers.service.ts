@@ -5,9 +5,10 @@
  */
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { VaccinationCenter } from '../models/vaccination-centers.model';
+import { UpdateCentreDto } from '../models/updatecentre.model';
 
 /**
  * @class VaccinationCenterService
@@ -54,7 +55,7 @@ export class VaccinationCenterService {
    * @description Fonction pour charger les centres de vaccination depuis l'API.
    * @returns {void}
    */
-  
+
   loadCenters(): void {
     this.http.get<VaccinationCenter[]>(this.apiUrl).subscribe(
       (data) => {
@@ -81,4 +82,19 @@ export class VaccinationCenterService {
   getCenterById(id: string): Observable<VaccinationCenter> {
     return this.http.get<VaccinationCenter>(`public/centres/${id}`);
   }
+
+
+  updateCenter(centreId: number, centre: UpdateCentreDto): Observable<number>  {
+    const token = localStorage.getItem('jwt');
+    
+    if (!token) {
+      console.error('Token manquant');
+      return throwError(() => new Error('Token d’authentification manquant'));
+    }
+  
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); 
+  
+    return this.http.put<number>(`http://localhost:8080/admin/centre/${centreId}`,centre, { headers });
+  }
+  
 }

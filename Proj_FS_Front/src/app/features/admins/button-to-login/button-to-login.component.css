@@ -139,3 +139,9 @@
       justify-content: center;
       align-items: center;
   }
+
+  .error-message p{
+    color: red;
+    padding: 0.4rem;
+    font-size: 0.8rem;
+  }

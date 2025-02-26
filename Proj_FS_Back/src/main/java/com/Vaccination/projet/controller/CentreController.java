@@ -2,6 +2,8 @@ package com.Vaccination.projet.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.Vaccination.projet.dto.updateCentreDto;
 import com.Vaccination.projet.entities.centres;
 import com.Vaccination.projet.services.CentreService;
 import com.Vaccination.projet.entities.employes;
@@ -9,6 +11,7 @@ import com.Vaccination.projet.services.EmployesService;
 
 
 import java.util.List;
+
 
 @RestController
 public class CentreController {
@@ -39,6 +42,20 @@ public class CentreController {
         return centresList;
 
     }
+
+   
+    // Modifier un centre
+    @PutMapping("admin/centre/{centreId}")
+    public ResponseEntity<Integer> updateCentre(@PathVariable("centreId") int centreId, @RequestBody updateCentreDto centre) {
+        try {
+            centreService.updateCentre(centreId, centre);
+            return ResponseEntity.ok(200);
+        // retourner les erreurs
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(500);
+        }
+    }
+
 
     
 }

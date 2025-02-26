@@ -1,7 +1,7 @@
 <div class="container">
-    <button class="add-button" (click)="openNewCenterForm()">+ Nouveau</button>
+    <button class="add-button" (click)="openNewCenterForm()" *ngIf="!selectedCenter">+ Nouveau</button>
     
-    <table>
+    <table *ngIf="!selectedCenter">
         <thead>
           <tr>
             <th>Nom</th>
@@ -14,10 +14,18 @@
             <td>{{ center.nom }}</td>
             <td>{{ center.ville }}</td>
             <td>
-              <button (click)="editCenter(center.id)">Modifier</button>
+              <button (click)="editCenter(center)">Modifier</button>
 
             </td>
           </tr>
         </tbody>
-      </table>  
+      </table>
+
+      <app-edit-center 
+        *ngIf="selectedCenter" 
+        [center]="selectedCenter" 
+        (centerUpdated)="refreshCenters()">
+      </app-edit-center>
 </div>
+
+

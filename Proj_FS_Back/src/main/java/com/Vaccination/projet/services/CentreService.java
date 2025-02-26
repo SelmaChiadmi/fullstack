@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.Vaccination.projet.Repositories.CentreRepository;
+import com.Vaccination.projet.dto.updateCentreDto;
 import com.Vaccination.projet.entities.centres;
 
 @Service
@@ -40,6 +41,17 @@ public class CentreService {
 
     public List<centres> findByVilleIgnoreCase(String ville){
         return centrerepo.findByVilleIgnoreCase(ville);
+    }
+
+    // modifier un centre
+    public void updateCentre(int centreId, updateCentreDto centreDto) {
+        centres centreToUpdate = centrerepo.findCentreById(centreId);
+        if (centreToUpdate == null) {
+            throw new IllegalStateException("Centre non trouvé.");
+        }
+        centreToUpdate.setNom(centreDto.getNom());
+        centreToUpdate.setVille(centreDto.getVille());
+        centrerepo.save(centreToUpdate);
     }
 
    

@@ -19,7 +19,7 @@ import { OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
 
   ngOnInit(): void {
-    this.router.navigate(['/public']);
+    
   }
   // Titre de l'application
   title = 'Faites vous vacciner !';

@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PriseRdvComponent } from '../prise-rdv/prise-rdv.component';
 import { VaccinationCenterService } from '../../../core/services/vaccination-centers.service';
-import { EmailVerificationService } from '../../../core/services/email_verif.service';
 import { CreneauService } from '../../../core/services/creneau.service';
 import { Patient } from '../../../core/models/patients.model';
 import { ReservationService } from '../../../core/services/reservations.service';
@@ -16,7 +15,6 @@ import { ReservationService } from '../../../core/services/reservations.service'
   imports: [FormsModule, CommonModule,PriseRdvComponent],
   providers: [
     VaccinationCenterService,
-    EmailVerificationService,
     CreneauService
   ],
   templateUrl: './confirm-rdv.component.html',
@@ -24,7 +22,7 @@ import { ReservationService } from '../../../core/services/reservations.service'
 })
 export class ConfirmRdvComponent {
 
-  constructor(private emailVerificationService: EmailVerificationService , private creneauService: CreneauService,private reservationService : ReservationService) {}
+  constructor( private creneauService: CreneauService,private reservationService : ReservationService) {}
 
 
   @Input() center!: VaccinationCenter; // Centre sélectionné

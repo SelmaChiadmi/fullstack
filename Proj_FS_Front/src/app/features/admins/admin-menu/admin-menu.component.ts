@@ -23,6 +23,8 @@ export class AdminMenuComponent {
   Cancel() {
     console.log('cancel');
     this.router.navigate(['/public'])
+    // suppression du token du localStorage
+    localStorage.removeItem('jwt');
   }
 
 }

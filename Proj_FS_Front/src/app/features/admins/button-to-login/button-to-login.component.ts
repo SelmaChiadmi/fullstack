@@ -5,18 +5,20 @@ import { OnInit } from '@angular/core';
 import { AdminMenuComponent } from "../admin-menu/admin-menu.component";
 import { Router } from '@angular/router'
 import { ActivatedRoute } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-button-to-login',
   standalone: true,
-  imports: [CommonModule, AdminMenuComponent],
+  imports: [CommonModule, AdminMenuComponent, FormsModule],
   templateUrl: './button-to-login.component.html',
   styleUrls: ['./button-to-login.component.css']
 })
 
 export class ButtonToLoginComponent implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute,private authService: AuthService) {}
 
   login: boolean = false;
 
@@ -48,7 +50,7 @@ export class ButtonToLoginComponent implements OnInit {
   }
 
   // Méthode pour se connecter ( à implémenter avec le service d'authentification )
-  signIn() {
+  /*signIn() {
     this.isLoggedIn = true;
     this.login = false;
     console.log(`you signed in ! :)`);
@@ -60,7 +62,38 @@ export class ButtonToLoginComponent implements OnInit {
     // le frontend stocke le token jwt dans le local storage pour l'utiliser dans les requêtes suivantes
     // rediriger vers le menu admin 
     
+  }*/
+
+  username : string = '';
+  password : string = '';
+  errorMessage: string = '';  // Variable pour stocker le message d'erreur
+
+  signIn() {
+   
+    if (!this.username || !this.password) {
+      console.error("Veuillez entrer un nom d'utilisateur et un mot de passe.");
+      this.errorMessage = "Veuillez entrer un nom d'utilisateur et un mot de passe.";
+      return;
+    }
+  
+    this.authService.login(this.username, this.password).subscribe(
+      response => {
+        if (response.token) {
+          localStorage.setItem('jwt', response.token);
+          console.log("Pour vérifier : Token JWT reçu :", response.token);
+          this.isLoggedIn = true;
+          this.login = false;
+          console.log("Connexion réussie !");
+          this.router.navigate(['/admin/menu']); // Redirection après connexion
+        }
+      },
+      error => {
+        console.error("Erreur d'authentification : ", error);
+        this.errorMessage = "Nom d'utilisateur ou mot de passe incorrect.";  // Affichage du message d'erreur
+      }
+    );
   }
+  
 
 
   Cancel() {

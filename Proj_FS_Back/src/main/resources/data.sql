@@ -13,9 +13,9 @@ INSERT INTO t_centres (id, ville, nom) VALUES
 
 -- Insérer des données dans t_employes
 INSERT INTO t_employes (id, nom, prenom, mail, mdp, id_centre, is_med, is_admin, is_super_admin, telephone) VALUES
-
 (1, 'Martin', 'Alice','Alice.Martin@gmail.com', '$2y$10$YrWNHZA/BnArgaVyju.Vk.7BKDuWjcVTuKAbPNc8RyyOwPZxbBiIe', 1, FALSE, TRUE, FALSE, 0623456789), -- Administrateur à Paris
 (2, 'Durand', 'Paul','durand.paul@gmail.com', '$2y$10$1bWeql/sFeDHMFw.0GF.0u6ADIYED5GQrtc4MmaMBNsTFrPGDV.o.', 2, TRUE, FALSE, FALSE, 0634567890); -- Médecin à Lyon
+
 
 
 /*-- Insérer des données dans t_patients*/
