@@ -2,7 +2,6 @@
 
 <div class="container" *ngIf="!showNewCenterForm">
       
-    
     <table *ngIf="!selectedCenter">
         <thead>
           <tr>
@@ -22,19 +21,20 @@
           </tr>
         </tbody>
       </table>
+  
+</div>
 
-      <app-edit-center 
+<app-edit-center 
         *ngIf="selectedCenter" 
         [center]="selectedCenter" 
         (centerUpdated)="refreshCenters()">
-      </app-edit-center>
+</app-edit-center>
 
-      
-</div>
+
 
 <app-add-center 
         *ngIf="showNewCenterForm" 
         (centerAdded)="refreshCenters()">
-      </app-add-center>
+</app-add-center>
 
 

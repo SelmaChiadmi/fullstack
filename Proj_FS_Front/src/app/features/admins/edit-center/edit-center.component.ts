@@ -31,6 +31,9 @@ export class EditCenterComponent {
     });
 }
 
+cancel() {
+  this.centerUpdated.emit();
+}
 
 closeConfirmation(){
   this.iscenterUpdated = false;
