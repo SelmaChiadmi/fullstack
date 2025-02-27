@@ -7,7 +7,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { VaccinationCenter } from '../models/vaccination-centers.model';
+import { VaccinationCenter, VaccinationCenterDto } from '../models/vaccination-centers.model';
 import { UpdateCentreDto } from '../models/updatecentre.model';
 
 /**
@@ -92,9 +92,28 @@ export class VaccinationCenterService {
       return throwError(() => new Error('Token d’authentification manquant'));
     }
   
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); 
+
   
-    return this.http.put<number>(`http://localhost:8080/admin/centre/${centreId}`,centre, { headers });
+    return this.http.put<number>(`http://localhost:8080/admin/centre/${centreId}`,centre, { headers :new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }) });
   }
-  
+
+  addCenter(center: VaccinationCenterDto): Observable<number> {
+    const token = localStorage.getItem('jwt'); // Récupérer le token JWT depuis le localStorage
+
+    if (!token) {
+      console.error('Token manquant');
+      return throwError(() => new Error('Token d’authentification manquant'));
+    }
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); // Ajout du token dans l'en-tête
+
+    // Envoie de la requête POST avec le centre dans le corps de la requête
+    return this.http.post<number>('http://localhost:8080/admin/centre', center, { headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }) });
+  }
 }

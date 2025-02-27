@@ -36,6 +36,9 @@ public class CentreService {
     }
 
     public void addCentre(centres centre){
+        if (centre == null) {
+            throw new IllegalArgumentException("Centre ne peut pas être nul");
+        }
          centrerepo.save(centre);
     }
 

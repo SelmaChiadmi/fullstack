@@ -3,11 +3,12 @@ import { VaccinationCenterService } from '../../../core/services/vaccination-cen
 import { VaccinationCenter } from '../../../core/models/vaccination-centers.model';
 import { CommonModule } from '@angular/common';
 import { EditCenterComponent } from '../edit-center/edit-center.component';
+import { AddCenterComponent } from "../add-center/add-center.component";
 
 @Component({
   selector: 'app-centres',
   standalone: true,
-  imports: [CommonModule,EditCenterComponent],
+  imports: [CommonModule, EditCenterComponent, AddCenterComponent],
   templateUrl: './centres.component.html',
   styleUrl: './centres.component.css'
 })
@@ -28,6 +29,7 @@ export class CentresComponent {
     this.showNewCenterForm = true; // Active l'affichage du formulaire
   }
 
+
   selectedCenter: VaccinationCenter | null = null;
 
   editCenter(center: VaccinationCenter): void {
@@ -37,6 +39,7 @@ export class CentresComponent {
   refreshCenters(): void {
     this.selectedCenter = null; // Ferme le formulaire après mise à jour
     this.centerService.loadCenters(); // Recharge la liste
+    this.showNewCenterForm = false; // Ferme le formulaire d'ajout
   }
 
 }

@@ -3,6 +3,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.Vaccination.projet.dto.CreateCenterDto;
 import com.Vaccination.projet.dto.updateCentreDto;
 import com.Vaccination.projet.entities.centres;
 import com.Vaccination.projet.services.CentreService;
@@ -51,6 +52,21 @@ public class CentreController {
             centreService.updateCentre(centreId, centre);
             return ResponseEntity.ok(200);
         // retourner les erreurs
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(500);
+        }
+    }
+
+    //ajouter un centre 
+    @PostMapping("admin/centre")
+    public ResponseEntity<Integer> addCentre(@RequestBody CreateCenterDto centreDto) {
+        try {
+            centres centre = new centres();
+            centre.setNom(centreDto.getNom());
+            centre.setVille(centreDto.getVille());
+            centreService.addCentre(centre);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(201); // donne un statut 201
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(500);
         }

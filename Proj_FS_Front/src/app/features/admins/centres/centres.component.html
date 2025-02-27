@@ -1,5 +1,7 @@
-<div class="container">
-    <button class="add-button" (click)="openNewCenterForm()" *ngIf="!selectedCenter">+ Nouveau</button>
+<button class="add-button" (click)="openNewCenterForm()" *ngIf="!selectedCenter">+ Nouveau</button>
+
+<div class="container" *ngIf="!showNewCenterForm">
+      
     
     <table *ngIf="!selectedCenter">
         <thead>
@@ -26,6 +28,13 @@
         [center]="selectedCenter" 
         (centerUpdated)="refreshCenters()">
       </app-edit-center>
+
+      
 </div>
+
+<app-add-center 
+        *ngIf="showNewCenterForm" 
+        (centerAdded)="refreshCenters()">
+      </app-add-center>
 
 

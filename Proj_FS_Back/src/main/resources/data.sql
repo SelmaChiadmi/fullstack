@@ -11,6 +11,9 @@ INSERT INTO t_centres (id, ville, nom) VALUES
 (2, 'Lyon', 'Centre Médical Lyon'),
 (3, 'Marseille', 'Centre Médical Marseille');
 
+-- commencer l'id à 3
+SELECT setval(pg_get_serial_sequence('t_centres', 'id'), (SELECT MAX(id) FROM t_centres));
+
 -- Insérer des données dans t_employes
 INSERT INTO t_employes (id, nom, prenom, mail, mdp, id_centre, is_med, is_admin, is_super_admin, telephone) VALUES
 (1, 'Martin', 'Alice','Alice.Martin@gmail.com', '$2y$10$YrWNHZA/BnArgaVyju.Vk.7BKDuWjcVTuKAbPNc8RyyOwPZxbBiIe', 1, FALSE, TRUE, FALSE, 0623456789), -- Administrateur à Paris
