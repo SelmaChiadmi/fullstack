@@ -46,7 +46,7 @@ public class CentreController {
 
    
     // Modifier un centre
-    @PutMapping("admin/centre/{centreId}")
+    @PutMapping("admin/centre/{centreId}/modify")
     public ResponseEntity<Integer> updateCentre(@PathVariable("centreId") int centreId, @RequestBody updateCentreDto centre) {
         try {
             centreService.updateCentre(centreId, centre);
@@ -58,7 +58,7 @@ public class CentreController {
     }
 
     //ajouter un centre 
-    @PostMapping("admin/centre")
+    @PostMapping("admin/centre/new")
     public ResponseEntity<Integer> addCentre(@RequestBody CreateCenterDto centreDto) {
         try {
             centres centre = new centres();

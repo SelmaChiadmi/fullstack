@@ -94,7 +94,7 @@ export class VaccinationCenterService {
   
 
   
-    return this.http.put<number>(`http://localhost:8080/admin/centre/${centreId}`,centre, { headers :new HttpHeaders({
+    return this.http.put<number>(`http://localhost:8080/admin/centre/${centreId}/modify`,centre, { headers :new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }) });
@@ -111,7 +111,7 @@ export class VaccinationCenterService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); // Ajout du token dans l'en-tête
 
     // Envoie de la requête POST avec le centre dans le corps de la requête
-    return this.http.post<number>('http://localhost:8080/admin/centre', center, { headers: new HttpHeaders({
+    return this.http.post<number>('http://localhost:8080/admin/centre/new', center, { headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }) });

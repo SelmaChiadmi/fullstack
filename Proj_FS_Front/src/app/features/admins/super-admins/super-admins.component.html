@@ -1,3 +1,38 @@
 <div class="container">
-    <p>Super admins</p>
+    <div class="superadmins-header-row">
+        <h1 class="superadmins-title">Superadmins</h1>
+        <button class="superadmins-button-add">+ Nouveau</button>
+    </div>
+    <table class="superadmins-table">
+        <thead>
+            <tr>
+                <th class="superadmins-header">Name</th>
+                <th class="superadmins-header">Email</th>
+                <th class="superadmins-header">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <tr *ngFor="let superadmin of superadmins">
+                <td class="superadmins-data">{{ superadmin.name }}</td>
+                <td class="superadmins-data">{{ superadmin.email }}</td>
+                <td class="superadmins-action">
+                    <button (click)="deleteSuperadmin(superadmin)" class="superadmins-button">Delete</button>
+                </td>
+            </tr> -->
+            <tr>
+                <td class="superadmins-data">John Doe</td>
+                <td class="superadmins-data">john.doe&#64;example.com</td>
+                <td class="superadmins-action">
+                    <button class="superadmins-button">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="superadmins-data">Jane Smith</td>
+                <td class="superadmins-data">jane.smith&#64;example.com</td>
+                <td class="superadmins-action">
+                    <button class="superadmins-button">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
