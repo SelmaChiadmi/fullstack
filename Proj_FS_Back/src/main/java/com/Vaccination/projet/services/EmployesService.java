@@ -74,7 +74,5 @@ public class EmployesService {
         return employesRepo.existsByMail(email); // Méthode que vous pouvez définir dans le repository
     }
 
-    
-
 
 }
