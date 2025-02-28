@@ -43,7 +43,7 @@
     align-items: center;
     width: 70vw;
     max-width: 90vw;
-    overflow-y: auto;
+    overflow-y: auto; 
     overflow-x: hidden;
     padding: 10px 20px;
     margin-top: 2rem;

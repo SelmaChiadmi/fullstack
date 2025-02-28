@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     
   }
   // Titre de l'application
-  title = 'Faites vous vacciner !';
+  title = 'front_end_patients';
 
   // Variable pour afficher ou cacher <app-search-center>
   showSearchCenter: boolean = true;  

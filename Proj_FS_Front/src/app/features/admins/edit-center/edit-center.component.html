@@ -1,4 +1,4 @@
-<div class="edit-container">
+<div class="edit-container" *ngIf="!iscenterUpdated">
     <h2>Modifier Centre</h2>
     <label>Nom :</label>
     <input [(ngModel)]="center.nom"  type="text" />

@@ -1,3 +1,67 @@
-<div class="container">
-    <p>Mon centre</p>
+<div class="container" *ngIf="!isConfirmationDisplayed">
+    <div class="mycenter-info">
+        <p><strong>Nom :</strong> Nom du centre</p>
+        <p><strong>Ville :</strong> Ville du centre</p>
+    </div>
+    
+    
+    <div class="mycenter-header-row">
+        <div class="mycenter-header-right">
+            <h1 class="mycenter-title">Médecins</h1>
+            <button class="mycenter-button-add">+ Nouveau</button>
+        </div>
+       
+    </div>
+    <table class="mycenter-table">
+        <thead>
+            <tr>
+                <th class="mycenter-header">Name</th>
+                <th class="mycenter-header">Email</th>
+                <th class="mycenter-header">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <tr *ngFor="let mycenter of mycenters">
+                <td class="mycenter-data">{{ mycenter.name }}</td>
+                <td class="mycenter-data">{{ mycenter.email }}</td>
+                <td class="mycenter-action">
+                    <button (click)="delete(medecin)" class="mycenter-button">Delete</button>
+                </td>
+            </tr> -->
+            <tr>
+                <td class="mycenter-data">Alice Johnson</td>
+                <td class="mycenter-data">alice.johnson&#64;example.com</td>
+                <td class="mycenter-action">
+                    <button class="mycenter-button" (click)="delete()">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="mycenter-data">Bob Brown</td>
+                <td class="mycenter-data">bob.brown&#64;example.com</td>
+                <td class="mycenter-action">
+                    <button class="mycenter-button"(click)="delete()">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="mycenter-data">Charlie Davis</td>
+                <td class="mycenter-data">charlie.davis&#64;example.com</td>
+                <td class="mycenter-action">
+                    <button class="mycenter-button"(click)="delete()">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="mycenter-data">Diana Evans</td>
+                <td class="mycenter-data">diana.evans&#64;example.com</td>
+                <td class="mycenter-action">
+                    <button class="mycenter-button"(click)="delete()">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="isConfirmationDisplayed" class="confirmation-message">
+    <p>Êtes vous sûr ?</p>
+    <button (click)="closeConfirmation()">Oui</button>
+    <button (click)="closeConfirmation()"> Non</button>
 </div>

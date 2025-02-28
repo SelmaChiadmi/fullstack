@@ -22,7 +22,6 @@ INSERT INTO t_employes (id, nom, prenom, mail, mdp, id_centre, is_med, is_admin,
 
 
 /*-- Insérer des données dans t_patients*/
-
 INSERT INTO t_creneaux (id,id_centre,jour, heure,disponible) VALUES
 (1, 1,'2025-01-10', '09:00:00', FALSE), 
 (2, 2,'2025-03-01', '09:30:00', FALSE), 
