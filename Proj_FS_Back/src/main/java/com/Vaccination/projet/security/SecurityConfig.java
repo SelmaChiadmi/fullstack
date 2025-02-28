@@ -1,50 +1,58 @@
-/*package com.Vaccination.projet.security;
+package com.Vaccination.projet.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import com.Vaccination.projet.security.JwtAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import jakarta.servlet.Filter;
+import java.util.Arrays;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig {
 
-    private final customUserDetailsService customUserDetailsService;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    // Injection du service CustomUserDetailsService
-    public SecurityConfig(customUserDetailsService customUserDetailsService) {
-        this.customUserDetailsService = customUserDetailsService;
-    }
-
-    /*@Bean
-    /*public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/admin/**").authenticated() // Les URLs commençant par /admin nécessitent une authentification
-            .anyRequest().permitAll() // Toutes les autres URLs sont publiques
-        )
-        .formLogin(login -> login
-            .loginPage("/admin/login") // Spécifie la page de connexion
-            .failureUrl("/admin/login?error=true")
-            .permitAll() // La page de connexion est accessible à tous
-        );
-        return http.build();
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable())  // Désactiver CSRF pour permettre les requêtes POST
+            .authorizeHttpRequests(authz -> authz
+                .requestMatchers("/public/**").permitAll()  // Permet l'accès à /public/** sans authentification
+                .requestMatchers("/admin/**").authenticated()  // Nécessite une authentification pour les routes /admin/**
+                .anyRequest().permitAll()  // Toutes les autres routes accessibles sans authentification
+            )
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // Session sans état
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);  // Ajouter notre filtre JWT
+
+        return http.build();
+    }
+
+    // Configuration CORS
+    @Bean
+    public UrlBasedCorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));  // Origine autorisée (ton front-end)
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));  // Méthodes autorisées
+        config.setAllowedHeaders(Arrays.asList("*"));  // Autorise tous les en-têtes
+        source.registerCorsConfiguration("/**", config);  // Applique à toutes les routes
+        return source;
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Utiliser BCrypt pour encoder les mots de passe
+        return new BCryptPasswordEncoder();
     }
-}*/
+}

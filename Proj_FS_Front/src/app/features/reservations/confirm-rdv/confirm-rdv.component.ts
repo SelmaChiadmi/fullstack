@@ -4,28 +4,25 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PriseRdvComponent } from '../prise-rdv/prise-rdv.component';
 import { VaccinationCenterService } from '../../../core/services/vaccination-centers.service';
-import { EmailVerificationService } from '../../../core/services/email_verif.service';
 import { CreneauService } from '../../../core/services/creneau.service';
 import { Patient } from '../../../core/models/patients.model';
 import { ReservationService } from '../../../core/services/reservations.service';
 
 
 @Component({
-  selector: 'app-prise-rdv-verif-mail',
+  selector: 'app-confirm-rdv',
   standalone: true,
   imports: [FormsModule, CommonModule,PriseRdvComponent],
   providers: [
     VaccinationCenterService,
-    EmailVerificationService,
     CreneauService
   ],
-  templateUrl: './prise-rdv-verif-mail.component.html',
-  styleUrl: './prise-rdv-verif-mail.component.css'
+  templateUrl: './confirm-rdv.component.html',
+  styleUrl: './confirm-rdv.component.css'
 })
-export class PriseRdvVerifMailComponent {
+export class ConfirmRdvComponent {
 
-  constructor(private emailVerificationService: EmailVerificationService , private creneauService: CreneauService,private reservationService : ReservationService) {}
-
+  constructor( private creneauService: CreneauService,private reservationService : ReservationService) {}
 
 
   @Input() center!: VaccinationCenter; // Centre sélectionné
@@ -34,8 +31,7 @@ export class PriseRdvVerifMailComponent {
   @Output() onCancel = new EventEmitter<void>(); // Annulation
   @Output() centerIdEmitter = new EventEmitter<number>(); // Émet l'ID du centre sélectionné
 
-
-  // Variables pour le formulaire de mail connu
+  // Variables pour le formulaire de rendez-vous
   mail: string = '';
   chosenDate: string = '';
   chosenTime: string = ''; 
@@ -44,28 +40,21 @@ export class PriseRdvVerifMailComponent {
 // Booléen pour afficher le formulaire d'entrée du mail
   isMailGiven: boolean = false;
 
-// Booléen pour valider la présence du mail dans la base de données
-  MailisinDatabase: boolean = false;
-
   // Booléen pour afficher la confirmation
   confirmation: boolean = false;
-
-  //mail prédéfini pour le formulaire de mail inconnu : pré-remplissage du mail et ne pas donner la possibilité de le modifier
-  predefinedMail: string = '';
-
-  // Méthode qui pourrait être appelée lorsqu'on veut transmettre l'ID
+ 
+  // Méthode qui pourrait être appelée lorsqu'on veut transmettre l'ID du centre sélectionné
   sendCenterId() {
     this.centerIdEmitter.emit(this.receivedCenterId);
   }
 
-  
   // annuler la prise de rendez-vous
   cancel() {
     this.onCancel.emit();
     this.resetForm();
   }
 
-  // Fonction pour valider le formulaire 
+  // Fonction pour valider le formulaire et vérifier les elements
   validateForm(): boolean { 
     if (!this.mail) {
       this.errorMessage = 'Mail manquant';
@@ -81,11 +70,10 @@ export class PriseRdvVerifMailComponent {
     const today = new Date();
     const chosenDateObj = new Date(this.chosenDate);
 
- 
-
     this.errorMessage = '';
     return true;
   }
+
 
   // Fonction pour valider le rendez-vous
   validateAppointment(): boolean {
@@ -113,34 +101,6 @@ export class PriseRdvVerifMailComponent {
     return true
   }
 
-  // Fonction pour soumettre l'email
-  submitMail() {
-    if (this.validateForm()) {
-      this.emailVerificationService.verifyEmail(this.mail).subscribe({
-        next: (exists: boolean) => {
-          if (exists) {
-            console.log('L\'email existe dans la base de données.');
-            this.MailisinDatabase = true;
-          } else {
-            console.log('L\'email n\'existe pas.');
-            this.MailisinDatabase = false;
-            this.predefinedMail = this.mail;
-          }
-          this.isMailGiven = true; // Pour indiquer que l'utilisateur a bien soumis un email
-        },
-        error: () => {
-          // En cas d'erreur, on suppose que l'email n'existe pas
-          console.error('Erreur lors de la vérification de l\'email. mail inexistant dans la base de données.');
-          this.MailisinDatabase = false; // Considérer comme non trouvé
-          this.isMailGiven = true; // Email a été soumis, même si erreur
-        },
-      });
-    } else {
-      console.error(this.errorMessage);
-      this.MailisinDatabase = false;
-      this.isMailGiven = false;
-    }
-  }
 
   // Fonction pour récupérer les créneaux disponibles
   onDateChange(): void {
@@ -182,7 +142,6 @@ export class PriseRdvVerifMailComponent {
   }
 }
 
-
     // Fonction pour effectuer la réservation
     makeReservation(patient: Patient) {
       const birthDate = new Date(patient.birthDate);
@@ -218,7 +177,6 @@ export class PriseRdvVerifMailComponent {
     this.mail = '';
     this.chosenDate = '';
     this.chosenTime = '';
-    this.MailisinDatabase = false; // Cache la confirmation et réinitialise le formulaire
     this.confirmation = false; // Cache la confirmation et réinitialise le formulaire
   }
 

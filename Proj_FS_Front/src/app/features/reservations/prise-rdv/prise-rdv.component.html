@@ -6,7 +6,7 @@
     <p><strong>Nom du centre : </strong>{{ center.nom }}</p>
     <p><strong>Ville : </strong>{{ center.ville }}</p>
   
-    <!-- Formulaire pour entrer le nom et le prénom -->
+    <!-- Formulaire pour entrer les informations du patient -->
     <form (ngSubmit)="submitAppointment()" class="form">
 
       <div class="row_input">
@@ -29,7 +29,7 @@
       
         <div class="form_input">
             <label for="mail">E-mail :</label>
-            <input type="mail" id="mail" [(ngModel)]="mail" name="mail" required readonly/>
+            <input type="mail" id="mail" [(ngModel)]="mail" name="mail" required/>
         </div>
       </div>
 
@@ -75,7 +75,7 @@
     </form>
   </div>
 
-   <!--Confirmation-->
+   <!--Confirmation de la prise de rendez-vous-->
 <div class="container_confirmation">
 <div *ngIf="confirmation" class="confirmation">
     <p>Votre rendez-vous a bien été enregistré !</p>

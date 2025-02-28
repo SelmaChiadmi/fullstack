@@ -16,11 +16,21 @@
     -> /src/app/features : contient les composants angulare front-end : reservation (ce qui est nécéssaire à la reservation) et admin (ce qui est nécessaires aux admins)
 
 ## Pour tester :
+#### Lancer l'application java ProjetJavaApplication.
+#### Lancer 'ng serve' depuis /Proj_FS_Front.
 
-- le mail "julien.bernard@example.com" est dans la base de données. Vous pouvez essayer de prendre un rdv le 01/03/2025 dans le centre de Paris. (avec ou sans le mail fourni)
+-  Vous pouvez essayer de prendre un rdv le 04/03/2025 dans le centre de Lyon. 
 
-Nous utilisons cette commande sur pgAdmin pour que l'id du patient soit généré à partir de 3 :
--> 'SELECT setval('t_patients_id_seq', 3, true);'
+- Vous pouvez vous login avec:
+ - username : Alice.Martin@gmail.com
+ - password : admin1 (hashé et stocké dans la base de donnée) 
+  
+ - Une fois connecté, nous pouvons accéder à la partie /admin du backend l'aide du token jwt ('Bearer <token>") à l'aide d'un guard.
+
+
+ Le token jwt est supprimé lors de la déconnexion.
+  
+
 
 
 ![Screenshot](/images_readme/FS.png)

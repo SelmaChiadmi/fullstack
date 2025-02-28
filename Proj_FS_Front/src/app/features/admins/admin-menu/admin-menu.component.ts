@@ -17,5 +17,14 @@ export class AdminMenuComponent {
 
   navigateTo(page: string) {
     console.log('Navigating to', page);
+    this.router.navigate([`/admin/menu/${page}`]);
   }
+
+  Cancel() {
+    console.log('cancel');
+    this.router.navigate(['/public'])
+    // suppression du token du localStorage
+    localStorage.removeItem('jwt');
+  }
+
 }

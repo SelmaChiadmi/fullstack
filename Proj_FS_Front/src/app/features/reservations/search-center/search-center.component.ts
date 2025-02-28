@@ -4,14 +4,16 @@ import { CommonModule } from '@angular/common';
 import { VaccinationCenter } from '../../../core/models/vaccination-centers.model';
 import { VaccinationCenterService } from '../../../core/services/vaccination-centers.service';
 import { PriseRdvComponent } from '../prise-rdv/prise-rdv.component';
-import { PriseRdvVerifMailComponent } from '../prise-rdv-verif-mail/prise-rdv-verif-mail.component';
+import { ConfirmRdvComponent } from '../confirm-rdv/confirm-rdv.component'
+import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-search-center',
   standalone: true,
   providers: [VaccinationCenterService],
-  imports: [FormsModule, CommonModule , PriseRdvComponent,PriseRdvVerifMailComponent], 
+  imports: [FormsModule, CommonModule , PriseRdvComponent,ConfirmRdvComponent,RouterModule], 
   templateUrl: './search-center.component.html',
   styleUrl: './search-center.component.css'
 })
@@ -27,7 +29,7 @@ export class SearchCenterComponent implements OnInit {
   isSearch: boolean = false;  // Indicateur de recherche
 
 
-  constructor(private vaccinationCenterService: VaccinationCenterService) {}
+  constructor(private vaccinationCenterService: VaccinationCenterService, private router:Router) {}
   
   ngOnInit(): void {
     // Récupérer les centres via le service
@@ -45,7 +47,6 @@ export class SearchCenterComponent implements OnInit {
 
 
   // Fonction de recherche
-
   onSearch(){
     const searchText = this.searchText.trim().toLowerCase();
     
@@ -59,9 +60,6 @@ export class SearchCenterComponent implements OnInit {
   }
 
 
-  
-  
-
   // Fonction de sélection d'un centre
   selectCenter(center: VaccinationCenter) {
     this.center = center;
@@ -72,6 +70,7 @@ export class SearchCenterComponent implements OnInit {
     this.isCenterSelected = true;
     console.log('selectCenter');
     this.centerSelected.emit(true);
+   
   }
 
   //fonction pour annuler la sélection
@@ -82,12 +81,11 @@ export class SearchCenterComponent implements OnInit {
     console.log('cancelSelection');
     this.isSearch = false;
     this.searchText= '';
-    this.centerSelected.emit(false);
-
+    this.centerSelected.emit(false); 
+    
   }
 
-
-
+ 
   // Fonction de suppression d'un centre
   delete(center: VaccinationCenter) {
     this.center = undefined;

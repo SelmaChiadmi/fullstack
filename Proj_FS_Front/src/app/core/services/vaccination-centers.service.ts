@@ -5,9 +5,10 @@
  */
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { VaccinationCenter } from '../models/vaccination-centers.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { VaccinationCenter, VaccinationCenterDto } from '../models/vaccination-centers.model';
+import { UpdateCentreDto } from '../models/updatecentre.model';
 
 /**
  * @class VaccinationCenterService
@@ -54,6 +55,7 @@ export class VaccinationCenterService {
    * @description Fonction pour charger les centres de vaccination depuis l'API.
    * @returns {void}
    */
+
   loadCenters(): void {
     this.http.get<VaccinationCenter[]>(this.apiUrl).subscribe(
       (data) => {
@@ -79,5 +81,39 @@ export class VaccinationCenterService {
   // vaccination-centers.service.ts
   getCenterById(id: string): Observable<VaccinationCenter> {
     return this.http.get<VaccinationCenter>(`public/centres/${id}`);
+  }
+
+
+  updateCenter(centreId: number, centre: UpdateCentreDto): Observable<number>  {
+    const token = localStorage.getItem('jwt');
+    
+    if (!token) {
+      console.error('Token manquant');
+      return throwError(() => new Error('Token d’authentification manquant'));
+    }
+  
+
+  
+    return this.http.put<number>(`http://localhost:8080/admin/centre/${centreId}/modify`,centre, { headers :new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }) });
+  }
+
+  addCenter(center: VaccinationCenterDto): Observable<number> {
+    const token = localStorage.getItem('jwt'); // Récupérer le token JWT depuis le localStorage
+
+    if (!token) {
+      console.error('Token manquant');
+      return throwError(() => new Error('Token d’authentification manquant'));
+    }
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); // Ajout du token dans l'en-tête
+
+    // Envoie de la requête POST avec le centre dans le corps de la requête
+    return this.http.post<number>('http://localhost:8080/admin/centre/new', center, { headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }) });
   }
 }

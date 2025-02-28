@@ -3,3 +3,8 @@ export interface VaccinationCenter{
     nom : string;
     ville : string;
 }
+
+export interface VaccinationCenterDto{
+    nom : string;
+    ville : string;
+}

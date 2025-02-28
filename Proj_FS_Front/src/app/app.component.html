@@ -63,14 +63,14 @@
 </style>
 
 <div class="more_infos" *ngIf="!isCenterSelected && isthisComponentVisible">
-  <div class="when_to_vaccinate" *ngIf="showSearchCenter">
+  <div class="when_to_vaccinate" *ngIf="isHomePage">
       <p>Vaccination, Dépistage ...</p>
       <p>Quand faire appel à un pharmacien</p>
       <a href="https://www.doctolib.fr/sante/pharmaciens-missions/?utm_campaign=cms_FR_B2C_MarketingCards_Homepage_missions-du-pharmacien_20241119&utm_source=placements&utm_medium=MarketingCards">
       <button >Découvrir</button>
       </a>
   </div>
-  <div class="moral" *ngIf="showSearchCenter ">
+  <div class="moral" *ngIf="isHomePage ">
     <p>Pour vous remonter </p>
     <p>le moral ...</p>
     <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">
@@ -80,29 +80,25 @@
 </div>
 <div class="container">
   <div class="background_img">
-    <div class="head">
+    <div class="head" >
       <p>Projet Full-Stack : NAKIB Wassil et CHIADMI Salma</p>
     </div>
 
     <!-- Boutons pour le Login -->
-    <app-button-to-login *ngIf="isthisComponentVisible" (showLogin)="toggleSearchCenter($event)" (onSignout)="displaySearchBar($event)" ></app-button-to-login>
+    <app-button-to-login *ngIf="isHomePage" (showLogin)="toggleSearchCenter($event)" (onSignout)="displaySearchBar($event)" ></app-button-to-login>
    
 
-    <!-- Affichage du contenu dynamique -->
-    <router-outlet></router-outlet>
 
     <!-- Affichage principal -->
-    <main class="main" *ngIf="showSearchCenter && !isCenterSelected && isthisComponentVisible">
-      <h1>{{ title }}</h1>
+    <main class="main" *ngIf="isHomePage && !isCenterSelected && isthisComponentVisible ">
+      <h1>Faites vous vacciner !</h1>
     </main>
 
-    <!-- Recherche d'un centre -->
-    <app-search-center 
-      *ngIf="showSearchCenter && isthisComponentVisible" 
-      (centerSelected)="onCenterSelected($event)">
-    </app-search-center>
-    
+    <!-- Affichage de app-search-center -->
+    <router-outlet></router-outlet>
+
+  
+
   </div>
   
 </div>
-

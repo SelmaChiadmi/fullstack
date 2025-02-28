@@ -29,7 +29,7 @@ public class ReservationController {
     }
 
     @PostMapping("public/centre/{centreId}/bookings")
-    public ResponseEntity<Object> bookAppointment(@PathVariable int centreId,
+    public ResponseEntity<Object> bookAppointment(@PathVariable("centreId") int centreId,
                                                  @RequestParam("date") LocalDate date,
                                                  @RequestParam("heure") LocalTime heure,
                                                  @RequestBody patientDto patientDto) {
@@ -46,6 +46,7 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.CREATED).body("resa prise en compte");
         } catch (IllegalStateException e) {
             // Retourne une réponse avec un statut 400 et le message d'erreur
+            
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             // Gestion générique des erreurs, retour 500 Internal Server Error

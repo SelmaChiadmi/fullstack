@@ -1,6 +1,3 @@
-<div class="button1_container">
-    <button *ngIf="!login && isLoggedIn"  (click)="Cancel(); "> Sign Out </button>
-</div>
 
 <div class="button_container">
     <button *ngIf="!login && !isLoggedIn"  (click)="displayLogin(); login_show()"> Vous êtes soignant ? </button>
@@ -13,16 +10,18 @@
     <div class = "login">
         <h2>Login</h2>
         <p>Username</p>
-        <input type="text" name="User" placeholder="Username"  >
+        <input type="text" name="User" placeholder="Username"  [(ngModel)]="username" (keyup.enter)="signIn() ">
     
         <p>Password</p>
-        <input type="password" name="Password" placeholder="Mot de passe ..." (keyup.enter)="signIn()">
+        <input type="password" name="Password" placeholder="Mot de passe ..." [(ngModel)]="password" (keyup.enter)="signIn()">
         <div class="boutons_signin">
             <button (click)="Cancel()"> Annuler</button>
             <button (click)="signIn()"> Sign in</button>
         </div>
+         <!-- Afficher un message d'erreur si errorMessage est défini -->
+        <div *ngIf="errorMessage" class="error-message">
+            <p>{{ errorMessage }}</p>
+        </div>
     </div>
     
 </div>
-
-<app-admin-menu *ngIf="isLoggedIn" ></app-admin-menu>
