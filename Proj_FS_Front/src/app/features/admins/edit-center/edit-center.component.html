@@ -1,0 +1,16 @@
+<div class="edit-container" *ngIf="!iscenterUpdated">
+    <h2>Modifier Centre</h2>
+    <label>Nom :</label>
+    <input [(ngModel)]="center.nom"  type="text" />
+  
+    <label>Ville :</label>
+    <input [(ngModel)]="center.ville"  type="text" />
+    
+    <button (click)="cancel()" class="cancel_button">Annuler</button>
+    <button (click)="saveChanges()">Sauvegarder</button>
+</div>
+  
+<div *ngIf="iscenterUpdated" class="confirmation-message">
+    Centre mis à jour avec succès!
+    <button (click)="closeConfirmation()">OK</button>
+</div>

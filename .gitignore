@@ -1,0 +1,5 @@
+# Ignore node_modules directory
+Proj_FS_Front/node_modules/
+
+# Ignore .vscode directory : Visual Studio Code configuration
+.vscode

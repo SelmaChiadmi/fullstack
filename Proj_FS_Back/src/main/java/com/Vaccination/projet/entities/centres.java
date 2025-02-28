@@ -19,7 +19,7 @@ import jakarta.persistence.OneToMany;
 public class centres {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
+    // @JsonIgnore
     private int id;
     private String nom;
     private String ville;
@@ -36,9 +36,11 @@ public class centres {
 
     }
 
-    public centres( String nom, String ville) {
+    public centres( int id, String nom, String ville) {
+        this.id = id;
         this.nom = nom;
         this.ville = ville;
+
     }
 
     public int getId() {

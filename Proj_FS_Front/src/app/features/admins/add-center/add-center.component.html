@@ -1,0 +1,22 @@
+<div class="add-container">
+    <div class="formulaire_centre" *ngIf="!confirmation">
+        <h2>Ajouter un Centre</h2>
+  
+        <label>Nom :</label>
+        <input [(ngModel)]="center.nom" type="text" placeholder="Nom du centre" />
+      
+        <label>Ville :</label>
+        <input [(ngModel)]="center.ville" type="text" placeholder="Ville du centre" />
+      
+        <button class = "cancel_button" (click)="cancel()">Annuler</button>
+        <button (click)="addCentre()">Ajouter Centre</button>
+        
+    </div>
+   
+  
+    <div *ngIf="confirmation" class="success-message">
+      {{ successMessage }}
+      <button (click)="closeConfirmation()">OK</button>
+    </div>
+</div>
+  

@@ -1,0 +1,131 @@
+.container {
+    display: flex;
+    flex-direction: column; /* Assure un empilement vertical */
+    align-items: center; /* Centre horizontalement */
+    justify-content: flex-start; /* Aligne les éléments en haut */
+    max-height: 50vh;
+    width: 70vw;
+    position: absolute;
+    left: 15%;
+    top: 40%;
+    background-color: var(--electric-violet);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    color: white;
+    overflow-y: auto;
+    text-align: center;
+}
+
+.mycenter-header-row{
+    display: flex;
+    flex-direction: row;
+    padding: 12px;
+    border-radius: 10px 10px 0 0;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+    
+}
+.mycenter-title {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.mycenter-button-add {
+    background-color: #4bd449;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+.mycenter-button-add:hover {
+    background-color: #4e9445;
+}
+
+
+    
+.mycenter-info {
+    width: 100%;
+    max-width: 90%;
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1rem; 
+    align-self: center;
+    margin-top: 1rem;
+}
+
+.mycenter-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.mycenter-header {
+    background: #007bff;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    border: 1px solid white;
+}
+
+.mycenter-data, .mycenter-action {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    border: 1px solid white;
+}
+
+.mycenter-data {
+    color: white;
+}
+
+.mycenter-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+.mycenter-button:hover {
+    background-color: #b33d49;
+}
+
+
+.confirmation-message{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+.confirmation-message p{
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+
+  .confirmation-message   button {
+    width: 100%;
+    background: #007bff;
+    color: white;
+    padding: 6px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-bottom: 10px;
+  }

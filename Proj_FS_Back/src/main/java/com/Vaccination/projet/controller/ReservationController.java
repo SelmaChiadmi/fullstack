@@ -32,7 +32,7 @@ public class ReservationController {
     public ResponseEntity<Object> bookAppointment(@PathVariable("centreId") int centreId,
                                                  @RequestParam("date") LocalDate date,
                                                  @RequestParam("heure") LocalTime heure,
-                                                  @RequestBody patientDto patientDto) {
+                                                 @RequestBody patientDto patientDto) {
 
         System.out.println("Centre ID: " + centreId);
         System.out.println("Date: " + date);
@@ -40,12 +40,13 @@ public class ReservationController {
         System.out.println("Patient DTO: " + patientDto);
         try {
             // Appel au service pour créer une réservation
-            reservations reservation = reservationService.bookAppointment(centreId,date,heure, patientDto);
+            reservationService.bookAppointment(centreId,date,heure, patientDto);
 
             // Retourne la réservation avec un statut 201 Created
             return ResponseEntity.status(HttpStatus.CREATED).body("resa prise en compte");
         } catch (IllegalStateException e) {
             // Retourne une réponse avec un statut 400 et le message d'erreur
+            
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             // Gestion générique des erreurs, retour 500 Internal Server Error

@@ -44,7 +44,7 @@ public class AuthenticationController {
 
         // Retourner le token
         Map<String, String> response = new HashMap<>();
-        response.put("token", "Bearer " + jwtToken);
+        response.put("token",jwtToken);
         return response;
     }
 }

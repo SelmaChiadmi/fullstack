@@ -52,9 +52,7 @@ public class ReservationService {
         this.patientRepository = patientrepo;
         this.creneauRepository = creneauRepo;
         this.employeRepository = employesRepo;
-      
-
-    }
+        }
 
 
      public reservations bookAppointment(int centreId, LocalDate date, LocalTime heure, patientDto patientDto) {

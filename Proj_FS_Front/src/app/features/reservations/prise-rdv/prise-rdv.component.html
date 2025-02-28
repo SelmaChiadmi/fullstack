@@ -1,0 +1,95 @@
+
+<div *ngIf="center && !confirmation" class="affichage_info_centre"  [class.change-border-color]="hasRedBorder">
+    <h3>Prendre un rendez-vous</h3>
+    
+    <!-- Affichage des informations du centre sélectionné -->
+    <p><strong>Nom du centre : </strong>{{ center.nom }}</p>
+    <p><strong>Ville : </strong>{{ center.ville }}</p>
+  
+    <!-- Formulaire pour entrer les informations du patient -->
+    <form (ngSubmit)="submitAppointment()" class="form">
+
+      <div class="row_input">
+        <div class="form_input">
+            <label for="name">Nom :</label>
+            <input type="text" id="name" [(ngModel)]="name" name="name" required />
+        </div>
+      
+        <div class="form_input">
+            <label for="surname">Prénom :</label>
+            <input type="text" id="surname" [(ngModel)]="surname" name="surname" required />
+        </div>
+      </div>
+
+      <div class="row_input">
+        <div class="form_input">
+            <label for="birthDate">Date de naissance :</label>
+            <input type="date" id="birthDate" [(ngModel)]="birthDate" name="BirthDate" required />
+        </div>
+      
+        <div class="form_input">
+            <label for="mail">E-mail :</label>
+            <input type="mail" id="mail" [(ngModel)]="mail" name="mail" required/>
+        </div>
+      </div>
+
+      <div class="row_input">
+        <div class="form_input">
+            <label for="phone">Numéro de téléphone :</label>
+            <input type="text" id="phone"  [(ngModel)]="phone"    name="phone"  required />
+        </div>
+
+            <div class="form_input" >
+                <label for="chosendate">Date du rendez-vous :</label>
+                <input type="date" id="chosendate" [(ngModel)]="chosenDate" (change)="onDateChange()" name="date" required  />
+            </div>
+            
+        </div>    
+
+        <div class="form_input">
+            <label for="chosenTime">Créneau souhaité :</label>
+            <select
+              id="chosenTime"
+              [(ngModel)]="chosenTime"
+              name="chosenCreneau"
+              required
+            >
+              <option value="" disabled selected>Choisir un créneau</option>
+              <option *ngFor="let creneau of creneaux" [value]="creneau">
+                {{ formatCreneau(creneau) }}
+              </option>
+            </select>
+          </div>
+          
+      <div class="boutons">
+
+        <button class= "annuler_demande" type="button" (click)=cancel() >Annuler</button>
+        <button class= "confirm_rdv" type="submit">Confirmer</button>
+        
+     </div>
+
+     <!-- Erreurs -->
+     <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+       </div>
+    </form>
+  </div>
+
+   <!--Confirmation de la prise de rendez-vous-->
+<div class="container_confirmation">
+<div *ngIf="confirmation" class="confirmation">
+    <p>Votre rendez-vous a bien été enregistré !</p>
+    <p><strong>Nom:</strong> {{ name }}</p>
+    <p><strong>Prénom:</strong> {{ surname }}</p>
+    <p><strong>Email:</strong> {{ mail }}</p>
+    <p><strong>Téléphone:</strong> {{ phone }}</p>
+    <p><strong>Date du rendez-vous:</strong> {{ chosenDate| date:'dd/MM/yyyy' }}</p>
+    <p><strong>Créneau choisi:</strong> {{ chosenTime }}</p>
+</div>
+<div class="boutons" *ngIf="confirmation">
+    <button class= "confirm_rdv" type="submit" (click)=cancel()>Prendre un autre rendez-vous</button>
+  
+</div>
+
+</div>
+  

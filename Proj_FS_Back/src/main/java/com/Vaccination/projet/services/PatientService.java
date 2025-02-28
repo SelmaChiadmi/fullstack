@@ -41,9 +41,26 @@ public class PatientService {
         return patientrepo.findAll();
     }
 
-    public patient getPatientByMail(String email){
-        return patientrepo.findByMail(email);
+        
+    // Récupérer un patient par son email
+
+    public Optional<patientDto> getPatientByEmail(String email) {
+        patient patient = patientrepo.findByMail(email);
+        if (patient == null) {
+            return Optional.empty();
+        }
+
+        // Convertir le patient en patientDto
+        patientDto dto = new patientDto();
+        dto.setFirstName(patient.getPrenom());
+        dto.setLastName(patient.getNom());
+        dto.setEmail(patient.getMail());
+        dto.setTelephone(patient.getTelephone());
+        dto.setBirthDate(patient.getDate_naissance());
+
+        return Optional.of(dto);
     }
+
 
     public patient createNewPatient(patientDto patientDto) {
         patient newPatient = new patient();
@@ -105,6 +122,9 @@ public class PatientService {
         return dto;
     }).collect(Collectors.toList());
 }
+
+
+
 
 
    

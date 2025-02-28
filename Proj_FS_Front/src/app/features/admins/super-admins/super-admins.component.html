@@ -1,0 +1,44 @@
+<div class="container"*ngIf="!isConfirmationDisplayed">
+    <div class="superadmins-header-row">
+        <h1 class="superadmins-title">Superadmins</h1>
+        <button class="superadmins-button-add">+ Nouveau</button>
+    </div>
+    <table class="superadmins-table" >
+        <thead>
+            <tr>
+                <th class="superadmins-header">Name</th>
+                <th class="superadmins-header">Email</th>
+                <th class="superadmins-header">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <tr *ngFor="let superadmin of superadmins">
+                <td class="superadmins-data">{{ superadmin.name }}</td>
+                <td class="superadmins-data">{{ superadmin.email }}</td>
+                <td class="superadmins-action">
+                    <button (click)="deleteSuperadmin(superadmin)" class="superadmins-button">Delete</button>
+                </td>
+            </tr> -->
+            <tr>
+                <td class="superadmins-data">John Doe</td>
+                <td class="superadmins-data">john.doe&#64;example.com</td>
+                <td class="superadmins-action">
+                    <button (click)="deleteSuperadmin()" class="superadmins-button">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="superadmins-data">Jane Smith</td>
+                <td class="superadmins-data">jane.smith&#64;example.com</td>
+                <td class="superadmins-action">
+                    <button (click)="deleteSuperadmin()" class="superadmins-button">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="isConfirmationDisplayed" class="confirmation-message">
+    <p>Êtes vous sûr ?</p>
+    <button (click)="closeConfirmation()">Oui</button>
+    <button (click)="closeConfirmation()"> Non</button>
+</div>

@@ -1,0 +1,28 @@
+
+<!-- barre de recherche -->
+<div class="search_container">
+<div class="recherche" *ngIf="!isCenterSelected">
+  <div class="recherche_et_bouton">
+    <input type="text" placeholder="Rechercher une ville..." [(ngModel)]="searchText" (input)="onSearch()"  maxlength="15"/>
+    
+  </div>
+  </div>
+ 
+
+  <!-- Résultats de recherche  -->
+  <div *ngIf="filteredCenters.length > 0 " class="resultats_recherche">
+    <ul class="searched_centers">
+      <li *ngFor="let center of filteredCenters" >
+        <button (click)="selectCenter(center)">
+          <p>{{center.nom}} - {{ center.ville }}</p>
+        </button>
+       
+      </li>
+      <button class="annuler_recherche" (click)="cancelSelection()"> Annuler la recherche </button>
+      
+    </ul>
+  </div>
+  
+  
+  <app-confirm-rdv *ngIf="center"  [center]="center"   (onCancel)="cancelSelection()" ></app-confirm-rdv> 
+</div>

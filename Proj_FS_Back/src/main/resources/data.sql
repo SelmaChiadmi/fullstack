@@ -7,12 +7,13 @@ INSERT INTO t_centres (ville, nom)
 SELECT 'Lyon', 'Centre Médical Lyon'
 WHERE NOT EXISTS (SELECT 1 FROM t_centres WHERE ville = 'Lyon' AND nom = 'Centre Médical Lyon');
 
+
 INSERT INTO t_centres (ville, nom)
 SELECT 'Marseille', 'Centre Médical Marseille'
 WHERE NOT EXISTS (SELECT 1 FROM t_centres WHERE ville = 'Marseille' AND nom = 'Centre Médical Marseille');
 
-
-
+-- commencer l'id à 3
+SELECT setval(pg_get_serial_sequence('t_centres', 'id'), (SELECT MAX(id) FROM t_centres));
 
 
 
