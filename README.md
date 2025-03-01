@@ -27,9 +27,9 @@
   
  - Une fois connecté, nous pouvons accéder à la partie /admin du backend l'aide du token jwt ('Bearer <token>") à l'aide d'un guard.
 
-
  Le token jwt est supprimé lors de la déconnexion.
-  
+
+
 
 
 

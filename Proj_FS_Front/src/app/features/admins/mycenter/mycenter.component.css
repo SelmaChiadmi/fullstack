@@ -8,9 +8,9 @@
     position: absolute;
     left: 15%;
     top: 40%;
-    background-color: var(--electric-violet);
+    background-color: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    color: white;
+    color: black;
     overflow-y: auto;
     text-align: center;
 }
@@ -26,14 +26,14 @@
     
 }
 .mycenter-title {
-    color: white;
+    color: black;
     font-size: 24px;
     margin-bottom: 20px;
 }
 
 .mycenter-button-add {
     background-color: #4bd449;
-    color: white;
+    color: black;
     border: none;
     padding: 8px 12px;
     border-radius: 5px;
@@ -75,11 +75,11 @@
 .mycenter-data, .mycenter-action {
     padding: 12px;
     border-bottom: 1px solid #ddd;
-    border: 1px solid white;
+    border: 1px solid black;
 }
 
 .mycenter-data {
-    color: white;
+    color: black;
 }
 
 .mycenter-button {
