@@ -1,8 +1,7 @@
 create table if not exists t_centres  (
     id SERIAL PRIMARY KEY,
     ville varchar(255),
-    nom varchar(255),
-    primary key (id)
+    nom varchar(255)
 );
 
 create table if not exists t_employes(
@@ -15,8 +14,7 @@ create table if not exists t_employes(
     is_med boolean, 
     is_admin boolean, 
     is_super_admin boolean,
-    telephone varchar(15),
-    primary key (id),
+    telephone varchar(15), 
     foreign key (id_centre) references t_centres(id)
 );
 

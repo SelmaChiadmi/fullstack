@@ -29,7 +29,7 @@
 
  Le token jwt est supprimé lors de la déconnexion.
 
-
+Nous n'avons pas eu le temps de complètement finir le projet avant 
 
 
 
