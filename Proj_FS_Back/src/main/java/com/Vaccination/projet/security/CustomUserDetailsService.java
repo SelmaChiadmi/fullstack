@@ -26,13 +26,13 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé : " + username));
 
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-        if (employe.getRole() == "Médecin") {
+        if ("Médecin".equals(employe.getRole())) {
             authorities.add(new SimpleGrantedAuthority("ROLE_MEDECIN"));
         }
-        if (employe.getRole() == "Admin") {
+        if ("Admin".equals(employe.getRole())) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
-        if (employe.getRole() == "Super Admin") {
+        if ("Super Admin".equals(employe.getRole())) {
             authorities.add(new SimpleGrantedAuthority("ROLE_SUPER_ADMIN"));
         }
 

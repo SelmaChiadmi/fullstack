@@ -1,16 +1,26 @@
 
 package com.Vaccination.projet.dto;
 
-public class CreateEmployeDto {
+import java.time.LocalDate;
+import java.util.List;
+
+public class CreateMedecinDto {
 
     private String nom;
     private String prenom;
     private String mail;
-    private boolean isMed;
-    private boolean isAdmin;
-    private boolean isSuperAdmin;
     private int telephone;
 
+
+     public CreateMedecinDto() {}
+
+    public CreateMedecinDto(String nom, String prenom, String mail, int telephone) {
+       this.nom = nom;
+       this.prenom=prenom;
+       this.mail=mail;
+       this.telephone=telephone;
+
+    }
 
     // Getters et setters
     public String getNom() {
@@ -37,29 +47,6 @@ public class CreateEmployeDto {
         this.mail = mail;
     }
 
-    public boolean isMed() {
-        return isMed;
-    }
-
-    public void setMed(boolean isMed) {
-        this.isMed = isMed;
-    }
-
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public void setAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-
-    public boolean isSuperAdmin() {
-        return isSuperAdmin;
-    }
-
-    public void setSuperAdmin(boolean isSuperAdmin) {
-        this.isSuperAdmin = isSuperAdmin;
-    }
 
     public int getTelephone() {
         return telephone;
