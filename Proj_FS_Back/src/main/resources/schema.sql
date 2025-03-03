@@ -1,7 +1,7 @@
 create table if not exists t_centres  (
     id SERIAL PRIMARY KEY,
     ville varchar(255),
-    nom varchar(255),
+    nom varchar(255) unique,
     primary key (id)
 );
 
@@ -9,7 +9,7 @@ create table if not exists t_employes(
     id SERIAL PRIMARY KEY,
     nom varchar(255),
     prenom varchar(255),
-    mail varchar(255),
+    mail varchar(255) not null unique,
     mdp varchar(255),
     id_centre int4,
     is_med boolean, 
@@ -26,7 +26,7 @@ create table if not exists t_patients (
     id SERIAL PRIMARY KEY, 
     nom varchar(255),
     prenom varchar(255),
-    mail varchar(255),
+    mail varchar(255) not null unique,
     telephone varchar(15),
     date_naissance date
 

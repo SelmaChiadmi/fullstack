@@ -39,7 +39,7 @@ public class EmployesService {
         
     }
 
-    public employes createEmploye(CreateMedecinDto createMedecinDto) {
+    public employes createMedecinByAdmin(CreateMedecinDto createMedecinDto) {
         
         int centreAdmin = getLoggedInUserCentreId();
         centres centre = centreRepository.findById(centreAdmin)

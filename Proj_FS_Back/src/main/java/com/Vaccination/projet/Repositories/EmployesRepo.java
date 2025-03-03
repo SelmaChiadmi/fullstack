@@ -26,6 +26,14 @@ public interface EmployesRepo extends JpaRepository<employes, Integer> {
 
     boolean existsByMail(String mail);
 
+    @Query("SELECT e FROM employes e WHERE e.is_super_admin = true")
+    List<employes> findByIsSuperAdminTrue();
+
+
+    @Query("SELECT e FROM employes e WHERE e.centre.id = :centreId AND e.is_admin = true")
+    List<employes> findAdminByCentreId(@Param("centreId") int centreId);
+
+
 
 
 

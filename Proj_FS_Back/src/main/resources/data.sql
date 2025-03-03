@@ -26,6 +26,13 @@ INSERT INTO t_employes (nom, prenom, mail, mdp, id_centre, is_med, is_admin, is_
 SELECT 'Durand', 'Paul', 'durand.paul@gmail.com', '$2y$10$1bWeql/sFeDHMFw.0GF.0u6ADIYED5GQrtc4MmaMBNsTFrPGDV.o.', 2, TRUE, FALSE, FALSE, 0634567890
 WHERE NOT EXISTS (SELECT 1 FROM t_employes WHERE mail = 'durand.paul@gmail.com'); -- Vérifier la présence d'un employé par mail
 
+INSERT INTO t_employes (nom, prenom, mail, mdp, id_centre, is_med, is_admin, is_super_admin, telephone)
+VALUES( 'Nakib', 'Wassil', 'wnakib21@gmail.com', '$2y$10$1bWeql/sFeDHMFw.0GF.0u6ADIYED5GQrtc4MmaMBNsTFrPGDV.o.', 1, FALSE, FALSE, TRUE, 0678945678);
+
+
+INSERT INTO t_employes (nom, prenom, mail, mdp, id_centre, is_med, is_admin, is_super_admin, telephone)
+VALUES ('Chiadmi', 'Selma', 'selma.chiadmiii@gmail.com', '$2y$10$1bWeql/sFeDHMFw.0GF.0u6ADIYED5GQrtc4MmaMBNsTFrPGDV.o.', 3, FALSE, FALSE, TRUE, '0698645678');
+
 -- Ajuster la séquence pour t_employes
 SELECT setval(pg_get_serial_sequence('t_employes', 'id'), (SELECT MAX(id) FROM t_employes));
 
