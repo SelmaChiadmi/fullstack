@@ -8,7 +8,7 @@
     <div class="mycenter-header-row">
         <div class="mycenter-header-right">
             <h1 class="mycenter-title">Médecins</h1>
-            <button class="mycenter-button-add">+ Nouveau</button>
+            <button class="mycenter-button-add" (click)="openForm()">+ Nouveau</button>
         </div>
        
     </div>
@@ -65,3 +65,29 @@
     <button (click)="closeConfirmation()">Oui</button>
     <button (click)="closeConfirmation()"> Non</button>
 </div>
+
+<!-- Pour ajouter un médecin  -->
+<div *ngIf="isOpen" class="overlay">
+    <div class="edit-container">
+      <h2>Ajouter un Médecin</h2>
+      <form #employeeForm="ngForm" (ngSubmit)="onSubmit()">
+        <label>Nom</label>
+        <input type="text" [(ngModel)]="formData.nom" name="nom" required />
+  
+        <label>Prénom</label>
+        <input type="text" [(ngModel)]="formData.prenom" name="prenom" required />
+  
+        <label>Email</label>
+        <input type="email" [(ngModel)]="formData.email" name="email" required />
+  
+        <label>Mot de passe</label>
+        <input type="password" [(ngModel)]="formData.password" name="password" required />
+  
+        <label>Centre de rattachement</label>
+        <input type="text" [(ngModel)]="formData.centre" name="centre" required />
+  
+        <button type="submit" class ="create_button" [disabled]="!employeeForm.form.valid">Créer</button>
+        <button type="button" class="cancel_button" (click)="closeForm()">Annuler</button>
+      </form>
+    </div>
+  </div>
