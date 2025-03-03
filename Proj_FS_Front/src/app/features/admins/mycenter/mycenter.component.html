@@ -78,20 +78,11 @@
         <input type="text" [(ngModel)]="formData.prenom" name="prenom" required />
   
         <label>Email</label>
-        <input type="email" [(ngModel)]="formData.email" name="email" required />
+        <input type="email" [(ngModel)]="formData.mail" name="email" required />
   
-        <label>Mot de passe</label>
-        <input type="password" [(ngModel)]="formData.password" name="password" required />
-  
-        <label>Centre de rattachement</label>
-        <input type="text" [(ngModel)]="searchQuery" (input)="filterCenters()" name="search" placeholder="Rechercher un centre..." />
+        <label>Téléphone</label>
+        <input type="tel" [(ngModel)]="formData.telephone" name="telephone" required />
 
-        <ul *ngIf="filteredCenters.length > 0" class="autocomplete-list">
-        <li *ngFor="let center of filteredCenters" (click)="selectCenter(center.nom)">
-            {{ center.nom }}
-        </li>
-        </ul>
-    
         <button type="submit" class ="create_button" [disabled]="!employeeForm.form.valid">Créer</button>
         <button type="button" class="cancel_button" (click)="closeForm()">Annuler</button>
       </form>

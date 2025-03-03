@@ -40,7 +40,11 @@ export class AddCenterComponent {
             this.successMessage = 'Centre ajouté avec succès';
           }
           console.error('Erreur lors de l\'ajout:', error.message);
-          alert(`Erreur lors de l'ajout : ${error.message}`);
+          if (error.status === 403) {
+            alert("Vous n'êtes pas super-admin");
+          }else{
+          alert(`Erreur lors de l'ajout': ${error.message}`);
+          }
         }
       );
   }

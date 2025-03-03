@@ -3,20 +3,22 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { VaccinationCenterService } from '../../../core/services/vaccination-centers.service';
 import { VaccinationCenter } from '../../../core/models/vaccination-centers.model';
+import { CreateMedecinService } from '../../../core/services/create_medecin.service';
+import { Medecin } from '../../../core/models/medecin.model';
 
 @Component({
   selector: 'app-mycenter',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
+  providers: [VaccinationCenterService, CreateMedecinService],
   templateUrl: './mycenter.component.html',
   styleUrl: './mycenter.component.css'
 })
 export class MycenterComponent {
-  searchQuery: string = '';
   filteredCenters: any[] = [];
   centers: VaccinationCenter[] = [];
 
-  constructor(private centerService: VaccinationCenterService) {}
+  constructor(private centerService: VaccinationCenterService, private createMedecinService: CreateMedecinService) {}
 
   ngOnInit(): void {
     this.centerService.centers$.subscribe((data) => {
@@ -25,14 +27,15 @@ export class MycenterComponent {
     this.centerService.loadCenters();
   }
 
-  isOpen = false;
-  formData = {
+  formData: Medecin = {
     nom: '',
     prenom: '',
-    email: '',
-    password: '',
-    centre: ''
+    mail: '',
+    telephone: 0,
   };
+
+  isOpen = false;
+
 
   openForm() {
     this.isOpen = true;
@@ -43,37 +46,29 @@ export class MycenterComponent {
     this.resetForm();
   }
 
+  
   onSubmit() {
-    console.log('Nouvel employé :', this.formData);
-    this.closeForm(); // Ferme le formulaire après soumission
+    this.createMedecinService.createMedecin(this.formData).subscribe({
+      next: (response) => {
+        console.log('Médecin créé avec succès', response);
+        alert('Médecin ajouté avec succès !');
+        this.resetForm();
+        this.closeForm();
+      },
+      error: (error) => {
+        console.error('Erreur lors de la création', error.message);
+        alert('Erreur lors de l\'ajout du médecin.' + error.message);
+      }
+    });
   }
 
-  // chercher un centre
-  filterCenters() {
-    this.filteredCenters = this.centers.filter(center =>
-      center.nom.toLowerCase().includes(this.searchQuery.toLowerCase())
-    );
-  }
-
-  // sélectionner un centre
-  selectCenter(nom: string) {
-    this.formData.centre = nom;
-    this.searchQuery = nom;
-    this.filteredCenters = []; // Cache la liste après sélection
-  }
-
-  private resetForm() {
-    this.formData = {
-      nom: '',
-      prenom: '',
-      email: '',
-      password: '',
-      centre: ''
-    };
+  resetForm() {
+    this.formData = { nom: '', prenom: '', mail: '', telephone: 0 };
   }
 
   isConfirmationDisplayed: boolean = false;
      // Fonction pour afficher le message de confirmation
+
   delete() {
       this.isConfirmationDisplayed = true;
   }
