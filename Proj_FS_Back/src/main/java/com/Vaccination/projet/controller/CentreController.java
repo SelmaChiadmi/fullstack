@@ -47,8 +47,7 @@ public class CentreController {
 
    
     // Modifier un centre
-     @PreAuthorize("hasRole('Super Admin')")
-    
+    @PreAuthorize("hasRole('Super Admin')")
     @PutMapping("admin/centre/{centreId}/modify")
     public ResponseEntity<Integer> updateCentre(@PathVariable("centreId") int centreId, @RequestBody updateCentreDto centre) {
         try {

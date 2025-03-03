@@ -84,8 +84,14 @@
         <input type="password" [(ngModel)]="formData.password" name="password" required />
   
         <label>Centre de rattachement</label>
-        <input type="text" [(ngModel)]="formData.centre" name="centre" required />
-  
+        <input type="text" [(ngModel)]="searchQuery" (input)="filterCenters()" name="search" placeholder="Rechercher un centre..." />
+
+        <ul *ngIf="filteredCenters.length > 0" class="autocomplete-list">
+        <li *ngFor="let center of filteredCenters" (click)="selectCenter(center.nom)">
+            {{ center.nom }}
+        </li>
+        </ul>
+    
         <button type="submit" class ="create_button" [disabled]="!employeeForm.form.valid">Créer</button>
         <button type="button" class="cancel_button" (click)="closeForm()">Annuler</button>
       </form>
