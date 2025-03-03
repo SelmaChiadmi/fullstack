@@ -1,9 +1,12 @@
 package com.Vaccination.projet.controller;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +21,8 @@ import com.Vaccination.projet.entities.employes;
 import com.Vaccination.projet.services.CentreService;
 import com.Vaccination.projet.services.EmployesService;
 import com.Vaccination.projet.services.superAdminService;
+
+
 import com.Vaccination.projet.dto.CreateCenterDto;
 import com.Vaccination.projet.dto.CreateEmployeDto;
 import com.Vaccination.projet.dto.recupSuperAdminDto;
@@ -37,6 +42,12 @@ public class superAdminController {
     @PreAuthorize("hasAuthority('ROLE_SUPER_ADMIN')")
     @GetMapping("admin/config")
     public ResponseEntity<List<recupSuperAdminDto>> getSuperAdminsBySuperAdmin(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Collections.emptyList());
+        }
 
         List<recupSuperAdminDto> superAdmins = superAdminService.getSuperAdminsBySuperAdmin();
         
@@ -47,6 +58,12 @@ public class superAdminController {
     @PreAuthorize("hasAuthority('ROLE_SUPER_ADMIN')")
     @GetMapping("admin/config/create/{centreId}")
     public ResponseEntity<String> createSuperAdminBySuperAdminController(@RequestBody CreateEmployeDto superadmindto, @PathVariable("centreId") int centreId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Vous n'êtes pas super admin");
+        }
         try {
             // Création du Super Admin via le service
             employes newSuperAdmin = superAdminService.createSuperAdminByAdmin(superadmindto, centreId);
