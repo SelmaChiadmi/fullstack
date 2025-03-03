@@ -1,4 +1,4 @@
-package com.Vaccination.projet.services;
+/*package com.Vaccination.projet.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.Vaccination.projet.Repositories.CentreRepository;
 import com.Vaccination.projet.Repositories.EmployesRepo;
-import com.Vaccination.projet.dto.CreateMedecinDto;
+import com.Vaccination.projet.dto.CreateEmployeDto;
 import com.Vaccination.projet.dto.recupSuperAdminDto;
 import com.Vaccination.projet.entities.centres;
 import com.Vaccination.projet.entities.employes;
@@ -58,6 +58,44 @@ public class superAdminService {
         return superadminsdto;
     
 
-    }}
+    }
+
+    public employes createSuperAdminByAdmin(CreateEmployeDto createSuperAdminDto) {
+        
+
+        if (existsByEmail(createSuperAdminDto.getMail())) {
+            throw new IllegalArgumentException("Un employé avec cet email existe déjà.");
+        }
+        
+        // Mot de passe par défaut
+        String defaultPassword = "defaultPassword123"; // À changer après la première connexion
+
+        // Hachage du mot de passe par défaut
+        String hashedPassword = passwordEncoder.encode(defaultPassword);
+
+        // Créer le Super Admin
+        employes newSuperAdmin = new employes();
+        newSuperAdmin.setNom(createSuperAdminDto.getNom());
+        newSuperAdmin.setPrenom(createSuperAdminDto.getPrenom());
+        newSuperAdmin.setMail(createSuperAdminDto.getMail());
+        newSuperAdmin.setTelephone(createSuperAdminDto.getTelephone());
+        newSuperAdmin.setmdp(hashedPassword);
+        newSuperAdmin.set_med(false); 
+        newSuperAdmin.set_admin(false); 
+        newSuperAdmin.set_super_admin(true); // C'est un super admin
+
+        newSuperAdmin.setCentre(centre);
+
+        // Sauvegarder l'employé
+        return employesRepo.save(newSuperAdmin);
+    }
+
+    public boolean existsByEmail(String email) {
+        return employesRepo.existsByMail(email); 
+    }
+
+
+
+}*/
 
 

@@ -1,4 +1,4 @@
-package com.Vaccination.projet.controller;
+/*package com.Vaccination.projet.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import com.Vaccination.projet.entities.employes;
 import com.Vaccination.projet.services.CentreService;
 import com.Vaccination.projet.services.EmployesService;
 import com.Vaccination.projet.services.superAdminService;
-import com.Vaccination.projet.dto.CreateMedecinDto;
+import com.Vaccination.projet.dto.CreateEmployeDto;
 import com.Vaccination.projet.dto.recupSuperAdminDto;
 
 @RestController
@@ -46,3 +46,4 @@ public class superAdminController {
 
 
 }
+*/

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.Vaccination.projet.Repositories.CentreRepository;
 import com.Vaccination.projet.Repositories.EmployesRepo;
-import com.Vaccination.projet.dto.CreateMedecinDto;
+import com.Vaccination.projet.dto.CreateEmployeDto;
 import com.Vaccination.projet.entities.centres;
 import com.Vaccination.projet.entities.employes;
 
@@ -39,7 +39,7 @@ public class EmployesService {
         
     }
 
-    public employes createMedecinByAdmin(CreateMedecinDto createMedecinDto) {
+    public employes createMedecinByAdmin(CreateEmployeDto createMedecinDto) {
         
         int centreAdmin = getLoggedInUserCentreId();
         centres centre = centreRepository.findById(centreAdmin)
