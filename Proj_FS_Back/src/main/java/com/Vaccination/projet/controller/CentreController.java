@@ -2,6 +2,8 @@ package com.Vaccination.projet.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import com.Vaccination.projet.dto.CreateCenterDto;
@@ -47,10 +49,15 @@ public class CentreController {
 
    
     // Modifier un centre
-     @PreAuthorize("hasRole('Super Admin')")
+     @PreAuthorize("hasAuthority('ROLE_SUPER_ADMIN')")
     
     @PutMapping("admin/centre/{centreId}/modify")
     public ResponseEntity<Integer> updateCentre(@PathVariable("centreId") int centreId, @RequestBody updateCentreDto centre) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.getAuthorities().stream()
+        .anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(403);
+    }
         try {
             centreService.updateCentre(centreId, centre);
             return ResponseEntity.ok(200);
@@ -61,9 +68,14 @@ public class CentreController {
     }
 
     //ajouter un centre 
-    @PreAuthorize("hasRole('Super Admin')")
+    @PreAuthorize("hasAuthority('ROLE_SUPER_ADMIN')")
     @PostMapping("admin/centre/new")
     public ResponseEntity<Integer> addCentre(@RequestBody CreateCenterDto centreDto) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.getAuthorities().stream()
+        .anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(403);
+    }
         try {
             centres centre = new centres();
             centre.setNom(centreDto.getNom());
