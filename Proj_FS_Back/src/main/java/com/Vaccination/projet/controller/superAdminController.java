@@ -1,4 +1,4 @@
-/*package com.Vaccination.projet.controller;
+package com.Vaccination.projet.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -18,6 +18,7 @@ import com.Vaccination.projet.entities.employes;
 import com.Vaccination.projet.services.CentreService;
 import com.Vaccination.projet.services.EmployesService;
 import com.Vaccination.projet.services.superAdminService;
+import com.Vaccination.projet.dto.CreateCenterDto;
 import com.Vaccination.projet.dto.CreateEmployeDto;
 import com.Vaccination.projet.dto.recupSuperAdminDto;
 
@@ -33,7 +34,7 @@ public class superAdminController {
     }
 
 
-    @PreAuthorize("hasRole('Super Admin')")
+    @PreAuthorize("hasAuthority('ROLE_SUPER_ADMIN')")
     @GetMapping("admin/config")
     public ResponseEntity<List<recupSuperAdminDto>> getSuperAdminsBySuperAdmin(){
 
@@ -43,7 +44,26 @@ public class superAdminController {
 
     }
 
+    @PreAuthorize("hasAuthority('ROLE_SUPER_ADMIN')")
+    @GetMapping("admin/config/create/{centreId}")
+    public ResponseEntity<String> createSuperAdminBySuperAdminController(@RequestBody CreateEmployeDto superadmindto, @PathVariable("centreId") int centreId){
+        try {
+            // Création du Super Admin via le service
+            employes newSuperAdmin = superAdminService.createSuperAdminByAdmin(superadmindto, centreId);
+            
+            return ResponseEntity.status(HttpStatus.CREATED).body("Super Admin créé avec succès.");
+        } catch (IllegalArgumentException e) {
+            // Si l'email est déjà utilisé
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erreur : " + e.getMessage());
+        } catch (Exception e) {
+            // Erreur générale
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la création du Super Admin.");
+        }
+
+
+    }
+
+
 
 
 }
-*/

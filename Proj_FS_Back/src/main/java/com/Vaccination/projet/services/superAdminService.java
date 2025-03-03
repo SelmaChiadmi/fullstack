@@ -1,4 +1,4 @@
-/*package com.Vaccination.projet.services;
+package com.Vaccination.projet.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,9 @@ public class superAdminService {
 
     }
 
-    public employes createSuperAdminByAdmin(CreateEmployeDto createSuperAdminDto) {
+    public employes createSuperAdminByAdmin(CreateEmployeDto createSuperAdminDto, int centreId) {
+
+        centres centre = centreRepository.findCentreById(centreId);
         
 
         if (existsByEmail(createSuperAdminDto.getMail())) {
@@ -84,7 +86,7 @@ public class superAdminService {
         newSuperAdmin.set_admin(false); 
         newSuperAdmin.set_super_admin(true); // C'est un super admin
 
-        newSuperAdmin.setCentre(centre);
+        newSuperAdmin.setCentre(centre); //c'est seulement un centre de référence pour ne pas avoir la case vide
 
         // Sauvegarder l'employé
         return employesRepo.save(newSuperAdmin);
@@ -96,6 +98,6 @@ public class superAdminService {
 
 
 
-}*/
+}
 
 
