@@ -1,6 +1,7 @@
 package com.Vaccination.projet.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.Vaccination.projet.dto.CreateCenterDto;
@@ -46,6 +47,8 @@ public class CentreController {
 
    
     // Modifier un centre
+     @PreAuthorize("hasRole('Super Admin')")
+    
     @PutMapping("admin/centre/{centreId}/modify")
     public ResponseEntity<Integer> updateCentre(@PathVariable("centreId") int centreId, @RequestBody updateCentreDto centre) {
         try {
@@ -58,6 +61,7 @@ public class CentreController {
     }
 
     //ajouter un centre 
+    @PreAuthorize("hasRole('Super Admin')")
     @PostMapping("admin/centre/new")
     public ResponseEntity<Integer> addCentre(@RequestBody CreateCenterDto centreDto) {
         try {
