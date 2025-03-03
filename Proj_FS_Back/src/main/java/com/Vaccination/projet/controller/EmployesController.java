@@ -38,38 +38,20 @@ public class EmployesController {
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Vous n'êtes pas admin");
         }
-
-    public ResponseEntity<Integer> createEmploye(@RequestBody CreateEmployeDto createMedecinDto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication == null || !authentication.getAuthorities().stream()
-                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(200);
-        }
         try {
             System.out.println("Creating employee with details: " + createMedecinDto);
             employes new_medecin = employesService.createMedecinByAdmin(createMedecinDto);
             System.out.println("Employee created successfully: " + new_medecin);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(200);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Employé créé avec succès");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erreur lors de la création de l'employé: " + e.getMessage());
             System.err.println("Error during employee creation: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(404);
+                .body("Erreur lors de la création de l'employé: " + e.getMessage());
+        }
         }
         }
 
-    @DeleteMapping("admin/employe/{employe_id}")
-    public ResponseEntity<String> deleteByIdController(@PathVariable("employe_id") int employe_id) {
-        try {
-            employesService.deleteById(employe_id);
-            return ResponseEntity.ok("L'employé a été supprimé avec succès");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erreur lors de la suppression de l'employé");
-        }
         @DeleteMapping("admin/employe/{employe_id}")
         public ResponseEntity<String> deleteByIdController(@PathVariable("employe_id") int employe_id) {
         try {
@@ -84,7 +66,6 @@ public class EmployesController {
     @GetMapping("admin/centre/{id}/medecin")
     public ResponseEntity<List<employes>> rechercherMedecins(
             @PathVariable("id") int centreId,
-            @RequestParam String nom) {
             @RequestParam String nom) {
         try {
             List<employes> medecins = employesService.chercherMedecins(centreId, nom);
