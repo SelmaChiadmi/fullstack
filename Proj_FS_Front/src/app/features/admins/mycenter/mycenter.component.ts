@@ -49,6 +49,7 @@ export class MycenterComponent {
       next: (data) => {
         this.medecins = data;
       },
+
       error: (error) => {
         if (error.status === 403) {
           console.log("Vous n'êtes pas admin : vous ne pouvez pas voir les médecins");
@@ -64,7 +65,11 @@ export class MycenterComponent {
     if (confirm(`Voulez-vous vraiment supprimer le médecin avec l'email : ${email} ?`)) {
       this.centreService1.deleteMedecin(email).subscribe({
         next: () => {
-          this.medecins = this.medecins.filter(m => m.mail !== email);
+            if (email === this.formData.mail) {
+            alert("Vous ne pouvez pas supprimer le médecin avec lequel vous êtes connecté.");
+            } else {
+            this.medecins = this.medecins.filter(m => m.mail !== email);
+            }
         },
         error: (error) => {
           this.errorMessage = error.message;
