@@ -68,6 +68,7 @@ export class PlanningComponent implements OnInit {
     this.planningService.getResaByDate(this.selectedDate).subscribe({
       next: (data) => {
         this.reservations = data;  
+        console.log('Réservations:', this.reservations);
       },
       error: (error) => {
         this.errorMessage = 'Erreur lors de la récupération des réservations.';
@@ -84,25 +85,29 @@ export class PlanningComponent implements OnInit {
 
   toggleStatut(reservation: any): void {
     
-      // Méthode pour changer le statut de la réservation
-  
     const newStatus = !reservation.statutReservation;
     this.reservationService.updateReservationValidation(reservation.id, newStatus)
       .subscribe(
         response => {
           // Si la réponse est réussie, met à jour le statut de la réservation localement
-          reservation.statutReservation = newStatus;
-          alert(response);  
+            reservation.statutReservation = newStatus;
+            alert('Le statut de la réservation a été mis à jour avec succès.');
+            console.log('Statut de la réservation mis à jour avec succès:', 200);
+        
         },
         error => {
+          if (error.status === 403) {
+            alert("Vous n'êtes pas autorisé à changer le statut de cette réservation.");
+            console.log(error.message)
+          }else{
           // En cas d'erreur, afficher un message d'erreur
           console.error('Erreur lors de la mise à jour du statut :', error.message);
           alert('Une erreur est survenue lors de la mise à jour du statut.');
-        }
+        }}
       );
+      
 
-      // Inverser le statut de la réservation (si "Validé" devient "Non Validé" et vice versa)
-      reservation.statutReservation = !reservation.statutReservation;
+      
   }
 
 

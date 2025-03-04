@@ -59,7 +59,7 @@ public class ReservationController {
         }
     }
 
-    // Endpoint pour récupérer les réservations d'un patient
+    // Endpoint pour annuler une réservation d'un patient
     @DeleteMapping("/booking/{bookingId}")
     public ResponseEntity<String> cancelBooking(@PathVariable int bookingId) {
         reservationService.cancelBooking(bookingId);
@@ -68,24 +68,29 @@ public class ReservationController {
 
 
     // Endpoint pour mettre à jour le statut de validation d'une réservation
-    @PreAuthorize("hasAuthority('ROLE_MEDECIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_MEDECIN')")
     @PatchMapping("/admin/planning/reservation/{reservationId}")
-    public ResponseEntity<String> updateReservationValidation(
-            @PathVariable int reservationId, 
-            @RequestParam boolean isValidated) {
+    public ResponseEntity<Integer> updateReservationValidation(
+            @PathVariable("reservationId") int reservationId, 
+            @RequestParam("isValidated") boolean isValidated) {
         
-                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.getAuthorities().stream()
-            .anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Forbidden");
-        }
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            System.out.println(authentication);
+            if (authentication == null || 
+                (!authentication.getAuthorities().stream()
+                     .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN")) && 
+                !authentication.getAuthorities().stream()
+                     .anyMatch(a -> a.getAuthority().equals("ROLE_MEDECIN")))) {
+                
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(403);
+            }
         try {
             reservationService.updateValidationStatus(reservationId, isValidated);
-            return ResponseEntity.ok("Le statut de la réservation a été mis à jour avec succès.");
+            return ResponseEntity.ok(200);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(404);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Une erreur est survenue.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(500);
         }
     }
 

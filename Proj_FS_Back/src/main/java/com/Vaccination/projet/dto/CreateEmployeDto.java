@@ -52,8 +52,8 @@ public class CreateEmployeDto {
         return telephone;
     }
 
-    public void setTelephone(int telephone) {
-        this.telephone = telephone;
+    public void setTelephone(int Telephone) {
+        this.telephone = Telephone;
     }
 
     

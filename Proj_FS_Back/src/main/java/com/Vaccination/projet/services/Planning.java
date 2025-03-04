@@ -54,6 +54,7 @@ public class Planning {
                     
                 // Construire le DTO avec toutes les informations
                 ResaPlanning reservationDTO = new ResaPlanning(
+                    reservation.getId(),
                     patient.getNom(),
                     patient.getPrenom(),
                     patient.getDate_naissance(),

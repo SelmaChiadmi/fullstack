@@ -6,7 +6,7 @@ import java.time.LocalTime;
 
 
 public class ResaPlanning {
-
+    private Integer id;
     private String nomPatient;
     private String prenomPatient;
     private LocalDate dateNaissancePatient;
@@ -16,10 +16,10 @@ public class ResaPlanning {
     private Boolean statutReservation;
 
 
-    public ResaPlanning(String nomPatient, String prenomPatient,
+    public ResaPlanning(Integer id, String nomPatient, String prenomPatient,
                           LocalDate dateNaissancePatient, int numeroPatient, LocalDate dateReservation, 
                           LocalTime heureReservation, Boolean statutReservation) {
-      
+        this.id = id;
         this.nomPatient = nomPatient;
         this.prenomPatient = prenomPatient;
         this.dateNaissancePatient = dateNaissancePatient;
@@ -30,6 +30,10 @@ public class ResaPlanning {
     }
 
     public ResaPlanning(){}
+
+    public Integer getId() {
+        return id;
+    }
 
     public String getNomPatient() {
         return nomPatient;

@@ -133,4 +133,9 @@ public class employes {
         return this.reservations;
 
     }
+
+    public void setTelephone(String telephone2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setTelephone'");
+    }
 }

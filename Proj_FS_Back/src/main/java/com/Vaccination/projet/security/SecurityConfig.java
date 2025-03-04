@@ -45,7 +45,7 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));  
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));  // Méthodes autorisées
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS","PATCH"));  // Méthodes autorisées
         config.setAllowedHeaders(Arrays.asList("*"));  // Autorise tous les en-têtes
         source.registerCorsConfiguration("/**", config);  // Applique à toutes les routes
         return source;
