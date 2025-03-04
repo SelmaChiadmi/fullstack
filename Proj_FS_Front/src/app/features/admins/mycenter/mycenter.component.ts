@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { VaccinationCenterService } from '../../../core/services/vaccination-centers.service';
 import { VaccinationCenter } from '../../../core/models/vaccination-centers.model';
-import { CreateMedecinService } from '../../../core/services/create_medecin.service';
+import { CreateMedecinService } from '../../../core/services/medecin.service';
 import { Employe } from '../../../core/models/employe.model';
 
 @Component({

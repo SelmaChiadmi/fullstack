@@ -10,54 +10,34 @@
             <h1 class="mycenter-title">Médecins</h1>
             <button class="mycenter-button-add" (click)="openForm()">+ Nouveau</button>
         </div>
-       
     </div>
-    <table class="mycenter-table">
-        <thead>
-            <tr>
-                <th class="mycenter-header">Name</th>
+
+        <table  class="mycenter-table" *ngIf="medecins.length > 0">
+            <thead>
+              <tr>
+                <th class="mycenter-header">Nom</th>
+                <th class="mycenter-header">Prénom</th>
                 <th class="mycenter-header">Email</th>
+                <th class="mycenter-header">Téléphone</th>
                 <th class="mycenter-header">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- <tr *ngFor="let mycenter of mycenters">
-                <td class="mycenter-data">{{ mycenter.name }}</td>
-                <td class="mycenter-data">{{ mycenter.email }}</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let medecin of medecins">
+                <td>{{ medecin.nom }}</td>
+                <td>{{ medecin.prenom }}</td>
+                <td>{{ medecin.mail }}</td>
+                <td>{{ medecin.telephone }}</td>
                 <td class="mycenter-action">
                     <button (click)="delete(medecin)" class="mycenter-button">Delete</button>
                 </td>
-            </tr> -->
-            <tr>
-                <td class="mycenter-data">Alice Johnson</td>
-                <td class="mycenter-data">alice.johnson&#64;example.com</td>
-                <td class="mycenter-action">
-                    <button class="mycenter-button" (click)="delete()">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="mycenter-data">Bob Brown</td>
-                <td class="mycenter-data">bob.brown&#64;example.com</td>
-                <td class="mycenter-action">
-                    <button class="mycenter-button"(click)="delete()">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="mycenter-data">Charlie Davis</td>
-                <td class="mycenter-data">charlie.davis&#64;example.com</td>
-                <td class="mycenter-action">
-                    <button class="mycenter-button"(click)="delete()">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="mycenter-data">Diana Evans</td>
-                <td class="mycenter-data">diana.evans&#64;example.com</td>
-                <td class="mycenter-action">
-                    <button class="mycenter-button"(click)="delete()">Delete</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                
+              </tr>
+            </tbody>
+          </table>
+        
+          <p *ngIf="medecins.length === 0 && !errorMessage">Aucun médecin trouvé.</p>
+    
 </div>
 
 <div *ngIf="isConfirmationDisplayed" class="confirmation-message">

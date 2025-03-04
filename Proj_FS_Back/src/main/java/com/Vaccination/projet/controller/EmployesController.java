@@ -27,7 +27,7 @@ public class EmployesController {
     public EmployesController(EmployesService employesService) {
         this.employesService = employesService;
     }
-
+    // crée un medecin
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("admin/centre/medecins/create")
     public ResponseEntity<String> createEmploye(@RequestBody CreateEmployeDto createMedecinDto) {
@@ -48,6 +48,7 @@ public class EmployesController {
         }
     }
 
+    // récupère les medecins d'un centre
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("admin/centre/medecins")
     public ResponseEntity<?> getMedecinsCentreController() {
@@ -66,12 +67,12 @@ public class EmployesController {
             return ResponseEntity.ok(medecins);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erreur lors de la création de l'employé: " + e.getMessage());
+                    .body("Erreur lors de la récupération de l'employé: " + e.getMessage());
         }
     }
 
 
-
+    // supprime un medecin par son id
     @DeleteMapping("admin/employe/{employe_id}")
     public ResponseEntity<String> deleteByIdController(@PathVariable("employe_id") int employe_id) {
         try {
@@ -83,6 +84,7 @@ public class EmployesController {
         }
     }
 
+    // récupère  un employe d'un centre via son id
     @GetMapping("admin/centre/{id}/medecin")
     public ResponseEntity<List<employes>> rechercherMedecins(
             @PathVariable("id") int centreId,
