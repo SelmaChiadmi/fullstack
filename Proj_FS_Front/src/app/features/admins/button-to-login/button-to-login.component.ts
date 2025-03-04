@@ -7,6 +7,7 @@ import { Router } from '@angular/router'
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-button-to-login',
@@ -80,7 +81,8 @@ export class ButtonToLoginComponent implements OnInit {
       response => {
         if (response.token) {
           localStorage.setItem('jwt', response.token);
-          console.log("Pour vérifier : Token JWT reçu :", response.token);
+          //console.log("Pour vérifier : Token JWT reçu :", response.token);
+          
           this.isLoggedIn = true;
           this.login = false;
           console.log("Connexion réussie !");

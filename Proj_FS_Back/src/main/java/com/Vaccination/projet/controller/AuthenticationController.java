@@ -37,8 +37,6 @@ public class AuthenticationController {
         );
 
         // Charger l'utilisateur 
-        
-
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
         // Générer le token JWT
