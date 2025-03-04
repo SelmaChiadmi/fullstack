@@ -26,6 +26,12 @@ public interface CreneauRepo extends JpaRepository<creneaux, Integer> {
     Optional<creneaux> findByCentreIdAndJourAndHeure(@Param("centreId") int centreId, 
                                                      @Param("jour") LocalDate jour, 
                                                      @Param("heure") LocalTime heure);
+
+    @Query("SELECT DISTINCT c.jour FROM creneaux c WHERE c.centre.id = :centreId AND  c.disponible = true")
+    List<LocalDate> findDistinctJourDisponible(@Param("centreId") int centreId);
+
+    @Query("SELECT c.heure FROM creneaux c WHERE c.jour = :jour AND  c.disponible = true")
+    List<LocalTime> findByJourAndDisponible(@Param("jour") LocalDate jour);
     
 }
 
