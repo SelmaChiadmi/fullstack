@@ -74,7 +74,7 @@ public class superAdminController {
             // Si l'email est déjà utilisé
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erreur : " + e.getMessage());
         } catch (Exception e) {
-            // Erreur générale
+            
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la création du Super Admin.");
         }
 

@@ -44,7 +44,7 @@ public class SecurityConfig {
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));  // Origine autorisée (ton front-end)
+        config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));  
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));  // Méthodes autorisées
         config.setAllowedHeaders(Arrays.asList("*"));  // Autorise tous les en-têtes
         source.registerCorsConfiguration("/**", config);  // Applique à toutes les routes
