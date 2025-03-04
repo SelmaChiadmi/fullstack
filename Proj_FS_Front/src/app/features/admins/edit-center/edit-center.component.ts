@@ -25,8 +25,13 @@ export class EditCenterComponent {
       this.iscenterUpdated = true;
       
     }, error => {
-      console.error("Erreur lors de la mise à jour :", error);
+      console.error("Erreur lors de la mise à jour :", error.status);
+      if (error.status === 403) {
+        alert("Vous n'êtes pas super-admin");
+      }else{
       alert(`Erreur lors de la mise à jour : ${error.message}`);
+      }
+
 
     });
 }

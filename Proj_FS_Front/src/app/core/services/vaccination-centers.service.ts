@@ -6,7 +6,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { VaccinationCenter, VaccinationCenterDto } from '../models/vaccination-centers.model';
 import { UpdateCentreDto } from '../models/updatecentre.model';
 
@@ -115,5 +115,25 @@ export class VaccinationCenterService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }) });
+  }
+
+  getCentreByAdmin(): Observable<any> {
+    const token = localStorage.getItem('jwt');  // Récupération du token d'authentification
+
+    if (!token) {
+      console.error('Token manquant');
+      return throwError(() => new Error('Token manquant'));
+    }
+
+    return this.http.get('http://localhost:8080/admin/centre', {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+    }).pipe(
+      catchError(error => {
+        console.error('Erreur lors de la récupération du centre:', error);
+        return throwError(() => error);
+      })
+    );
   }
 }

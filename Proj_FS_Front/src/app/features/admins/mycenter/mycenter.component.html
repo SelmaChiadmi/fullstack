@@ -1,63 +1,43 @@
 <div class="container" *ngIf="!isConfirmationDisplayed">
-    <div class="mycenter-info">
-        <p><strong>Nom :</strong> Nom du centre</p>
-        <p><strong>Ville :</strong> Ville du centre</p>
+    <div class="mycenter-info" *ngIf="centre">
+        <p><strong>Nom :</strong> {{ centre.nom }}</p>
+        <p><strong>Ville :</strong> {{ centre.ville }}</p>
     </div>
     
     
     <div class="mycenter-header-row">
         <div class="mycenter-header-right">
             <h1 class="mycenter-title">Médecins</h1>
-            <button class="mycenter-button-add">+ Nouveau</button>
+            <button class="mycenter-button-add" (click)="openForm()">+ Nouveau</button>
         </div>
-       
     </div>
-    <table class="mycenter-table">
-        <thead>
-            <tr>
-                <th class="mycenter-header">Name</th>
+
+        <table  class="mycenter-table" *ngIf="medecins.length > 0">
+            <thead>
+              <tr>
+                <th class="mycenter-header">Nom</th>
+                <th class="mycenter-header">Prénom</th>
                 <th class="mycenter-header">Email</th>
+                <th class="mycenter-header">Téléphone</th>
                 <th class="mycenter-header">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- <tr *ngFor="let mycenter of mycenters">
-                <td class="mycenter-data">{{ mycenter.name }}</td>
-                <td class="mycenter-data">{{ mycenter.email }}</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let medecin of medecins">
+                <td>{{ medecin.nom }}</td>
+                <td>{{ medecin.prenom }}</td>
+                <td>{{ medecin.mail }}</td>
+                <td>{{ medecin.telephone }}</td>
                 <td class="mycenter-action">
-                    <button (click)="delete(medecin)" class="mycenter-button">Delete</button>
+                    <button  class="mycenter-button" (click)="deleteMedecin(medecin.mail)">Delete</button>
                 </td>
-            </tr> -->
-            <tr>
-                <td class="mycenter-data">Alice Johnson</td>
-                <td class="mycenter-data">alice.johnson&#64;example.com</td>
-                <td class="mycenter-action">
-                    <button class="mycenter-button" (click)="delete()">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="mycenter-data">Bob Brown</td>
-                <td class="mycenter-data">bob.brown&#64;example.com</td>
-                <td class="mycenter-action">
-                    <button class="mycenter-button"(click)="delete()">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="mycenter-data">Charlie Davis</td>
-                <td class="mycenter-data">charlie.davis&#64;example.com</td>
-                <td class="mycenter-action">
-                    <button class="mycenter-button"(click)="delete()">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="mycenter-data">Diana Evans</td>
-                <td class="mycenter-data">diana.evans&#64;example.com</td>
-                <td class="mycenter-action">
-                    <button class="mycenter-button"(click)="delete()">Delete</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                
+              </tr>
+            </tbody>
+          </table>
+        
+          <p *ngIf="medecins.length === 0">Aucun médecin trouvé.</p>
+    
 </div>
 
 <div *ngIf="isConfirmationDisplayed" class="confirmation-message">
@@ -65,3 +45,26 @@
     <button (click)="closeConfirmation()">Oui</button>
     <button (click)="closeConfirmation()"> Non</button>
 </div>
+
+<!-- Pour ajouter un médecin  -->
+<div *ngIf="isOpen" class="overlay">
+    <div class="edit-container">
+      <h2>Ajouter un Médecin</h2>
+      <form #employeeForm="ngForm" (ngSubmit)="onSubmit()">
+        <label>Nom</label>
+        <input type="text" [(ngModel)]="formData.nom" name="nom" required />
+  
+        <label>Prénom</label>
+        <input type="text" [(ngModel)]="formData.prenom" name="prenom" required />
+  
+        <label>Email</label>
+        <input type="email" [(ngModel)]="formData.mail" name="email" required />
+  
+        <label>Téléphone</label>
+        <input type="tel" [(ngModel)]="formData.telephone" name="telephone" required />
+
+        <button type="submit" class ="create_button" [disabled]="!employeeForm.form.valid">Créer</button>
+        <button type="button" class="cancel_button" (click)="closeForm()">Annuler</button>
+      </form>
+    </div>
+  </div>

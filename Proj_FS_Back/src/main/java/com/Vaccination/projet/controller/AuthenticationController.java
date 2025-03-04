@@ -37,9 +37,12 @@ public class AuthenticationController {
         );
 
         // Charger l'utilisateur à partir de la base de données
+        System.out.println("je suis dans le auth controller ligne 40");
+
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
         // Générer le token JWT
+        System.out.println("je suis dans le auth controller ligne 43");
         String jwtToken = jwtTokenProvider.generateToken(userDetails);
 
         // Retourner le token

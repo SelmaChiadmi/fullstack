@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.Vaccination.projet.Repositories.CentreRepository;
 import com.Vaccination.projet.Repositories.EmployesRepo;
-import com.Vaccination.projet.dto.CreateMedecinDto;
+import com.Vaccination.projet.dto.CreateEmployeDto;
 import com.Vaccination.projet.entities.centres;
 import com.Vaccination.projet.entities.employes;
 
@@ -25,6 +25,14 @@ public class EmployesService {
     @Autowired
     private CentreRepository centreRepository;
 
+    public void deleteMedecinByEmail(String email) {
+        Optional<employes> employe = employesRepo.findByMail(email);
+        if (employe.isPresent()) {
+            employesRepo.delete(employe.get());
+        } else {
+            throw new RuntimeException("Employé non trouvé avec l'email : " + email);
+        }
+    }
    
 
 
@@ -39,7 +47,7 @@ public class EmployesService {
         
     }
 
-    public employes createEmploye(CreateMedecinDto createMedecinDto) {
+    public employes createMedecinByAdmin(CreateEmployeDto createMedecinDto) {
         
         int centreAdmin = getLoggedInUserCentreId();
         centres centre = centreRepository.findById(centreAdmin)
@@ -50,7 +58,7 @@ public class EmployesService {
                                         }
     
         // Mot de passe par défaut
-        String defaultPassword = "defaultPassword123"; // À changer après la première connexion
+        String defaultPassword = "medecin"; // À changer après la première connexion
     
         // Hachage du mot de passe par défaut
         String hashedPassword = passwordEncoder.encode(defaultPassword);
@@ -72,6 +80,10 @@ public class EmployesService {
         // Sauvegarder l'employé
         return employesRepo.save(new_medecin);
     }
+
+    public List<employes> getMedecinCentre(int centreId){
+        return employesRepo.chercherMedecins(centreId);
+    }
     
 
     public List<employes> getAllEmployesByCityId(int id_centre){
@@ -82,12 +94,12 @@ public class EmployesService {
         employesRepo.deleteById(id);
     }
 
-    public List<employes> chercherMedecins(int centreId,String nom ) {
+    public List<employes> chercherMedecinsByNom(int centreId,String nom ) {
         // Valider les données ici si nécessaire
         if (nom == null) {
             throw new IllegalArgumentException("Veuillez rentrer un nom ");
         }
-        return employesRepo.chercherMedecins(centreId,nom);
+        return employesRepo.chercherMedecinsByNom(centreId,nom);
     }
 
     public boolean existsByEmail(String email) {

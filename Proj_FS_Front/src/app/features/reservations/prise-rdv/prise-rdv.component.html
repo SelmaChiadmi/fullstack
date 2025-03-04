@@ -41,7 +41,9 @@
 
             <div class="form_input" >
                 <label for="chosendate">Date du rendez-vous :</label>
-                <input type="date" id="chosendate" [(ngModel)]="chosenDate" (change)="onDateChange()" name="date" required  />
+                <select id="chosendate" [(ngModel)]="chosenDate" (click)="getAvailableDates()" (change)="onDateChange()" name="date" required>
+                    <option *ngFor="let date of availableDates" [value]="date">{{ date | date:'dd/MM/yyyy' }}</option>
+                </select>
             </div>
             
         </div>    

@@ -1,6 +1,6 @@
-<button class="add-button" (click)="openNewCenterForm()" *ngIf="!selectedCenter">+ Nouveau</button>
+<button class="add-button" (click)="openNewCenterForm()" *ngIf="!selectedCenter && !showNewCenterForm">+ Nouveau</button>
 
-<div class="container" *ngIf="!showNewCenterForm">
+<div class="container" *ngIf="!showNewCenterForm && !selectedCenter">
       
     <table *ngIf="!selectedCenter">
         <thead>
@@ -24,17 +24,17 @@
   
 </div>
 
-<app-edit-center 
-        *ngIf="selectedCenter" 
+<div class="overlay-container" *ngIf="selectedCenter">
+  <app-edit-center 
         [center]="selectedCenter" 
         (centerUpdated)="refreshCenters()">
-</app-edit-center>
+  </app-edit-center>
+</div>
 
-
-
-<app-add-center 
-        *ngIf="showNewCenterForm" 
+<div class="overlay-container" *ngIf="showNewCenterForm">
+  <app-add-center 
         (centerAdded)="refreshCenters()">
-</app-add-center>
+  </app-add-center>
+</div>
 
 

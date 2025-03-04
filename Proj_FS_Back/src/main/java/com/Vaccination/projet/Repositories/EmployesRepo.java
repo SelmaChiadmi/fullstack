@@ -15,6 +15,7 @@ public interface EmployesRepo extends JpaRepository<employes, Integer> {
     
     List<employes> findAllByCentreId(int id_centre);
     void deleteById(int id);
+    void deleteByMail(String mail);
 
     @Query("SELECT e FROM employes e WHERE e.centre.id = :centreId AND e.is_med = TRUE")
     List<employes> findDoctorsByCentreId(@Param("centreId") int centreId);
@@ -22,11 +23,26 @@ public interface EmployesRepo extends JpaRepository<employes, Integer> {
     Optional<employes> findByMail(String mail);
 
     @Query("SELECT e FROM employes e WHERE e.centre.id = :centreId AND LOWER(e.nom) LIKE LOWER(CONCAT('%', :nom, '%')) AND e.is_med = true")
-    List<employes> chercherMedecins(@Param("centreId") int centreId, @Param("nom") String nom);
+    List<employes> chercherMedecinsByNom(@Param("centreId") int centreId, @Param("nom") String nom);
+
+    @Query("SELECT e FROM employes e WHERE e.centre.id = :centreId AND e.is_med = true")
+    List<employes> chercherMedecins(@Param("centreId") int centreId);
+
+    @Query("SELECT e FROM employes e WHERE e.centre.id = :centreId AND e.is_admin = true")
+    List<employes> chercherAdmins(@Param("centreId") int centreId);
 
     boolean existsByMail(String mail);
 
     
+    @Query("SELECT e FROM employes e WHERE e.is_super_admin = true")
+    List<employes> findByIsSuperAdminTrue();
+
+
+    @Query("SELECT e FROM employes e WHERE e.centre.id = :centreId AND e.is_admin = true")
+    List<employes> findAdminByCentreId(@Param("centreId") int centreId);
+
+
+
 
 
 

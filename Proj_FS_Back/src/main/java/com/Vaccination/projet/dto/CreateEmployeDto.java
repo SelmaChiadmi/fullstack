@@ -4,7 +4,7 @@ package com.Vaccination.projet.dto;
 import java.time.LocalDate;
 import java.util.List;
 
-public class CreateMedecinDto {
+public class CreateEmployeDto {
 
     private String nom;
     private String prenom;
@@ -12,9 +12,9 @@ public class CreateMedecinDto {
     private int telephone;
 
 
-     public CreateMedecinDto() {}
+     public CreateEmployeDto() {}
 
-    public CreateMedecinDto(String nom, String prenom, String mail, int telephone) {
+    public CreateEmployeDto(String nom, String prenom, String mail, int telephone) {
        this.nom = nom;
        this.prenom=prenom;
        this.mail=mail;

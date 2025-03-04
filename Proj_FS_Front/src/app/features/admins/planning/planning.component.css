@@ -1,5 +1,7 @@
+
 .container{
     display: flex;
+    flex-direction: column;
     flex-direction: column;
     height: 50vh;
     width: 70vw;
@@ -9,6 +11,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     background-color: white;
     color: black;
+    align-items: center;
 }
 
 .mycenter-info {
@@ -40,4 +43,34 @@
     font-size: 14px;
     outline: none;
     transition: border-color 0.3s ease;
+}
+
+.date-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 45%;
+    border: solid 2px black;
+    padding: 1rem;
+}
+
+.date-navigation button {
+    padding: 8px 12px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.date-navigation button:hover {
+    background-color: #0056b3;
+}
+
+.date-navigation span {
+    font-size: 18px;
+    font-weight: bold;
 }

@@ -3,6 +3,7 @@ package com.Vaccination.projet.services;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -153,7 +154,7 @@ public class ReservationService {
     
         String doctorName = reservation.getemploye().getPrenom() + " " + reservation.getemploye().getNom();
 
-        // Retourner le DTO avec ces informations
+        
         return new reservationDto(centreName, reservationDate, reservationTime, doctorName);
     }
 
@@ -170,6 +171,8 @@ public class ReservationService {
         reservation.setIs_validated(isValidated);
         reservationrepo.save(reservation);
     }
+
+    
         
 
 }

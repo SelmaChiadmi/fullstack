@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.Vaccination.projet.Repositories.CreneauRepo;
 import com.Vaccination.projet.entities.creneaux;
@@ -19,6 +20,15 @@ public class CreneauService {
 
     public CreneauService(CreneauRepo creneauRepo) {
         this.creneauRepo = creneauRepo;
+    }
+
+    
+    public List<LocalDate> getJoursDisponibles(int centreId) {
+        return creneauRepo.findDistinctJourDisponible(centreId);
+    }
+
+    public List<LocalTime> getHeuresDisponibles(LocalDate jour) {
+        return creneauRepo.findByJourAndDisponible(jour);
     }
 
     public List<Object[]> getAvailableCreneauByCentre(int centreId){

@@ -21,6 +21,21 @@ public class CreneauController {
         this.creneauService = creneauService;
     }
 
+    // Endpoint pour récupérer les jours disponibles
+    @GetMapping("public/centre/{id}/jours")
+    public List<LocalDate> getJoursDisponiblesController(@PathVariable("id") int centreId){
+        List<LocalDate> jours = creneauService.getJoursDisponibles(centreId);
+        return jours;
+
+    }
+
+    @GetMapping("public/jour/{date}/heures")
+    public List<LocalTime> getHeuresDisponiblesController(@PathVariable("date") LocalDate date){
+        List<LocalTime> heures = creneauService.getHeuresDisponibles(date);
+        return heures;
+
+    }
+
      @GetMapping("public/centre/{id}/timeslots")
     public List<Object[]> getAvailableCreneauByCity(@PathVariable("id") int centreId){
         List<Object[]> centreTimeslot = creneauService.getAvailableCreneauByCentre(centreId);

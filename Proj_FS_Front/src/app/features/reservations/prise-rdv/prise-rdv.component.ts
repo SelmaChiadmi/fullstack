@@ -7,6 +7,7 @@ import { PatientService } from '../../../core/services/patients.service';
 import { Patient } from '../../../core/models/patients.model';
 import { ReservationService } from '../../../core/services/reservations.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { JourDispoService } from '../../../core/services/joursdispo.service';
 
 @Component({
   selector: 'app-prise-rdv',
@@ -23,7 +24,7 @@ export class PriseRdvComponent {
   @Output() onCancel = new EventEmitter<void>();
   @Input() mail: string = '';
 
-  constructor(private creneauService: CreneauService, private patientService: PatientService, private reservationService: ReservationService) {}
+  constructor(private creneauService: CreneauService, private patientService: PatientService, private reservationService: ReservationService, private jourDispoService: JourDispoService) {}
 
   name: string = '';
   surname: string = '';
@@ -34,6 +35,7 @@ export class PriseRdvComponent {
   errorMessage: string = '';
   confirmation: boolean = false;
   hasRedBorder: boolean = false;
+  availableDates: string[] = []; // Liste des dates disponibles
 
   // Vérifie si un ID de centre a été reçu lors de changements d'entrée
   ngOnChanges() {
@@ -140,8 +142,30 @@ export class PriseRdvComponent {
     }
   }
 
-  // Met à jour la liste des créneaux disponibles lors d'un changement de date
-  onDateChange(): void {
+
+  // Méthode pour récupérer les jours disponibles
+  getAvailableDates(): void {
+    console.log('ID reçu dans PriseRdvComponent :', this.receivedCenterId);
+
+    if (this.receivedCenterId) {
+      this.jourDispoService.getJoursDisponibles(this.receivedCenterId).subscribe(
+        (data: string[]) => {
+          console.log('Dates disponibles:', this.availableDates);
+          this.availableDates = data; 
+          
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des dates disponibles', error);
+        }
+      );
+    }
+    else{
+      console.error('ID de centre non défini.');
+    }
+  }
+
+   // Méthode pour gérer le changement de la date sélectionnée
+   onDateChange(): void {
     if (this.chosenDate && this.center) {
       this.creneauService.getCreneaux(this.center.id, this.chosenDate).subscribe(
         (data) => {
@@ -156,7 +180,6 @@ export class PriseRdvComponent {
       console.error('Date ou centre non défini.');
     }
   }
-
   // Formate l'affichage des créneaux horaires
   formatCreneau(creneau: string): string {
     return creneau.slice(0, -3);

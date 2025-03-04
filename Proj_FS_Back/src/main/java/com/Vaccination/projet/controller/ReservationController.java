@@ -28,6 +28,7 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
+    // Endpoint pour récupérer les réservations d'un patient
     @PostMapping("public/centre/{centreId}/bookings")
     public ResponseEntity<Object> bookAppointment(@PathVariable("centreId") int centreId,
                                                  @RequestParam("date") LocalDate date,
@@ -54,13 +55,16 @@ public class ReservationController {
         }
     }
 
+    // Endpoint pour récupérer les réservations d'un patient
     @DeleteMapping("/booking/{bookingId}")
     public ResponseEntity<String> cancelBooking(@PathVariable int bookingId) {
         reservationService.cancelBooking(bookingId);
         return ResponseEntity.ok("Réservation annulée avec succès.");
     }
 
-    @PatchMapping("/admin/update-validation/{reservationId}")
+
+    // Endpoint pour récupérer les réservations d'un patient
+    @PatchMapping("/admin/planning/reservation/{reservationId}")
     public ResponseEntity<String> updateReservationValidation(
             @PathVariable int reservationId, 
             @RequestParam boolean isValidated) {
