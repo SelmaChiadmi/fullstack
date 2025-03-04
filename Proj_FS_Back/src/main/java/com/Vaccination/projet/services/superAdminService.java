@@ -17,7 +17,6 @@ import com.Vaccination.projet.dto.CreateEmployeDto;
 import com.Vaccination.projet.dto.recupSuperAdminDto;
 import com.Vaccination.projet.entities.centres;
 import com.Vaccination.projet.entities.employes;
-
 import jakarta.transaction.Transactional;
 
 
@@ -61,7 +60,6 @@ public class superAdminService {
         if (existsByEmail(createSuperAdminDto.getMail())) {
             throw new IllegalArgumentException("Un employé avec cet email existe déjà.");
         }
-
         // Mot de passe par défaut
         String defaultPassword = "superadmin"; // À changer après la première connexion
 
@@ -75,8 +73,8 @@ public class superAdminService {
         newSuperAdmin.setMail(createSuperAdminDto.getMail());
         newSuperAdmin.setTelephone(createSuperAdminDto.getTelephone());
         newSuperAdmin.setmdp(hashedPassword);
-        newSuperAdmin.set_med(false);
-        newSuperAdmin.set_admin(false);
+        newSuperAdmin.set_med(false); 
+        newSuperAdmin.set_admin(false); 
         newSuperAdmin.set_super_admin(true); // C'est un super admin
 
         newSuperAdmin.setCentre(centre); //c'est seulement un centre de référence pour ne pas avoir la case vide
@@ -98,6 +96,11 @@ public class superAdminService {
 
        
         employesRepo.deleteByMail(email);
+    }
+
+    public List<employes> getAdminsByCentre(Integer idCentre) {
+            return employesRepo.chercherAdmins(idCentre);
+        
     }
 }
 

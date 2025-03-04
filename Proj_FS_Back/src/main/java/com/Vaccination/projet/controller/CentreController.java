@@ -94,8 +94,8 @@ public class CentreController {
     public ResponseEntity<?> getCentrebyadmin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.getAuthorities().stream()
-        .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("tu n'es pas admin");
+        .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN") || a.getAuthority().equals("ROLE_MEDECIN"))) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(403);
 
     }
 

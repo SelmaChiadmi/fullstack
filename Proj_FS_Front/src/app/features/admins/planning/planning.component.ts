@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VaccinationCenterService } from '../../../core/services/vaccination-centers.service';
 import { PlanningService } from '../../../core/services/planning.service';  // Assurez-vous d'importer le service Planning
 import { CommonModule } from '@angular/common';
+import { ReservationService } from '../../../core/services/reservations.service';
 
 @Component({
   selector: 'app-planning',
@@ -18,7 +19,8 @@ export class PlanningComponent implements OnInit {
 
   constructor(
     private centreService: VaccinationCenterService,
-    private planningService: PlanningService
+    private planningService: PlanningService,
+    private reservationService: ReservationService,
   ) {}
 
   ngOnInit(): void {
@@ -79,4 +81,29 @@ export class PlanningComponent implements OnInit {
     this.selectedDate = newDate;
     this.loadReservations();
   }
+
+  toggleStatut(reservation: any): void {
+    
+      // Méthode pour changer le statut de la réservation
+  
+    const newStatus = !reservation.statutReservation;
+    this.reservationService.updateReservationValidation(reservation.id, newStatus)
+      .subscribe(
+        response => {
+          // Si la réponse est réussie, met à jour le statut de la réservation localement
+          reservation.statutReservation = newStatus;
+          alert(response);  
+        },
+        error => {
+          // En cas d'erreur, afficher un message d'erreur
+          console.error('Erreur lors de la mise à jour du statut :', error.message);
+          alert('Une erreur est survenue lors de la mise à jour du statut.');
+        }
+      );
+
+      // Inverser le statut de la réservation (si "Validé" devient "Non Validé" et vice versa)
+      reservation.statutReservation = !reservation.statutReservation;
+  }
+
+
 }

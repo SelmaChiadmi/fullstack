@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
 import org.springframework.http.MediaType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +59,7 @@ public class superAdminController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_SUPER_ADMIN')")
+
     @PostMapping("admin/config/create/{centreId}")
     public ResponseEntity<Integer> createSuperAdminBySuperAdminController(@RequestBody CreateEmployeDto superadmindto, @PathVariable("centreId") int centreId){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -65,11 +67,13 @@ public class superAdminController {
         if (authentication == null || !authentication.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(403);
+
         }
         try {
             // Création du Super Admin via le service
             employes newSuperAdmin = superAdminService.createSuperAdminByAdmin(superadmindto, centreId);
             
+
             return ResponseEntity.status(HttpStatus.CREATED).body(201);
         } catch (IllegalArgumentException e) {
             // Si l'email est déjà utilisé
@@ -101,6 +105,8 @@ public class superAdminController {
             System.err.println("Error during super admin deletion: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(500);
         }
+
+         
     }
 
 
@@ -116,8 +122,6 @@ public class superAdminController {
         }
 
         try {
-            
-                
                 List<employes> admins = superAdminService.getAdminsByCentre(idCentre);
             
                  return ResponseEntity.ok(admins);
@@ -126,11 +130,6 @@ public class superAdminController {
                     .body(500);
         }
     }
-
-
-
-        
-
 
 
 

@@ -74,3 +74,13 @@
     font-size: 18px;
     font-weight: bold;
 }
+
+button.valid {
+    background-color: green;
+    color: white;
+}
+
+button.non-valid {
+    background-color: red;
+    color: white;
+}

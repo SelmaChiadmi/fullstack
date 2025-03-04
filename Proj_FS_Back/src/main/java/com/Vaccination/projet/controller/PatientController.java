@@ -33,12 +33,7 @@ public class PatientController {
    
 
 
-    // Endpoint pour récupérer un patient par son mail
-    @GetMapping("/patients/check-email")
-    public ResponseEntity<Boolean> verifyEmail(@RequestParam("email") String email) {
-        Optional<patientDto> patient = patientservice.getPatientByEmail(email);
-        return ResponseEntity.ok(patient.isPresent());
-    }
+    
 
     // Endpoint pour rentrer les infos du patient
 
@@ -58,7 +53,7 @@ public class PatientController {
         return patientRepo.save(newPatient);
     }
 
-    @GetMapping("/admin/search-patient")
+    /*@GetMapping("/admin/search-patient")
     public ResponseEntity<List<patientDto>> searchPatient(
             @RequestParam("nom") String nom,
             @RequestParam("prenom") String prenom) {
@@ -67,7 +62,7 @@ public class PatientController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.ok(patients);
-    }
+    }*/
 
     
     

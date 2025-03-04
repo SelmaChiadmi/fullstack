@@ -48,11 +48,12 @@ public class ReservationService {
    
 
 
-    public ReservationService(ReservationRepo reservationrepo, PatientRepo patientrepo, CreneauRepo creneauRepo, EmployesRepo employesRepo) {
+    public ReservationService(ReservationRepo reservationrepo, PatientRepo patientrepo, CreneauRepo creneauRepo, EmployesRepo employesRepo, PatientService patientService) {
         this.reservationrepo = reservationrepo;
         this.patientRepository = patientrepo;
         this.creneauRepository = creneauRepo;
         this.employeRepository = employesRepo;
+        this.patientService = patientService;
         }
 
 
