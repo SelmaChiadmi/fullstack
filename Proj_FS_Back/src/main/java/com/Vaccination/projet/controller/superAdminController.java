@@ -1,4 +1,5 @@
 package com.Vaccination.projet.controller;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -78,6 +79,30 @@ public class superAdminController {
         }
 
 
+    }
+
+
+    @PreAuthorize("hasAuthority('ROLE_SUPER_ADMIN')")
+    @GetMapping("admin/centre/admins")
+    public ResponseEntity<?> getMedecinsCentreController(@RequestParam(value = "idCentre", required = true) Integer idCentre) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || 
+            !authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
+            
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Vous n'êtes pas super admin");
+        }
+
+        try {
+            
+                
+                List<employes> admins = superAdminService.getAdminsByCentre(idCentre);
+            
+                 return ResponseEntity.ok(admins);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(500);
+        }
     }
 
 

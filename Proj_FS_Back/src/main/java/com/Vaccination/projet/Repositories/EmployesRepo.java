@@ -27,6 +27,9 @@ public interface EmployesRepo extends JpaRepository<employes, Integer> {
     @Query("SELECT e FROM employes e WHERE e.centre.id = :centreId AND e.is_med = true")
     List<employes> chercherMedecins(@Param("centreId") int centreId);
 
+    @Query("SELECT e FROM employes e WHERE e.centre.id = :centreId AND e.is_admin = true")
+    List<employes> chercherAdmins(@Param("centreId") int centreId);
+
     boolean existsByMail(String mail);
 
     @Query("SELECT e FROM employes e WHERE e.is_super_admin = true")

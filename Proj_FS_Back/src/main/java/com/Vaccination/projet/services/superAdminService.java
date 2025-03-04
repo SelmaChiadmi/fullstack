@@ -70,7 +70,7 @@ public class superAdminService {
         }
         
         // Mot de passe par défaut
-        String defaultPassword = "defaultPassword123"; // À changer après la première connexion
+        String defaultPassword = "superadmin"; // À changer après la première connexion
 
         // Hachage du mot de passe par défaut
         String hashedPassword = passwordEncoder.encode(defaultPassword);
@@ -95,6 +95,14 @@ public class superAdminService {
     public boolean existsByEmail(String email) {
         return employesRepo.existsByMail(email); 
     }
+
+    public List<employes> getAdminsByCentre(int centreId){
+        return employesRepo.chercherAdmins(centreId);
+    }
+
+
+
+
 
 
 

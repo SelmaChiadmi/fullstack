@@ -45,40 +45,39 @@ public class EmployesController {
         }
     }
 
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_MEDECIN', 'ROLE_SUPER_ADMIN')")
-@GetMapping("admin/centre/medecins")
-public ResponseEntity<?> getMedecinsCentreController(@RequestParam(value = "idCentre", required = false) Integer idCentre) {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_SUPER_ADMIN')")
+    @GetMapping("admin/centre/medecins")
+    public ResponseEntity<?> getMedecinsCentreController(@RequestParam(value = "idCentre", required = false) Integer idCentre) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-    if (authentication == null || 
-        (!authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) && 
-        !authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_MEDECIN")) &&
-        !authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
-        
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Vous n'avez pas les droits nécessaires");
-    }
-
-    try {
-        List<employes> medecins = new ArrayList<>();
-
-        if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-            int centreAdmin = employesService.getLoggedInUserCentreId();
-            medecins = employesService.getMedecinCentre(centreAdmin);
+        if (authentication == null || 
+            (!authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) && 
+            !authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
+            
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Vous n'avez pas les droits nécessaires");
         }
 
-        if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
-            if (idCentre == null) {
-                return ResponseEntity.badRequest().body("Un centre doit être choisi");
+        try {
+            List<employes> medecins = new ArrayList<>();
+
+            if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+                int centreAdmin = employesService.getLoggedInUserCentreId();
+                medecins = employesService.getMedecinCentre(centreAdmin);
             }
-            medecins = employesService.getMedecinCentre(idCentre);
-        }
 
-        return ResponseEntity.ok(medecins);
-    } catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Erreur lors de la récupération des médecins: " + e.getMessage());
+            if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
+                if (idCentre == null) {
+                    return ResponseEntity.badRequest().body("Un centre doit être choisi");
+                }
+                medecins = employesService.getMedecinCentre(idCentre);
+            }
+
+            return ResponseEntity.ok(medecins);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erreur lors de la récupération des médecins: " + e.getMessage());
+        }
     }
-}
 
 
 
