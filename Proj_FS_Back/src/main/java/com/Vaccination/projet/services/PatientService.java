@@ -42,40 +42,12 @@ public class PatientService {
     }
 
         
-    // Récupérer un patient par son email
 
-    public Optional<patientDto> getPatientByEmail(String email) {
-        patient patient = patientrepo.findByMail(email);
-        if (patient == null) {
-            return Optional.empty();
-        }
-
-        // Convertir le patient en patientDto
-        patientDto dto = new patientDto();
-        dto.setFirstName(patient.getPrenom());
-        dto.setLastName(patient.getNom());
-        dto.setEmail(patient.getMail());
-        dto.setTelephone(patient.getTelephone());
-        dto.setBirthDate(patient.getDate_naissance());
-
-        return Optional.of(dto);
-    }
-
-
-    public patient createNewPatient(patientDto patientDto) {
-        patient newPatient = new patient();
-        newPatient.setNom(patientDto.getLastName());
-        newPatient.setPrenom(patientDto.getFirstName());
-        newPatient.setTelephone(patientDto.getTelephone());
-        newPatient.setDate_naissance(patientDto.getBirthDate());
-        newPatient.setMail(patientDto.getEmail());
-    
-        return newPatient;
-    }
-
-  
     public patient getOrCreatePatient(patientDto patientDto) {
         // Vérifier si le patient existe déjà
+        if (patientDto.getEmail() == null) {
+            throw new IllegalArgumentException("L'email du patient ne peut pas être nul.");
+        }
         patient existingPatient = patientrepo.findByMail(patientDto.getEmail());
         
         if (existingPatient != null) {
@@ -97,7 +69,7 @@ public class PatientService {
          return newPatient;
     }
 
-    public List<patientDto> searchPatientsByNameAndSurname(String nom, String prenom) {
+    /*public List<patientDto> searchPatientsByNameAndSurname(String nom, String prenom) {
     List<patient> patients = patientrepo.findByNomIgnoreCaseAndPrenomIgnoreCase(nom, prenom);
 
     return patients.stream().map(patient -> {
@@ -121,7 +93,7 @@ public class PatientService {
         dto.setReservations(reservationsDto);
         return dto;
     }).collect(Collectors.toList());
-}
+}*/
 
 
 
