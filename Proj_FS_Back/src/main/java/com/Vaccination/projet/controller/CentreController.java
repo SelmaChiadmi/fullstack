@@ -88,6 +88,39 @@ public class CentreController {
         }
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("admin/centre")
+    public ResponseEntity<?> getCentrebyadmin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.getAuthorities().stream()
+        .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("tu n'es pas admin");
+
+    }
+
+    try {
+        int centreAdmin = centreService.getLoggedInUserCentreId();
+        centres centre = centreService.getCentreById(centreAdmin);
+
+        return ResponseEntity.ok(centre);
+
+        
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Erreur lors de la création de l'employé: " + e.getMessage());
+    }
+
+
+    
+        
+
+
+    }
+
+    
+
+
+
 
     
 }

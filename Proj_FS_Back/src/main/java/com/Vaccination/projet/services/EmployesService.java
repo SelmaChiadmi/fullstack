@@ -50,7 +50,7 @@ public class EmployesService {
                                         }
     
         // Mot de passe par défaut
-        String defaultPassword = "defaultPassword123"; // À changer après la première connexion
+        String defaultPassword = "medecin"; // À changer après la première connexion
     
         // Hachage du mot de passe par défaut
         String hashedPassword = passwordEncoder.encode(defaultPassword);
