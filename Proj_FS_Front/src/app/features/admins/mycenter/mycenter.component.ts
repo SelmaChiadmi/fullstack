@@ -52,6 +52,7 @@ export class MycenterComponent {
       error: (error) => {
         if (error.status === 403) {
           console.log("Vous n'êtes pas admin : vous ne pouvez pas voir les médecins");
+          alert("Vous n'êtes pas admin : vous ne pouvez pas voir les médecins");
         }else{
         this.errorMessage = 'Erreur lors du chargement des médecins.';
         console.error(error);}

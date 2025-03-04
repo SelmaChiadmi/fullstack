@@ -5,6 +5,7 @@ package com.Vaccination.projet.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.Vaccination.projet.Repositories.ReservationRepo;
@@ -12,9 +13,12 @@ import com.Vaccination.projet.dto.patientDto;
 import com.Vaccination.projet.dto.reservationDto;
 import com.Vaccination.projet.services.ReservationService;
 import com.Vaccination.projet.entities.reservations;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -63,11 +67,18 @@ public class ReservationController {
     }
 
 
-    // Endpoint pour récupérer les réservations d'un patient
+    // Endpoint pour mettre à jour le statut de validation d'une réservation
+    @PreAuthorize("hasAuthority('ROLE_MEDECIN')")
     @PatchMapping("/admin/planning/reservation/{reservationId}")
     public ResponseEntity<String> updateReservationValidation(
             @PathVariable int reservationId, 
             @RequestParam boolean isValidated) {
+        
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.getAuthorities().stream()
+            .anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Forbidden");
+        }
         try {
             reservationService.updateValidationStatus(reservationId, isValidated);
             return ResponseEntity.ok("Le statut de la réservation a été mis à jour avec succès.");
@@ -77,6 +88,7 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Une erreur est survenue.");
         }
     }
+
 }
 
     /*@GetMapping("public/bookings/{id}")

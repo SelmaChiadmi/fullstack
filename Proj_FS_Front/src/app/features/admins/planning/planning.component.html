@@ -14,8 +14,14 @@
         <h3>Réservations pour le {{ selectedDate | date:'fullDate' }} :</h3>
         <ul>
             <li *ngFor="let resa of reservations">
-                <p>{{ resa.nomPatient }} {{ resa.prenomPatient }} - Validé : {{ resa.statutReservation ? 'Oui' : 'Non' }} - {{resa.heureReservation}} </p>
-                
+                <p>{{ resa.nomPatient }} {{ resa.prenomPatient }} - 
+                    <button 
+                        [ngClass]="resa.statutReservation ? 'valid' : 'non-valid'"
+                        (click)="toggleStatut(resa)">
+                        {{ resa.statutReservation ? 'Validé' : 'Non Validé' }}
+                    </button> 
+                    - {{ resa.heureReservation }}
+                </p>
             </li>
         </ul>
     </div>
