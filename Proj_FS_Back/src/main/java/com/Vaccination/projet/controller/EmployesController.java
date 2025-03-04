@@ -39,7 +39,7 @@ public class EmployesController {
 
         try {
             
-            employes new_medecin = employesService.createEmploye(createMedecinDto);
+            employes new_medecin = employesService.createMedecinByAdmin(createMedecinDto);
             new_medecin.setCentre((null));
     
             return ResponseEntity.status(HttpStatus.CREATED).body("Employé créé avec succès");
