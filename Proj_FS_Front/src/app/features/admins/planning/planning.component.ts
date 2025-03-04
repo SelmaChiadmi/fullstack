@@ -3,11 +3,11 @@ import { VaccinationCenterService } from '../../../core/services/vaccination-cen
 import { PlanningService } from '../../../core/services/planning.service';  // Assurez-vous d'importer le service Planning
 import { CommonModule } from '@angular/common';
 import { ReservationService } from '../../../core/services/reservations.service';
-
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-planning',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './planning.component.html',
   styleUrls: ['./planning.component.css']
 })
@@ -82,6 +82,11 @@ export class PlanningComponent implements OnInit {
     this.selectedDate = newDate;
     this.loadReservations();
   }
+
+  onDateChange(): void {
+    this.loadReservations();
+  }
+ 
 
   toggleStatut(reservation: any): void {
     

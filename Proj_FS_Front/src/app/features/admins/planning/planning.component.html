@@ -6,7 +6,7 @@
 
     <div class="date-navigation">
         <button (click)="previousDay()">◀ Précédent</button>
-        <span>{{ selectedDate | date:'fullDate' }}</span>
+            <input type="date" [(ngModel)]="selectedDate" (change)="onDateChange()">
         <button (click)="nextDay()">Suivant ▶</button>
     </div>
 
@@ -20,7 +20,7 @@
                         (click)="toggleStatut(resa)">
                         {{ resa.statutReservation ? 'Validé' : 'Non Validé' }}
                     </button> 
-                    - {{ resa.heureReservation }}
+                    - {{ resa.heureReservation }} - {{ resa.numeroPatient }} 
                 </p>
             </li>
         </ul>
