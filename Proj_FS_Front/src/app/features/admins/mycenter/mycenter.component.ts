@@ -35,8 +35,11 @@ export class MycenterComponent {
         this.centre = data;
       },
       error: (error) => {
+        if (error.status === 403) {
+          alert("Vous n'êtes pas admin");
+        }else{
         this.errorMessage = 'Erreur lors du chargement du centre.';
-        console.error(error);
+        console.error(error);}
       }
     });
   }
@@ -48,11 +51,10 @@ export class MycenterComponent {
       },
       error: (error) => {
         if (error.status === 403) {
-          alert("Vous n'êtes pas admin");
-        }
-
+          console.log("Vous n'êtes pas admin : vous ne pouvez pas voir les médecins");
+        }else{
         this.errorMessage = 'Erreur lors du chargement des médecins.';
-        console.error(error);
+        console.error(error);}
       }
     });
   }
