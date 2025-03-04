@@ -21,6 +21,7 @@ public class CreneauController {
         this.creneauService = creneauService;
     }
 
+    // Endpoint pour récupérer les jours disponibles
     @GetMapping("public/centre/{id}/jours")
     public List<LocalDate> getJoursDisponiblesController(@PathVariable("id") int centreId){
         List<LocalDate> jours = creneauService.getJoursDisponibles(centreId);
