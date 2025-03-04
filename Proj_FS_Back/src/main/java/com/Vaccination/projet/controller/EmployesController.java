@@ -49,6 +49,7 @@ public class EmployesController {
         }
     }
 
+
     //supprime un medecin grâce à son mail
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("admin/centre/medecins/delete")
@@ -72,6 +73,7 @@ public class EmployesController {
         }
     }
 
+    // récupère les medecins d'un centre
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_SUPER_ADMIN')")
     @GetMapping("admin/centre/medecins")
     public ResponseEntity<?> getMedecinsCentreController(@RequestParam(value = "idCentre", required = false) Integer idCentre) {
