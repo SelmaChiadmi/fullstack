@@ -154,7 +154,7 @@ public class ReservationService {
     
         String doctorName = reservation.getemploye().getPrenom() + " " + reservation.getemploye().getNom();
 
-        // Retourner le DTO avec ces informations
+        
         return new reservationDto(centreName, reservationDate, reservationTime, doctorName);
     }
 

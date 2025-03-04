@@ -60,7 +60,7 @@ public class ReservationController {
         return ResponseEntity.ok("Réservation annulée avec succès.");
     }
 
-    @PatchMapping("/admin/update-validation/{reservationId}")
+    @PatchMapping("/admin/planning/reservation/{reservationId}")
     public ResponseEntity<String> updateReservationValidation(
             @PathVariable int reservationId, 
             @RequestParam boolean isValidated) {
