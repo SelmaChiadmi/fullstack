@@ -1,7 +1,7 @@
 <div class="container" *ngIf="!isConfirmationDisplayed">
-    <div class="mycenter-info">
-        <p><strong>Nom :</strong> Nom du centre</p>
-        <p><strong>Ville :</strong> Ville du centre</p>
+    <div class="mycenter-info" *ngIf="centre">
+        <p><strong>Nom :</strong> {{ centre.nom }}</p>
+        <p><strong>Ville :</strong> {{ centre.ville }}</p>
     </div>
     
     
@@ -29,7 +29,7 @@
                 <td>{{ medecin.mail }}</td>
                 <td>{{ medecin.telephone }}</td>
                 <td class="mycenter-action">
-                    <button (click)="delete(medecin)" class="mycenter-button">Delete</button>
+                    <button  class="mycenter-button" (click)="deleteMedecin(medecin.mail)">Delete</button>
                 </td>
                 
               </tr>

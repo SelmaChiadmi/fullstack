@@ -50,8 +50,8 @@ SELECT setval(pg_get_serial_sequence('t_employes', 'id'), (SELECT MAX(id) FROM t
 
 -- Insérer des données dans t_creneaux sans spécifier l'id
 INSERT INTO t_creneaux (id_centre, jour, heure, disponible)
-SELECT 2, '2025-03-04', '14:00:00', TRUE
-WHERE NOT EXISTS (SELECT 1 FROM t_creneaux WHERE id_centre = 2 AND jour = '2025-01-29' AND heure = '14:00:00');
+SELECT 2, '2025-03-22', '14:00:00', TRUE
+WHERE NOT EXISTS (SELECT 1 FROM t_creneaux WHERE id_centre = 2 AND jour = '2025-03-22' AND heure = '14:00:00');
 -- Ajuster la séquence pour t_creneaux
 SELECT setval(pg_get_serial_sequence('t_creneaux', 'id'), (SELECT MAX(id) FROM t_creneaux));
 

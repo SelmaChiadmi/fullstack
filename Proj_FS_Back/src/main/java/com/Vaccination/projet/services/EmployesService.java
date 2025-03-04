@@ -25,6 +25,14 @@ public class EmployesService {
     @Autowired
     private CentreRepository centreRepository;
 
+    public void deleteMedecinByEmail(String email) {
+        Optional<employes> employe = employesRepo.findByMail(email);
+        if (employe.isPresent()) {
+            employesRepo.delete(employe.get());
+        } else {
+            throw new RuntimeException("Employé non trouvé avec l'email : " + email);
+        }
+    }
    
 
 

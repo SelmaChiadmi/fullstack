@@ -19,11 +19,11 @@
 #### Lancer l'application java ProjetJavaApplication.
 #### Lancer 'ng serve' depuis /Proj_FS_Front.
 
--  Vous pouvez essayer de prendre un rdv le 04/03/2025 dans le centre de Lyon. 
+-  Vous pouvez essayer de prendre un rdv le 22/03/2025 dans le centre de Lyon. 
 
 - Vous pouvez vous login avec:
  - username : Alice.Martin@gmail.com
- - password : admin1 (hashé et stocké dans la base de donnée) 
+ - password : admin1 (hashé et stocké dans la base de donnéeS) 
   
  - Une fois connecté, nous pouvons accéder à la partie /admin du backend l'aide du token jwt ('Bearer <token>") à l'aide d'un guard.
 

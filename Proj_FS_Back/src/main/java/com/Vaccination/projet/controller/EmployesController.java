@@ -30,21 +30,44 @@ public class EmployesController {
     // crée un medecin
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("admin/centre/medecins/create")
-    public ResponseEntity<String> createEmploye(@RequestBody CreateEmployeDto createMedecinDto) {
+    public ResponseEntity<Integer> createEmploye(@RequestBody CreateEmployeDto createMedecinDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Vous n'êtes pas admin");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(403);
         }
 
         try {
             employes new_medecin = employesService.createMedecinByAdmin(createMedecinDto);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body("Employé créé avec succès");
+            return ResponseEntity.status(HttpStatus.CREATED).body(201);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erreur lors de la création de l'employé: " + e.getMessage());
+                    .body(500);
+        }
+    }
+
+    //supprime un medecin grâce à son mail
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @DeleteMapping("admin/centre/medecins/delete")
+    public ResponseEntity<Integer> deleteEmployeByEmail(@RequestParam("email") String email) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(403);
+        }
+
+        try {
+            //debug
+            System.out.println("email: " + email);
+            employesService.deleteMedecinByEmail(email);
+
+            return ResponseEntity.status(HttpStatus.OK).body(200);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(500);
         }
     }
 
