@@ -35,9 +35,6 @@ export class MycenterComponent {
         this.centre = data;
       },
       error: (error) => {
-        if (error.status === 403) {
-          alert("Vous n'êtes pas admin");
-        }
         this.errorMessage = 'Erreur lors du chargement du centre.';
         console.error(error);
       }
@@ -108,9 +105,9 @@ export class MycenterComponent {
       error: (error) => {
         if (error.status === 403) {
           alert("Vous n'êtes pas admin");
-        }
+        }else{
         console.error('Erreur lors de la création', error.message);
-        alert('Erreur lors de l\'ajout du médecin.' + error.message);
+        alert('Erreur lors de l\'ajout du médecin.' + error.message);}
       }
     });
   }

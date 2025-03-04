@@ -1,4 +1,4 @@
-<div class="container" *ngIf="!isConfirmationDisplayed">
+<div class="container" >
     <div class="superadmins-header-row">
       <h1 class="superadmins-title">Superadmins</h1>
       <button class="superadmins-button-add" (click)="openForm()">+ Nouveau</button>
@@ -23,12 +23,7 @@
     </table>
   </div>
   
-  <div *ngIf="isConfirmationDisplayed" class="confirmation-message">
-    <p>Êtes-vous sûr de vouloir supprimer ce super administrateur ?</p>
-    <button (click)="confirmDelete()" class="confirmation-button">Oui</button>
-    <button (click)="closeConfirmation()" class="confirmation-button">Non</button>
-  </div>
-  
+ 
 
 <!-- Pour ajouter un superadmin  -->
 <div *ngIf="isOpen" class="overlay">

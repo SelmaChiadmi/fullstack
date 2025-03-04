@@ -55,15 +55,8 @@ export class SuperAdminsComponent {
 
   // Méthode pour afficher la confirmation avant suppression
   deleteSuperadmin(superAdmin: any): void {
-    this.superAdminToDelete = superAdmin;
-    this.isConfirmationDisplayed = true;
-    
-  }
-
-  // Confirmer la suppression
-  confirmDelete(): void {
-    const superAdminMail = this.superAdminToDelete.mail;
-      // Fonction pour appeler la suppression d'un super administrateur
+    if (confirm(`Êtes-vous sûr de vouloir supprimer le super administrateur ${superAdmin.nom} ${superAdmin.prenom} ?`)) {
+      const superAdminMail = superAdmin.mail;
       this.superAdminService.deleteSuperAdmin(superAdminMail).subscribe({
         next: () => {
           console.log('Super Admin supprimé avec succès');
@@ -72,23 +65,15 @@ export class SuperAdminsComponent {
         error: (err) => {
           if (err.status === 308) {
             alert("Vous ne pouvez pas supprimer le super-admin avec lequel vous êtes connecté");
-          }else{
-          console.error('Erreur lors de la suppression du Super Admin', err);
-          alert('Erreur lors de la suppression du Super Admin: ' + err.message);
-        }},
-    });
-  
-    console.log('Supprimer super admin:', this.superAdminToDelete);
-    // Rechargez la liste après suppression
-   
-    this.closeConfirmation();
+          } else {
+            console.error('Erreur lors de la suppression du Super Admin', err);
+            alert('Erreur lors de la suppression du Super Admin: ' + err.message);
+          }
+        },
+      });
+    }
   }
 
-  // Annuler la suppression
-  closeConfirmation(): void {
-    this.isConfirmationDisplayed = false;
-    this.superAdminToDelete = null;
-  }
 
 
   isOpen = false;
