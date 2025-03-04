@@ -1,11 +1,32 @@
 <div class="container">
-    <div class="mycenter-info">
-        <p><strong>Nom :</strong> Nom du centre</p>
-        <p><strong>Ville :</strong> Ville du centre</p>
+    <div class="mycenter-info" *ngIf="centre">
+        <p><strong>Nom :</strong> {{ centre.nom }}</p>
+        <p><strong>Ville :</strong> {{ centre.ville }}</p>
     </div>
 
-    <div class="search-patient">
-        <label for="searchPatient"><strong>Rechercher un patient :</strong></label>
-        <input type="text" id="searchPatient" name="searchPatient" placeholder="Entrez le nom du patient">
+    <div class="date-navigation">
+        <button (click)="previousDay()">◀ Précédent</button>
+        <span>{{ selectedDate | date:'fullDate' }}</span>
+        <button (click)="nextDay()">Suivant ▶</button>
     </div>
+
+    <div *ngIf="reservations.length > 0; else noResa">
+        <h3>Réservations pour le {{ selectedDate | date:'fullDate' }} :</h3>
+        <ul>
+            <li *ngFor="let resa of reservations">
+                <p>{{ resa.nomPatient }} {{ resa.prenomPatient }} - Validé : {{ resa.statutReservation ? 'Oui' : 'Non' }} - {{resa.heureReservation}} </p>
+                
+            </li>
+        </ul>
+    </div>
+
+    <ng-template #noResa>
+        <p>Aucune réservation pour cette date.</p>
+    </ng-template>
+
+    <div *ngIf="errorMessage" class="error-message">
+        <p>{{ errorMessage }}</p>
+    </div>
+
+   
 </div>

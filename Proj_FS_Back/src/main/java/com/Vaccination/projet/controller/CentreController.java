@@ -88,7 +88,8 @@ public class CentreController {
         }
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    // récupérer un centre 
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_MEDECIN')")
     @GetMapping("admin/centre")
     public ResponseEntity<?> getCentrebyadmin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
