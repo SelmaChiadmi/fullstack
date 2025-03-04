@@ -15,8 +15,7 @@ import java.security.Key;
 @Component
 public class JwtTokenProvider {
 
-    private final String SECRET_KEY = "UyQGfFZf3ZRA6pDi4/U7Dh03jtWz5EzJmtFZJXlXjY8="; // Replace with a secure key
-
+    private final String SECRET_KEY = "UyQGfFZf3ZRA6pDi4/U7Dh03jtWz5EzJmtFZJXlXjY8="; // a remplacer
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -31,7 +30,7 @@ public class JwtTokenProvider {
     }
 
   public Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()  // Utilisez parserBuilder au lieu de parser
+        return Jwts.parserBuilder()  
                 .setSigningKey(SECRET_KEY.getBytes(StandardCharsets.UTF_8))  // Utilisation de la clé sous forme de tableau de bytes
                 .build()  // Construisez le parser
                 .parseClaimsJws(token)  // Parse le JWT

@@ -120,6 +120,14 @@ public class EmployesController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erreur lors de la suppression de l'employé");
         }
+    public ResponseEntity<String> deleteByIdController(@PathVariable("employe_id") int employe_id) {
+        try {
+            employesService.deleteById(employe_id);
+            return ResponseEntity.ok("L'employé a été supprimé avec succès");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erreur lors de la suppression de l'employé");
+        }
     }
 
     // récupère  un employe d'un centre via son id
@@ -127,7 +135,9 @@ public class EmployesController {
     public ResponseEntity<List<employes>> rechercherMedecins(
             @PathVariable("id") int centreId,
             @RequestParam String nom) {
+            @RequestParam String nom) {
         try {
+            List<employes> medecins = employesService.chercherMedecinsByNom(centreId, nom);
             List<employes> medecins = employesService.chercherMedecinsByNom(centreId, nom);
             return ResponseEntity.ok(medecins);
         } catch (IllegalArgumentException e) {

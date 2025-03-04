@@ -88,14 +88,23 @@ public class CentreController {
         }
     }
 
+<<<<<<< HEAD
     // récupérer un centre 
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_MEDECIN')")
+=======
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+>>>>>>> 185fa41ce24178a38da4d3a08ff3ac96289e9983
     @GetMapping("admin/centre")
     public ResponseEntity<?> getCentrebyadmin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.getAuthorities().stream()
+<<<<<<< HEAD
         .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN") || a.getAuthority().equals("ROLE_MEDECIN"))) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(403);
+=======
+        .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("tu n'es pas admin");
+>>>>>>> 185fa41ce24178a38da4d3a08ff3ac96289e9983
 
     }
 

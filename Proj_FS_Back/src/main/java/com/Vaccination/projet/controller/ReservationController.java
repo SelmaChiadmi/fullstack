@@ -27,7 +27,7 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
-    // Injection par constructeur
+   
     public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
     }
@@ -44,17 +44,17 @@ public class ReservationController {
         System.out.println("Heure: " + heure);
         System.out.println("Patient DTO: " + patientDto);
         try {
-            // Appel au service pour créer une réservation
+       
             reservationService.bookAppointment(centreId,date,heure, patientDto);
 
-            // Retourne la réservation avec un statut 201 Created
+         
             return ResponseEntity.status(HttpStatus.CREATED).body("resa prise en compte");
         } catch (IllegalStateException e) {
-            // Retourne une réponse avec un statut 400 et le message d'erreur
+           
             
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
-            // Gestion générique des erreurs, retour 500 Internal Server Error
+            
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Une erreur inattendue est survenue.");
         }
     }

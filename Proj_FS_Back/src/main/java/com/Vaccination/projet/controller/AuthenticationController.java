@@ -31,18 +31,18 @@ public class AuthenticationController {
 
         String username = authdto.getUsername();
         String password = authdto.getPassword();
-        // Authentifier l'utilisateur
+        // Authentifier 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password)
         );
 
-        // Charger l'utilisateur à partir de la base de données
-        System.out.println("je suis dans le auth controller ligne 40");
+        // Charger l'utilisateur 
+        
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
         // Générer le token JWT
-        System.out.println("je suis dans le auth controller ligne 43");
+       
         String jwtToken = jwtTokenProvider.generateToken(userDetails);
 
         // Retourner le token
