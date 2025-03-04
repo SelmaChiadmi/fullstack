@@ -117,8 +117,9 @@ public class EmployesController {
             employesService.deleteById(employe_id);
             return ResponseEntity.ok("L'employé a été supprimé avec succès");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erreur lors de la suppression de l'employé");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("Erreur lors de la suppression de l'employé");
+            }
         }
   
 
