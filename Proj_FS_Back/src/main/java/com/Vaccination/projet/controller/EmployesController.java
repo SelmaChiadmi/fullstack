@@ -2,6 +2,7 @@ package com.Vaccination.projet.controller;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -77,15 +78,28 @@ public class EmployesController {
     public ResponseEntity<?> getMedecinsCentreController() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication == null || !authentication.getAuthorities().stream()
-                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Vous n'êtes pas admin");
+    if (authentication == null || 
+        (!authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) && 
+        !authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_MEDECIN")) &&
+        !authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
+        
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Vous n'avez pas les droits nécessaires");
+    }
+
+    try {
+        List<employes> medecins = new ArrayList<>();
+
+        if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            int centreAdmin = employesService.getLoggedInUserCentreId();
+            medecins = employesService.getMedecinCentre(centreAdmin);
         }
 
-        try {
-
-            int centreAdmin = employesService.getLoggedInUserCentreId();
-            List<employes> medecins = employesService.getMedecinCentre(centreAdmin);
+        if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
+            if (idCentre == null) {
+                return ResponseEntity.badRequest().body("Un centre doit être choisi");
+            }
+            medecins = employesService.getMedecinCentre(idCentre);
+        }
 
             return ResponseEntity.ok(medecins);
         } catch (Exception e) {
