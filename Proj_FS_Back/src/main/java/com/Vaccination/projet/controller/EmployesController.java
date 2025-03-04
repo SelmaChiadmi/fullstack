@@ -1,7 +1,9 @@
 package com.Vaccination.projet.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,7 @@ public class EmployesController {
     public EmployesController(EmployesService employesService) {
         this.employesService = employesService;
     }
+  
     // crée un medecin
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("admin/centre/medecins/create")
@@ -80,8 +83,8 @@ public class EmployesController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || 
-            (!authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) && 
-            !authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
+            (!authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN")) && 
+            !authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN")))) {
             
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Vous n'avez pas les droits nécessaires");
         }
@@ -103,11 +106,9 @@ public class EmployesController {
 
             return ResponseEntity.ok(medecins);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erreur lors de la récupération des médecins: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la récupération des médecins");
         }
     }
-
 
     // supprime un medecin par son id
     @DeleteMapping("admin/employe/{employe_id}")
