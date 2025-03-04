@@ -72,6 +72,10 @@ public class EmployesService {
         // Sauvegarder l'employé
         return employesRepo.save(new_medecin);
     }
+
+    public List<employes> getMedecinCentre(int centreId){
+        return employesRepo.chercherMedecins(centreId);
+    }
     
 
     public List<employes> getAllEmployesByCityId(int id_centre){
@@ -82,12 +86,12 @@ public class EmployesService {
         employesRepo.deleteById(id);
     }
 
-    public List<employes> chercherMedecins(int centreId,String nom ) {
+    public List<employes> chercherMedecinsByNom(int centreId,String nom ) {
         // Valider les données ici si nécessaire
         if (nom == null) {
             throw new IllegalArgumentException("Veuillez rentrer un nom ");
         }
-        return employesRepo.chercherMedecins(centreId,nom);
+        return employesRepo.chercherMedecinsByNom(centreId,nom);
     }
 
     public boolean existsByEmail(String email) {

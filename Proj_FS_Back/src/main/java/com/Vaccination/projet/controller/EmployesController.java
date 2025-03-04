@@ -43,6 +43,30 @@ public class EmployesController {
         }
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("admin/centre/medecins")
+    public ResponseEntity<?> getMedecinsCentreController() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Vous n'êtes pas admin");
+        }
+
+        try {
+
+            int centreAdmin = employesService.getLoggedInUserCentreId();
+            List<employes> medecins = employesService.getMedecinCentre(centreAdmin);
+
+            return ResponseEntity.ok(medecins);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erreur lors de la création de l'employé: " + e.getMessage());
+        }
+    }
+
+
+
     @DeleteMapping("admin/employe/{employe_id}")
     public ResponseEntity<String> deleteByIdController(@PathVariable("employe_id") int employe_id) {
         try {
@@ -59,7 +83,7 @@ public class EmployesController {
             @PathVariable("id") int centreId,
             @RequestParam String nom) {
         try {
-            List<employes> medecins = employesService.chercherMedecins(centreId, nom);
+            List<employes> medecins = employesService.chercherMedecinsByNom(centreId, nom);
             return ResponseEntity.ok(medecins);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(null);

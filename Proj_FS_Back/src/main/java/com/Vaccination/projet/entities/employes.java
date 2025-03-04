@@ -23,6 +23,7 @@ import jakarta.persistence.OneToMany;
 public class employes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private int id;
     private String nom;
     private String prenom;
