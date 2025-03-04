@@ -15,6 +15,7 @@ public interface EmployesRepo extends JpaRepository<employes, Integer> {
     
     List<employes> findAllByCentreId(int id_centre);
     void deleteById(int id);
+    void deleteByMail(String mail);
 
     @Query("SELECT e FROM employes e WHERE e.centre.id = :centreId AND e.is_med = TRUE")
     List<employes> findDoctorsByCentreId(@Param("centreId") int centreId);

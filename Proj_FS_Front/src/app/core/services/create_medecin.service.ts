@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { Medecin } from '../models/medecin.model';
+import { Employe } from '../models/employe.model';
 
 @Injectable({
   providedIn: 'root', 
@@ -13,7 +13,7 @@ export class CreateMedecinService {
 
   constructor(private http: HttpClient) {}
 
-createMedecin(medecinData: Medecin): Observable<any> {
+createMedecin(medecinData: Employe): Observable<any> {
     const token = localStorage.getItem('jwt');
             
     if (!token) {

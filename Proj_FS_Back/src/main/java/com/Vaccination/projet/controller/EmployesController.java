@@ -31,23 +31,23 @@ public class EmployesController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("admin/centre/medecins/create")
-    public ResponseEntity<String> createEmploye(@RequestBody CreateEmployeDto createMedecinDto) {
+    public ResponseEntity<Integer> createEmploye(@RequestBody CreateEmployeDto createMedecinDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Vous n'êtes pas admin");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(200);
         }
         try {
             System.out.println("Creating employee with details: " + createMedecinDto);
             employes new_medecin = employesService.createMedecinByAdmin(createMedecinDto);
             System.out.println("Employee created successfully: " + new_medecin);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body("Employé créé avec succès");
+            return ResponseEntity.status(HttpStatus.CREATED).body(200);
         } catch (Exception e) {
             System.err.println("Error during employee creation: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Erreur lors de la création de l'employé: " + e.getMessage());
+                .body(404);
         }
         }
         }

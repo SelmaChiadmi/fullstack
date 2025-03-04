@@ -130,7 +130,6 @@
     margin-bottom: 10px;
   }
 
-  /* add-employee.component.css */
 .overlay {
     position: fixed;
     top: 0;
@@ -180,6 +179,7 @@
     font-size: 14px;
     outline: none;
     transition: border-color 0.3s ease;
+    margin-bottom: 0.7rem;
   }
   
   input:focus {

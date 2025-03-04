@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { VaccinationCenterService } from '../../../core/services/vaccination-centers.service';
 import { VaccinationCenter } from '../../../core/models/vaccination-centers.model';
 import { CreateMedecinService } from '../../../core/services/create_medecin.service';
-import { Medecin } from '../../../core/models/medecin.model';
+import { Employe } from '../../../core/models/employe.model';
 
 @Component({
   selector: 'app-mycenter',
@@ -27,7 +27,7 @@ export class MycenterComponent {
     this.centerService.loadCenters();
   }
 
-  formData: Medecin = {
+  formData: Employe = {
     nom: '',
     prenom: '',
     mail: '',
@@ -56,6 +56,9 @@ export class MycenterComponent {
         this.closeForm();
       },
       error: (error) => {
+        if (error.status === 403) {
+          alert("Vous n'êtes pas admin");
+        }
         console.error('Erreur lors de la création', error.message);
         alert('Erreur lors de l\'ajout du médecin.' + error.message);
       }

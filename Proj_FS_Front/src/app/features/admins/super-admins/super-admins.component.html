@@ -1,44 +1,56 @@
-<div class="container"*ngIf="!isConfirmationDisplayed">
+<div class="container" *ngIf="!isConfirmationDisplayed">
     <div class="superadmins-header-row">
-        <h1 class="superadmins-title">Superadmins</h1>
-        <button class="superadmins-button-add">+ Nouveau</button>
+      <h1 class="superadmins-title">Superadmins</h1>
+      <button class="superadmins-button-add" (click)="openForm()">+ Nouveau</button>
     </div>
-    <table class="superadmins-table" >
-        <thead>
-            <tr>
-                <th class="superadmins-header">Name</th>
-                <th class="superadmins-header">Email</th>
-                <th class="superadmins-header">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- <tr *ngFor="let superadmin of superadmins">
-                <td class="superadmins-data">{{ superadmin.name }}</td>
-                <td class="superadmins-data">{{ superadmin.email }}</td>
-                <td class="superadmins-action">
-                    <button (click)="deleteSuperadmin(superadmin)" class="superadmins-button">Delete</button>
-                </td>
-            </tr> -->
-            <tr>
-                <td class="superadmins-data">John Doe</td>
-                <td class="superadmins-data">john.doe&#64;example.com</td>
-                <td class="superadmins-action">
-                    <button (click)="deleteSuperadmin()" class="superadmins-button">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="superadmins-data">Jane Smith</td>
-                <td class="superadmins-data">jane.smith&#64;example.com</td>
-                <td class="superadmins-action">
-                    <button (click)="deleteSuperadmin()" class="superadmins-button">Delete</button>
-                </td>
-            </tr>
-        </tbody>
+    <table class="superadmins-table">
+      <thead>
+        <tr>
+          <th class="superadmins-header">Name</th>
+          <th class="superadmins-header">Email</th>
+          <th class="superadmins-header">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let superadmin of superAdmins">
+          <td class="superadmins-data">{{ superadmin.lastName }} {{ superadmin.firstName}}</td>
+          <td class="superadmins-data">{{ superadmin.mail }}</td>
+          <td class="superadmins-action">
+            <button (click)="deleteSuperadmin(superadmin)" class="superadmins-button">Delete</button>
+          </td>
+        </tr>
+      </tbody>
     </table>
-</div>
+  </div>
+  
+  <div *ngIf="isConfirmationDisplayed" class="confirmation-message">
+    <p>Êtes-vous sûr de vouloir supprimer ce super administrateur ?</p>
+    <button (click)="confirmDelete()" class="confirmation-button">Oui</button>
+    <button (click)="closeConfirmation()" class="confirmation-button">Non</button>
+  </div>
+  
 
-<div *ngIf="isConfirmationDisplayed" class="confirmation-message">
-    <p>Êtes vous sûr ?</p>
-    <button (click)="closeConfirmation()">Oui</button>
-    <button (click)="closeConfirmation()"> Non</button>
-</div>
+<!-- Pour ajouter un superadmin  -->
+<div *ngIf="isOpen" class="overlay">
+    <div class="edit-container">
+      <h2>Ajouter un SuperAdmin</h2>
+      <form #employeeForm="ngForm" (ngSubmit)="onSubmit()">
+        <label>Nom</label>
+        <input type="text" [(ngModel)]="formData.nom" name="nom" required />
+  
+        <label>Prénom</label>
+        <input type="text" [(ngModel)]="formData.prenom" name="prenom" required />
+  
+        <label>Email</label>
+        <input type="email" [(ngModel)]="formData.mail" name="email" required />
+
+        <label> Téléphone</label>
+        <input type="text" [(ngModel)]="formData.telephone" name="telephone" required />
+  
+    
+        <button type="submit" class ="create_button" [disabled]="!employeeForm.form.valid">Créer</button>
+        <button type="button" class="cancel_button" (click)="closeForm()">Annuler</button>
+      </form>
+    </div>
+  </div>
+

@@ -1,4 +1,4 @@
-export interface Medecin {
+export interface Employe {
     nom: string;
     prenom: string;
     mail: string;

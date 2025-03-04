@@ -18,6 +18,8 @@ import com.Vaccination.projet.dto.recupSuperAdminDto;
 import com.Vaccination.projet.entities.centres;
 import com.Vaccination.projet.entities.employes;
 
+import jakarta.transaction.Transactional;
+
 
 @Service
 public class superAdminService {
@@ -30,19 +32,14 @@ public class superAdminService {
 
     private PasswordEncoder passwordEncoder;
 
-
     public superAdminService(EmployesRepo employesRepo, CentreRepository centreRepository, PasswordEncoder passwordEncoder) {
         this.employesRepo = employesRepo;
         this.centreRepository = centreRepository;
         this.passwordEncoder = passwordEncoder;
-        
     }
 
-
     //ce service sert à récupérer les super admins quand on est super admin nous meme
-    public List<recupSuperAdminDto> getSuperAdminsBySuperAdmin(){
-
-        
+    public List<recupSuperAdminDto> getSuperAdminsBySuperAdmin() {
         List<employes> superadmins = employesRepo.findByIsSuperAdminTrue();
         List<recupSuperAdminDto> superadminsdto = new ArrayList<>();
 
@@ -56,19 +53,15 @@ public class superAdminService {
             ));
         }
         return superadminsdto;
-    
-
     }
 
     public employes createSuperAdminByAdmin(CreateEmployeDto createSuperAdminDto, int centreId) {
-
         centres centre = centreRepository.findCentreById(centreId);
-        
 
         if (existsByEmail(createSuperAdminDto.getMail())) {
             throw new IllegalArgumentException("Un employé avec cet email existe déjà.");
         }
-        
+
         // Mot de passe par défaut
         String defaultPassword = "defaultPassword123"; // À changer après la première connexion
 
@@ -82,8 +75,8 @@ public class superAdminService {
         newSuperAdmin.setMail(createSuperAdminDto.getMail());
         newSuperAdmin.setTelephone(createSuperAdminDto.getTelephone());
         newSuperAdmin.setmdp(hashedPassword);
-        newSuperAdmin.set_med(false); 
-        newSuperAdmin.set_admin(false); 
+        newSuperAdmin.set_med(false);
+        newSuperAdmin.set_admin(false);
         newSuperAdmin.set_super_admin(true); // C'est un super admin
 
         newSuperAdmin.setCentre(centre); //c'est seulement un centre de référence pour ne pas avoir la case vide
@@ -93,11 +86,19 @@ public class superAdminService {
     }
 
     public boolean existsByEmail(String email) {
-        return employesRepo.existsByMail(email); 
+        return employesRepo.existsByMail(email);
     }
 
+    @Transactional
+    public void deleteSuperAdminByEmail(String email) {
+        String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (currentUserEmail.equals(email)) {
+            throw new IllegalStateException("Impossible de supprimer le super admin avec lequel vous êtes connecté.");
+        }
 
-
+       
+        employesRepo.deleteByMail(email);
+    }
 }
 
 

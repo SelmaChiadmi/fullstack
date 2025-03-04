@@ -2,6 +2,7 @@ package com.Vaccination.projet.controller;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -56,29 +57,54 @@ public class superAdminController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_SUPER_ADMIN')")
-    @GetMapping("admin/config/create/{centreId}")
-    public ResponseEntity<String> createSuperAdminBySuperAdminController(@RequestBody CreateEmployeDto superadmindto, @PathVariable("centreId") int centreId){
+    @PostMapping("admin/config/create/{centreId}")
+    public ResponseEntity<Integer> createSuperAdminBySuperAdminController(@RequestBody CreateEmployeDto superadmindto, @PathVariable("centreId") int centreId){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Vous n'êtes pas super admin");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(403);
         }
         try {
             // Création du Super Admin via le service
             employes newSuperAdmin = superAdminService.createSuperAdminByAdmin(superadmindto, centreId);
             
-            return ResponseEntity.status(HttpStatus.CREATED).body("Super Admin créé avec succès.");
+            return ResponseEntity.status(HttpStatus.CREATED).body(201);
         } catch (IllegalArgumentException e) {
             // Si l'email est déjà utilisé
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erreur : " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(400);
         } catch (Exception e) {
             // Erreur générale
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la création du Super Admin.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(500);
+        }
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_SUPER_ADMIN')")
+    @DeleteMapping("admin/config/delete/{email}")
+    public ResponseEntity<Integer> deleteSuperAdmin(@PathVariable("email") String email) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_SUPER_ADMIN"))) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(403);
         }
 
-
+        try {
+            System.out.println("Deleting super admin with email: " + email);
+            superAdminService.deleteSuperAdminByEmail(email);
+            return ResponseEntity.ok(200);
+        } catch (IllegalStateException e) {
+            // Gérer le cas où l'utilisateur essaie de se supprimer lui-même
+            return ResponseEntity.status(308).body(308);
+        } catch (Exception e) {
+            System.err.println("Error during super admin deletion: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(500);
+        }
     }
+
+
+
+        
 
 
 
