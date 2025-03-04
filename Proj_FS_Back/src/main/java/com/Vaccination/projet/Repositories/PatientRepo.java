@@ -18,5 +18,7 @@ public interface PatientRepo extends JpaRepository<patient, Integer> {
 
     List<patient> findByNomIgnoreCaseAndPrenomIgnoreCase(String nom, String prenom);
 
+    patient findById(int Id);
+
     
 }
