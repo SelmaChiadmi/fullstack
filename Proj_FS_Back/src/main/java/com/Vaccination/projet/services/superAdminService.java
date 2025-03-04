@@ -99,6 +99,11 @@ public class superAdminService {
        
         employesRepo.deleteByMail(email);
     }
+
+    public List<employes> getAdminsByCentre(Integer idCentre) {
+            return employesRepo.chercherAdmins(idCentre);
+        
+    }
 }
 
 

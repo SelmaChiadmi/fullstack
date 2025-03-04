@@ -116,8 +116,6 @@ public class superAdminController {
         }
 
         try {
-            
-                
                 List<employes> admins = superAdminService.getAdminsByCentre(idCentre);
             
                  return ResponseEntity.ok(admins);
